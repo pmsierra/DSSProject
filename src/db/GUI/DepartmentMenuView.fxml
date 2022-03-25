@@ -9,13 +9,14 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.DirectorMenuController">
+<AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/10.0.1" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.DepartmentMenuController">
    <children>
       <Pane fx:id="menu_main_pane" layoutX="305.0" layoutY="5.0" prefHeight="720.0" prefWidth="940.0" styleClass="white_color">
          <children>
+            <Pane fx:id="main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0" />
             <Pane prefHeight="120.0" prefWidth="940.0" styleClass="menu_bar_color">
                <children>
-                  <Label fx:id="current_pane_option_label" layoutX="23.0" layoutY="30.0" text="Finantial Status">
+                  <Label fx:id="current_pane_option_label" layoutX="23.0" layoutY="30.0" prefHeight="23.0" prefWidth="318.0" text="Products">
                      <font>
                         <Font name="Ebrima Bold" size="18.0" />
                      </font>
@@ -30,7 +31,7 @@
                         <Image url="@src.IconPictures/window-minimize.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="director_name" layoutX="566.0" layoutY="20.0" text="Director's name: &quot;user_name&quot;" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="worker_name" layoutX="566.0" layoutY="20.0" text="Worker name: &quot;user_name&quot;" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
@@ -52,7 +53,6 @@
                   </ImageView>
                </children>
             </Pane>
-            <Pane fx:id="main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0" />
          </children>
       </Pane>
       <Pane layoutX="5.0" layoutY="5.0" prefHeight="720.0" prefWidth="300.0" styleClass="charging_screen_color">
@@ -64,31 +64,34 @@
                         <Font name="Impact" size="22.0" />
                      </font>
                   </Label>
-                  <Label text="Director main menu" textFill="WHITE">
+                  <Label text="Worker main menu" textFill="WHITE">
                      <font>
                         <Font name="Ebrima Bold" size="14.0" />
                      </font>
                   </Label>
                </children>
             </VBox>
-            <Label layoutX="14.0" layoutY="90.0" text="Account settings" textFill="#ffffffb1">
+            <JFXButton fx:id="logOut_button" layoutX="14.0" layoutY="672.0" onMouseClicked="#log_out" prefHeight="34.0" prefWidth="87.0" styleClass="log_out_buttom" text="Log out" textFill="WHITE">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font>
+            </JFXButton>
+            <Label layoutX="9.0" layoutY="514.0" text="Transactions record" textFill="#ffffffb1">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="finantialStatus_button" alignment="TOP_LEFT" layoutY="477.0" onMouseClicked="#finantial_status_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Finantial status" textFill="#00000080">
+            <Label layoutX="10.0" layoutY="193.0" text="Inventory" textFill="#ffffffb1">
                <font>
-                  <Font name="Ebrima Bold" size="14.0" />
+                  <Font name="System Bold" size="16.0" />
                </font>
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@src.IconPictures/chart-line-solid.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="myAccount_button" alignment="TOP_LEFT" layoutY="122.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="My account" textFill="#00000080">
+            </Label>
+            <Label layoutX="10.0" layoutY="96.0" text="Account settings" textFill="#ffffffb1">
+               <font>
+                  <Font name="System Bold" size="16.0" />
+               </font>
+            </Label>
+            <JFXButton fx:id="myAccount_button" alignment="TOP_LEFT" layoutY="135.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="My account" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -100,85 +103,89 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Label layoutX="14.0" layoutY="181.0" text="Clients" textFill="#ffffffb1">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <JFXButton fx:id="listAllClients_button" alignment="TOP_LEFT" layoutY="206.0" onMouseClicked="#list_all_clients_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List all Clients" textFill="#00000080">
+            <JFXButton fx:id="listInventory_button" alignment="TOP_LEFT" layoutY="225.0" onMouseClicked="#list_inventory_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List inventory" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="37.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="50.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/boxes-solid.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="addProduct_button" alignment="TOP_LEFT" layoutY="277.0" onMouseClicked="#open_option_panel" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add product" textFill="#00000080">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="47.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/dolly-solid.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="removeProduct_button" alignment="TOP_LEFT" layoutY="327.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Delete product" textFill="#00000080">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/trash-alt.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="listTransactions_button" alignment="TOP_LEFT" layoutY="546.0" onMouseClicked="#list_transactions" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Transaction records" textFill="#00000080">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                     <image>
+                        <Image url="@src.IconPictures/chart-line-solid.png" />
+                     </image>
+                  </ImageView>
+               </graphic>
+            </JFXButton>
+            <JFXButton fx:id="listClients_button" alignment="TOP_LEFT" layoutY="590.0" onMouseClicked="#list_clients" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List clients" textFill="#00000080">
+               <font>
+                  <Font name="Ebrima Bold" size="14.0" />
+               </font>
+               <graphic>
+                  <ImageView fitHeight="50.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
                      <image>
                         <Image url="@src.IconPictures/users-solid.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="removeClient_button" alignment="TOP_LEFT" layoutY="250.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Remove Client" textFill="#00000080">
+            <JFXButton fx:id="update_button" alignment="TOP_LEFT" layoutY="430.0" onMouseClicked="#update_product_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Update features' product" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="39.0" fitWidth="50.0" opacity="0.5" preserveRatio="true">
                      <image>
-                        <Image url="@src.IconPictures/user-minus.png" />
+                        <Image url="@src.IconPictures/calendar.png" />
                      </image>
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Label layoutX="14.0" layoutY="316.0" text="Workers" textFill="#ffffffb4">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <JFXButton fx:id="listAllWorkers_button" alignment="TOP_LEFT" layoutY="338.0" onMouseClicked="#list_all_workers_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List all workers" textFill="#00000080">
+            <JFXButton fx:id="createFeatures_button" alignment="TOP_LEFT" layoutY="378.0" onMouseClicked="#create_features_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Create features" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
                <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
+                  <ImageView fitHeight="39.0" fitWidth="50.0" opacity="0.5" preserveRatio="true">
                      <image>
-                        <Image url="@src.IconPictures/user-friends.png" />
+                        <Image url="@src.IconPictures/hand-paper-solid.png" />
                      </image>
                   </ImageView>
                </graphic>
-            </JFXButton>
-            <JFXButton fx:id="removeWorker_button" alignment="TOP_LEFT" layoutY="384.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Remove worker" textFill="#00000080">
-               <font>
-                  <Font name="Ebrima Bold" size="14.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@src.IconPictures/user-minus.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <Label layoutX="14.0" layoutY="452.0" text="Business" textFill="#ffffffb4">
-               <font>
-                  <Font name="System Bold" size="16.0" />
-               </font>
-            </Label>
-            <JFXButton fx:id="addCategory_button" alignment="TOP_LEFT" defaultButton="true" layoutY="523.0" onMouseClicked="#add_category_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add category" textFill="#00000080">
-               <font>
-                  <Font name="Ebrima Bold" size="14.0" />
-               </font>
-               <graphic>
-                  <ImageView fitHeight="50.0" fitWidth="50.0" opacity="0.5" pickOnBounds="true" preserveRatio="true">
-                     <image>
-                        <Image url="@src.IconPictures/list-alt.png" />
-                     </image>
-                  </ImageView>
-               </graphic>
-            </JFXButton>
-            <JFXButton fx:id="logOut_button" layoutX="14.0" layoutY="672.0" onMouseClicked="#log_out" prefHeight="34.0" prefWidth="87.0" styleClass="log_out_buttom" text="Log out" textFill="WHITE">
-               <font>
-                  <Font name="Ebrima Bold" size="14.0" />
-               </font>
             </JFXButton>
          </children>
       </Pane>

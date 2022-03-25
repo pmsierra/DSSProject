@@ -30,7 +30,7 @@ import javafx.stage.StageStyle;
 import javafx.stage.WindowEvent;
 
 
-public class DirectorMenuController implements Initializable {
+public class ManagementMenuController implements Initializable {
 
 	// -----> CLASS ATRIBUTES <-----
 
@@ -84,7 +84,7 @@ public class DirectorMenuController implements Initializable {
 
 	// -----> ESSENTIAL METHODS <-----
 
-	public DirectorMenuController() {
+	public ManagementMenuController() {
 		// TODO Auto-generated constructor stub
 	}
 	
