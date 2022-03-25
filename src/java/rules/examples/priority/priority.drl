@@ -1,0 +1,104 @@
+/*
+ * Copyright 2010 Red Hat, Inc. and/or its affiliates.
+ *
+ * Licensed under the Apache License, Version 2.0 (the "License");
+ * you may not use this file except in compliance with the License.
+ * You may obtain a copy of the License at
+ *
+ *      http://www.apache.org/licenses/LICENSE-2.0
+ *
+ * Unless required by applicable law or agreed to in writing, software
+ * distributed under the License is distributed on an "AS IS" BASIS,
+ * WITHOUT WARRANTIES OR CONDITIONS OF ANY KIND, either express or implied.
+ * See the License for the specific language governing permissions and
+ * limitations under the License.
+ */
+
+import droolsexample.priority.Department
+import droolsexample.priority.Resource
+import droolsexample.priority.Hospital
+import java.util.LinkedList
+
+
+rule "Buy"
+	dialect "java"
+	when 
+		//d : Department(isHighest == true, d.getWishlistshopping().size()>0)
+		h : Hospital(hospitalList.size()!=0, budget > 0, h.getHospitalList().getFirst().getWishlistshopping().size()>0 , budget > h.getHospitalList().getFirst().getWishlistshopping().getFirst().getPrice(), h.getHospitalList().getFirst().getIsHighest == true  )
+	then
+		h.getBougthItems().add(h.getHospitalList().getFirst().getWishlistshopping().getFirst());
+		h.getDepartmentOrder().add(h.getHospitalList().getFirst());
+		h.setBudget(h.getBudget() - h.getHospitalList().getFirst().getWishlistshopping().getFirst().getPrice());
+		System.out.println("prelist: "+h.getHospitalList().getFirst().getWishlistshopping());
+		h.getHospitalList().getFirst().setExpenses(h.getHospitalList().getFirst().getExpenses() + h.getHospitalList().getFirst().getWishlistshopping().getFirst().getPrice());
+		h.getHospitalList().getFirst().getWishlistshopping().remove(h.getHospitalList().getFirst().getWishlistshopping().getFirst());
+
+		
+		System.out.println("buylist: "+h.getHospitalList().getFirst().getWishlistshopping());
+		System.out.println( "The desired item has been purchased" );
+		h.lowBudget(h.getHospitalList());
+		h.getHospitalList().getFirst().calculatePriority();
+	    System.out.println(h.getHospitalList().getFirst().getPriorityLevel());
+	    h.calculatePriorityList();
+		System.out.println( "System reordered");
+		//System.out.println("Bougth items: " + h.getBougthItems());
+
+		//update(d);
+		update(h);
+		
+end
+
+/*rule "Delete item"
+    dialect "java"
+    when
+    	d: Department(isHighest == true, $l : d.getWishlistshopping(),  $l.size()!=0)
+    	h: Hospital (budget > 0, h.getHospitalList().getFirst())
+    then
+    	$l.remove(0);
+    	System.out.println("Removed the first item");
+    	d.cartWeigth();
+
+	    d.priorityValueCalculation();
+	    h.calculatePriorityList();
+	    System.out.println(h.getHospitalList().get(0));
+	    System.out.println("System reordered");
+
+		update(d);
+		update(h);
+end
+*/
+
+rule "Delete department"
+    dialect "java"
+    when 
+        //d : Department(isHighest == true, d.getWishlistshopping().size() == 0 )
+        h : Hospital(hospitalList.size()!=0, budget > 0, h.getHospitalList().getFirst().getWishlistshopping().size()==0, h.getHospitalList().getFirst().getIsHighest == true )
+
+    then
+    	//System.out.println("Budget: " + h.getBudget());
+    	//System.out.println(h.getHospitalList().getFirst().getWishlistshopping().size());
+		//System.out.println("dellist: "+h.getHospitalList().getFirst().getWishlistshopping());
+
+		//System.out.println("isHighest: " + h.getHospitalList().getFirst().getIsHighest());
+		//System.out.println("Hlist: " + h.getHospitalList());
+		h.getHospitalList().get(0).setIsHighest(false);
+		//System.out.println("isHighest2: " + h.getHospitalList().get(0).getIsHighest());
+        h.getHospitalList().remove();
+        h.calculatePriorityList();
+        //d2.setIsHighest(true);
+        //System.out.println("HList2: " + h.getHospitalList());
+        System.out.println( "Department deleted" );	
+
+		update(h);
+		//update(d);
+end
+
+rule "The End"
+	dialect "java"
+	when 
+		h : Hospital(hospitalList.size()==0 || budget == 0)
+	then
+		System.out.println( "Final Decision of System:" );	
+		h.conclude();
+end
+
