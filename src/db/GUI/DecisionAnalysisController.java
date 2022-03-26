@@ -1,9 +1,11 @@
 package db.GUI;
 
+import java.io.IOException;
 import java.net.URL;
 import java.util.List;
 import java.util.ResourceBundle;
 
+import com.jfoenix.controls.JFXButton;
 import com.jfoenix.controls.JFXTreeTableColumn;
 import com.jfoenix.controls.JFXTreeTableView;
 import com.jfoenix.controls.RecursiveTreeItem;
@@ -16,11 +18,13 @@ import javafx.beans.value.ObservableValue;
 import javafx.collections.FXCollections;
 import javafx.collections.ObservableList;
 import javafx.fxml.FXML;
+import javafx.fxml.FXMLLoader;
 import javafx.fxml.Initializable;
 import javafx.scene.control.Label;
 import javafx.scene.control.TreeItem;
 import javafx.scene.control.TreeTableColumn;
 import javafx.scene.control.TreeTableColumn.CellDataFeatures;
+import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.Pane;
 import javafx.util.Callback;
 
@@ -35,6 +39,8 @@ public class DecisionAnalysisController implements Initializable{
 	@FXML
 	private Pane main_pane;
 	@FXML
+	private JFXButton compute_decision_button;
+	@FXML
 	private JFXTreeTableView<BougthItems> bougth_tree_view;
 	@FXML
 	private final ObservableList<BougthItems> bougth_objects = FXCollections.observableArrayList();
@@ -47,11 +53,8 @@ public class DecisionAnalysisController implements Initializable{
 		manager_object = manager;
 	}
 	
-	@Override @SuppressWarnings("unchecked")
-	public void initialize(URL location, ResourceBundle resources) {
-		
-		// Worker list columns creation
-		
+	@FXML
+	private void decision_button(MouseEvent event) throws IOException {
 		JFXTreeTableColumn<BougthItems, String> worker_name = new JFXTreeTableColumn<>("Worker name");
 		worker_name.setPrefWidth(180);
 		worker_name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<BougthItems,String>, ObservableValue<String>>() {
@@ -107,10 +110,17 @@ public class DecisionAnalysisController implements Initializable{
 			bougth_objects.add(new BougthItems(worker.getEmail(), worker.getUser().getUserName(), worker.getWorker_name(), worker.getTelephone().toString(), worker.getUser().getPassword()));
 		}
 		TreeItem<BougthItems> root = new RecursiveTreeItem<BougthItems>(bougth_objects, RecursiveTreeObject::getChildren);
-		worker_tree_view.setPlaceholder(new Label("No workers found"));
-		worker_tree_view.getColumns().setAll(user_name, worker_name, worker_email, worker_telephone, worker_password);
-		worker_tree_view.setRoot(root);
-		worker_tree_view.setShowRoot(false);
+		bougth_tree_view.setPlaceholder(new Label("No workers found"));
+		bougth_tree_view.getColumns().setAll(user_name, worker_name, worker_email, worker_telephone, worker_password);
+		bougth_tree_view.setRoot(root);
+		bougth_tree_view.setShowRoot(false);
+	}
+	
+	@Override @SuppressWarnings("unchecked")
+	public void initialize(URL location, ResourceBundle resources) {
+		
+		// Worker list columns creation
+		
 	}
 
 // -----> REFRESH WORKERS LIST VIEW <-----
@@ -122,7 +132,7 @@ public class DecisionAnalysisController implements Initializable{
 			bougth_objects.add(new BougthItems(worker.getEmail(), worker.getUser().getUserName(), worker.getWorker_name(), worker.getTelephone().toString(), worker.getUser().getPassword()));
 		}
 		TreeItem<BougthItems> root = new RecursiveTreeItem<BougthItems>(bougth_objects, RecursiveTreeObject::getChildren);
-		worker_tree_view.refresh();
+		bougth_tree_view.refresh();
 	}
 }
 

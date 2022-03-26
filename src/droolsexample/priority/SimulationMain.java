@@ -8,7 +8,7 @@ import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
 
-import droolsexample.priority.Resource.Priorities;
+//import droolsexample.priority.Resource.Priorities;
 
 
 public class SimulationMain {
@@ -30,11 +30,11 @@ public class SimulationMain {
 
 
 
-    	Resource courtains = new Resource("courtains", Priorities.LOW, 10f);
-    	Resource serum = new Resource("Serum", Priorities.LOW, 20f);
-    	Resource scalpel = new Resource("Scalpel", Priorities.MEDIUM, 30f);
-    	Resource mnra = new Resource("MNRA", Priorities.HIGH, 50f);
-    	Resource infinityStone = new Resource("Infinity Stone", Priorities.HIGH, 1000f);
+    	Resource courtains = new Resource("courtains", "LOW", 10f);
+    	Resource serum = new Resource("Serum", "LOW", 20f);
+    	Resource scalpel = new Resource("Scalpel", "MEDIUM", 30f);
+    	Resource mnra = new Resource("MNRA", "HIGH", 50f);
+    	Resource infinityStone = new Resource("Infinity Stone", "HIGH", 1000f);
     	
     	
     	LinkedList<Resource> cardiologyList = new LinkedList<Resource>();

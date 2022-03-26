@@ -18,12 +18,15 @@ import droolsexample.priority.Department
 import droolsexample.priority.Resource
 import droolsexample.priority.Hospital
 import java.util.LinkedList
+import droolsexample.priority.SQLiteManager
+
 
 
 rule "Buy"
 	dialect "java"
 	when 
 		//d : Department(isHighest == true, d.getWishlistshopping().size()>0)
+		//dbm : SQLiteManager()
 		h : Hospital(hospitalList.size()!=0, budget > 0, h.getHospitalList().getFirst().getWishlistshopping().size()>0 , budget > h.getHospitalList().getFirst().getWishlistshopping().getFirst().getPrice(), h.getHospitalList().getFirst().getIsHighest == true  )
 	then
 		h.getBougthItems().add(h.getHospitalList().getFirst().getWishlistshopping().getFirst());
@@ -72,6 +75,7 @@ rule "Delete department"
     dialect "java"
     when 
         //d : Department(isHighest == true, d.getWishlistshopping().size() == 0 )
+        //dbm : SQLiteManager()
         h : Hospital(hospitalList.size()!=0, budget > 0, h.getHospitalList().getFirst().getWishlistshopping().size()==0, h.getHospitalList().getFirst().getIsHighest == true )
 
     then
