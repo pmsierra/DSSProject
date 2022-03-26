@@ -71,6 +71,10 @@ public class SQLiteManager {
 			Statement stmt3 = sqlite_connection.createStatement();
 			String sql3 = "CREATE TABLE DepartmentResource " + "(departmentName REFERENCES Department(departmentName),"+"resourceName REFERENCES Resource(resourceName),"+"PRIMARY KEY (departmentName, resourceName))";
 			stmt3.execute(sql3);
+			
+			Statement stmt4 = sqlite_connection.createStatement();
+			String sql4 = "CREATE TABLE HospitalDepartment " + "(hospitalName REFERENCES Hospital(hospitalName),"+"departmentName REFERENCES Department(departmentName),"+"PRIMARY KEY (hospitalName, departmentName))";
+			stmt3.execute(sql4);
 			return true;
 		}catch (SQLException tables_error) {
 			if (tables_error.getMessage().contains("already exists")) {
