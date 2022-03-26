@@ -4,42 +4,68 @@ package droolsexample.priority;
 
 public class Resource {
 	
-public enum Priorities  {HIGH, MEDIUM, LOW;}
+//public enum Priorities  {HIGH, MEDIUM, LOW;}
 
-private String resourceName;
-private Priorities priority;
+
+private String name;
+//private Priorities priority;
+private String priority;
 private Float price;
 
+public Resource() {
+	super();
+	// TODO Auto-generated constructor stub
+}
 
-public Resource(String name, Priorities priority, Float price) {
+/*public Resource(String name, Priorities priority, Float price) {
 
-	this.resourceName = name;
+	this.name = name;
+	this.priority = priority;
+	this.price = price;
+}*/
+
+public Resource(String name, String priority, Float price) {
+
+	this.name = name;
 	this.priority = priority;
 	this.price = price;
 }
 
 
+
 public String getName() {
-	return resourceName;
+	return name;
 }
 public void setName(String name) {
-	this.resourceName = name;
+	this.name = name;
 }
-public Priorities getPriority() {
+/*public Priorities getPriority() {
 	return priority;
 }
 public void setPriority(Priorities priority) {
 	this.priority = priority;
-}
+}*/
 public Float getPrice() {
 	return price;
 }
 public void setPrice(Float price) {
 	this.price = price;
 }
+
+
+
+public String getPriority() {
+	return priority;
+}
+
+
+
+public void setPriority(String priority) {
+	this.priority = priority;
+}
 @Override
 public String toString() {
-	return "Resource [name=" + resourceName + ", priority=" + priority + ", price=" + price + "]";
+	return "Resource [name=" + name + ", priority=" + priority + ", price=" + price + "]";
 }
 
 }

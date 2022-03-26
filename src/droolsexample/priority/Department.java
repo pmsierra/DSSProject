@@ -4,7 +4,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
 
-import droolsexample.priority.Resource.Priorities;
+import droolsexample.priority.Resource;
 
 
 
@@ -13,7 +13,12 @@ public class Department {
 	
 
 
-private String departmentName;
+
+
+
+
+
+private String name;
 private Integer npatients;
 private Float ratio;
 private Integer avghours;
@@ -25,13 +30,17 @@ Float priorityLevel;
 private Float expenses;
 private Boolean isHighest;
 
+private Integer user_id;
 
-
+public Department() {
+	super();
+	// TODO Auto-generated constructor stub
+}
 
 public Department(String name,Integer npatients, Float ratio, Integer avghours, Integer nemployees,
 		LinkedList<Resource> wishlistshopping, Float expenses, Boolean isHighest) {
 	super();
-	this.departmentName = name;
+	this.name = name;
 	this.npatients = npatients;
 	this.ratio = ratio;
 	this.avghours = avghours;
@@ -44,7 +53,21 @@ public Department(String name,Integer npatients, Float ratio, Integer avghours, 
 	this.calculatePriority();
 }
 
-public void cartWeigth() {
+public Department(String name, Integer npatients, Float ratio, Integer avghours, Integer nemployees,
+			Integer cartWeigth, Float priorityLevel,Boolean isHighest, Integer user_id) {
+		super();
+		this.name = name;
+		this.npatients = npatients;
+		this.ratio = ratio;
+		this.avghours = avghours;
+		this.nemployees = nemployees;
+		this.cartWeigth = cartWeigth;
+		this.isHighest = isHighest;
+		this.user_id = user_id;
+		this.priorityLevel = priorityLevel;
+	}
+
+/*public void cartWeigth() {
 	this.cartWeigth=0;
 	for(int i =0; i<this.wishlistshopping.size(); i++) {
 		
@@ -61,8 +84,30 @@ public void cartWeigth() {
 			this.cartWeigth = this.cartWeigth + 2;
 
 		}
+	}*/
+	
+	public void cartWeigth() {
+		this.cartWeigth=0;
+		for(int i =0; i<this.wishlistshopping.size(); i++) {
+			
+
+			if(this.wishlistshopping.get(i).getPriority().equals("HIGH")) {
+				
+				this.cartWeigth = this.cartWeigth + 10;
+			}
+			if(this.wishlistshopping.get(i).getPriority().equals("MEDIUM")) {
+				
+				this.cartWeigth = this.cartWeigth + 5;
+			}
+			else {
+				this.cartWeigth = this.cartWeigth + 2;
+
+			}
+		}
 	}
-}
+		
+	
+
 public void priorityValueCalculation() {
 	this.priorityLevel=(float) (this.npatients*0.23+this.ratio*0.34+this.avghours*0.10+this.nemployees*0.037+this.cartWeigth*0.285);
 }
@@ -134,11 +179,19 @@ public void setExpenses(Float expenses) {
 }
 
 public String getName() {
-	return departmentName;
+	return name;
 }
 
 public void setName(String name) {
-	this.departmentName = name;
+	this.name = name;
+}
+
+public Integer getUser_id() {
+	return user_id;
+}
+
+public void setUser_id(Integer user_id) {
+	this.user_id = user_id;
 }
 
 /*
