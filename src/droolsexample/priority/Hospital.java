@@ -22,6 +22,10 @@ private Float budget;
 LinkedList<Resource> bougthItems;
 LinkedList<Department> departmentOrder;
 
+public Hospital() {
+	super();
+}
+
 
 public Department calculatePriorityList() {
 		

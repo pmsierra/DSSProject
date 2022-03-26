@@ -109,6 +109,8 @@ public class SQLiteManager {
 	}
 	
 	
+
+
 	// -------> CLOSE DATABASE CONNECTION <---------
 	
 	public boolean Close_connection() {
