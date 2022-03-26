@@ -3,10 +3,13 @@ package droolsexample.priority;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 
 import org.kie.api.KieServices;
 import org.kie.api.runtime.KieContainer;
 import org.kie.api.runtime.KieSession;
+
+import droolsexample.priority.SQLiteManager;
 
 //import droolsexample.priority.Resource.Priorities;
 
@@ -20,7 +23,8 @@ public class SimulationMain {
 
     }
     public static void execute(KieServices ks, KieContainer kc) {
-    	
+		SQLiteManager manager = new SQLiteManager();
+		//List<Department> departments = manager.getMethods().List_all_departments();
         // From the container, a session is created based on
         // its definition and configuration in the META-INF/kmodule.xml file
         KieSession ksession = kc.newKieSession("PriorityKS");
@@ -72,6 +76,8 @@ public class SimulationMain {
     	LinkedList<Resource> purchaseList = new LinkedList<Resource>();
     	LinkedList<Department> departmentOrder = new LinkedList<Department>();
     	Hospital laPaz = new Hospital(laPazList, 2000f, purchaseList, departmentOrder ); 
+    	
+    	
 
         // To set up a ThreadedFileLogger, so that the audit view reflects events whilst debugging,
         // uncomment the next line
@@ -79,21 +85,7 @@ public class SimulationMain {
         // The application can insert facts into the session
 
         ksession.insert(laPaz);
-        ksession.insert(obstetrics);
-        ksession.insert(courtains);
-        ksession.insert(obstetricsList);
-        ksession.insert(radiology);
-        ksession.insert(neurology);
-        ksession.insert(cardiology);
-        ksession.insert(radiologyList);
-        ksession.insert(neurologyList);
-        ksession.insert(cardiologyList);
-        ksession.insert(purchaseList);
-        ksession.insert(serum);
-        ksession.insert(scalpel);
-        ksession.insert(mnra);
-        ksession.insert(infinityStone);
-        ksession.insert(laPazList);
+
         
         
         // and fire the rules

@@ -16,6 +16,7 @@ public Hospital(LinkedList<Department> hospitalList, Float budget,
 		this.calculatePriorityList();
 	}
 private String hospitalName;
+private int user_id;
 private LinkedList<Department> hospitalList;
 private Department highestDepartment;
 private Float budget;
@@ -23,9 +24,22 @@ LinkedList<Resource> bougthItems;
 LinkedList<Department> departmentOrder;
 
 public Hospital() {
+	
 	super();
-}
 
+	
+}
+public Hospital(String hospitalName2, LinkedList<Department> departments, Float budget2, LinkedList<Resource> bougthItems, LinkedList<Department> departmentOrder, Integer user_id) {
+	
+	super();
+	this.hospitalName = hospitalName2;
+	this.hospitalList = departments;
+	this.budget = budget2;
+	this.bougthItems = bougthItems;
+	this.departmentOrder=departmentOrder;
+	this.user_id= user_id;
+	
+}
 
 public Department calculatePriorityList() {
 		

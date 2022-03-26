@@ -226,6 +226,32 @@ public List<Department> List_all_departments() {
 
 }
 
+public List<Hospital> List_all_hospitals() {
+    List<Hospital> hospitals= new LinkedList<Hospital>();
+    try {
+        Statement statement = this.sqlite_connection.createStatement();
+        String SQL_code = "SELECT * FROM Hospital";
+        ResultSet rs = statement.executeQuery(SQL_code);
+        while(rs.next()) {
+            String hospitalName= rs.getString("hospitalName");
+            Float budget = rs.getFloat("budget");
+            String bougthItems= rs.getString("bougthItems");
+            LinkedList<Resource> purchaseList = new LinkedList<Resource>();
+        	LinkedList<Department> departmentOrder = new LinkedList<Department>();
+            Integer user_id = rs.getInt("user_id");
+
+            LinkedList<Department> departments = (LinkedList<Department>) List_all_departments();
+
+
+            hospitals.add(new Hospital(hospitalName, departments, budget, purchaseList, departmentOrder, user_id));
+        }
+        return hospitals;
+    } catch (SQLException search_hospitals_error) {
+        search_hospitals_error.printStackTrace(); //lo mismo de los errores
+        return null;
+    }
+
+} 
 
 public List<Resource> List_all_resources() {
     List<Resource> resources= new LinkedList<Resource>();
