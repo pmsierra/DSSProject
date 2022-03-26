@@ -15,7 +15,7 @@ public Hospital(LinkedList<Department> hospitalList, Float budget,
 		this.departmentOrder=departmentOrder;
 		this.calculatePriorityList();
 	}
-
+private String hospitalName;
 private LinkedList<Department> hospitalList;
 private Department highestDepartment;
 private Float budget;

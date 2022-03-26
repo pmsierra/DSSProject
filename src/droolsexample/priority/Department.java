@@ -13,7 +13,7 @@ public class Department {
 	
 
 
-private String name;
+private String departmentName;
 private Integer npatients;
 private Float ratio;
 private Integer avghours;
@@ -31,7 +31,7 @@ private Boolean isHighest;
 public Department(String name,Integer npatients, Float ratio, Integer avghours, Integer nemployees,
 		LinkedList<Resource> wishlistshopping, Float expenses, Boolean isHighest) {
 	super();
-	this.name = name;
+	this.departmentName = name;
 	this.npatients = npatients;
 	this.ratio = ratio;
 	this.avghours = avghours;
@@ -134,11 +134,11 @@ public void setExpenses(Float expenses) {
 }
 
 public String getName() {
-	return name;
+	return departmentName;
 }
 
 public void setName(String name) {
-	this.name = name;
+	this.departmentName = name;
 }
 
 /*

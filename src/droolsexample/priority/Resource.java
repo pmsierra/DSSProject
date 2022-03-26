@@ -6,24 +6,24 @@ public class Resource {
 	
 public enum Priorities  {HIGH, MEDIUM, LOW;}
 
-private String name;
+private String resourceName;
 private Priorities priority;
 private Float price;
 
 
 public Resource(String name, Priorities priority, Float price) {
 
-	this.name = name;
+	this.resourceName = name;
 	this.priority = priority;
 	this.price = price;
 }
 
 
 public String getName() {
-	return name;
+	return resourceName;
 }
 public void setName(String name) {
-	this.name = name;
+	this.resourceName = name;
 }
 public Priorities getPriority() {
 	return priority;
@@ -39,7 +39,7 @@ public void setPrice(Float price) {
 }
 @Override
 public String toString() {
-	return "Resource [name=" + name + ", priority=" + priority + ", price=" + price + "]";
+	return "Resource [name=" + resourceName + ", priority=" + priority + ", price=" + price + "]";
 }
 
 }
