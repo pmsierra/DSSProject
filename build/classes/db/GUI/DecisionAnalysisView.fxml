@@ -1,0 +1,22 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="menu_main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="940.0" stylesheets="@../../../../DataBase-DBMS/src/db/UImenuFX/stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.ClientTransactionController">
+   <children>
+      <Label layoutX="49.0" layoutY="83.0" text="Commpute Decision:">
+         <font>
+            <Font name="Ebrima Bold" size="16.0" />
+         </font>
+      </Label>
+      <Label layoutX="57.0" layoutY="192.0" text="Budget:" />
+      <Label layoutX="156.0" layoutY="192.0" text="XXXX€" />
+      <JFXButton layoutX="361.0" layoutY="295.0" prefHeight="94.0" prefWidth="201.0" text="Update Budget" textFill="#d9161a">
+         <font>
+            <Font size="24.0" />
+         </font></JFXButton>
+   </children>
+</Pane>
