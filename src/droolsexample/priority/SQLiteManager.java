@@ -52,7 +52,7 @@ public class SQLiteManager {
 	public boolean CreateTables() {
 		try {
 			Statement stmt0 = sqlite_connection.createStatement();
-			String sql0 = "CREATE TABLE Department " + "(departmentName TEXT PRIMARY KEY, "
+			String sql0 = "CREATE TABLE Department " + "(departmentName TEXT PRIMARY KEY UNIQUE, "
 					+ " npatients INTEGER, " + "ratio FLOAT, "+"avghours INTEGER,"+"nemployees INTEGER,"+"cartWeigth INTEGER,"+"priorityLevel FLOAT,"+"isHighest BOOLEAN)";
 			stmt0.execute(sql0);
 			
@@ -61,16 +61,15 @@ public class SQLiteManager {
                     + " priority TEXT CHECK( priority IN ('HIGH','MEDIUM','LOW') )," 
                     + " price FLOAT NULL)";
 			stmt1.execute(sql1);
-			
+
 			Statement stmt2 = sqlite_connection.createStatement();
-			String sql2 = "CREATE TABLE Hospital " + "(hospitalName TEXT PRIMARY KEY, "
-                    + " hospitalList FOREIGN KEY REFERENCES Department(departmentName),"
-                    + " budget FLOAT," + "boughtItems FOREIGN KEY REFERENCES Resource(resourceName),"
-                    + " departmentOrder FOREIGN KEY REFERENCES Department(departmentName))";
+			String sql2 = "CREATE TABLE Hospital " + "(hospitalName TEXT PRIMARY KEY UNIQUE, "
+                    + " budget FLOAT)";// + " departmentName FOREIGN KEY TEXT REFERENCES Department(departmentName))";
+			
 			stmt2.execute(sql2);
 			
 			Statement stmt3 = sqlite_connection.createStatement();
-			String sql3 = "CREATE TABLE Department-Resource " + "(departmentName REFERENCES Department(departmentName),"+"resourceName REFERENCES Resource(resourceName))";
+			String sql3 = "CREATE TABLE DepartmentResource " + "(departmentName REFERENCES Department(departmentName),"+"resourceName REFERENCES Resource(resourceName),"+"PRIMARY KEY (departmentName, resourceName))";
 			stmt3.execute(sql3);
 			return true;
 		}catch (SQLException tables_error) {
