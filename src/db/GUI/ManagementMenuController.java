@@ -7,8 +7,8 @@ import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 
-
-
+import droolsexample.priority.Hospital;
+import droolsexample.priority.SQLiteManager;
 import javafx.event.Event;
 import javafx.event.EventHandler;
 import javafx.fxml.FXML;
@@ -34,12 +34,11 @@ public class ManagementMenuController implements Initializable {
 
 	// -----> CLASS ATRIBUTES <-----
 
-	private static Director director_account;
-	private static SQLManager SQL_manager_object;
-	private static JPAManager JPA_manager_object;
-	private ListAllClientsController list_all_clients_controller;
-	private ListAllWorkersController list_all_workers_controller;
-	private DirectorFinantialStatusController finantial_status_controller;
+	private static Hospital hospital_account;
+	private static SQLiteManager SQL_manager_object;
+	private ListAllDepartmentsController list_all_departments_controller;
+	private AddBudgetController add_budget_controller;
+	private DecisionAnalysisController decision_analysis_controller;
 
 	// -----> FXML ATRIBUTES <-----
 
@@ -56,12 +55,6 @@ public class ManagementMenuController implements Initializable {
 	@FXML
 	private JFXButton listAllDepartments_button;
 	@FXML
-	private JFXButton removeClient_button;
-	@FXML
-	private JFXButton listAllWorkers_button;
-	@FXML	
-	private JFXButton removeWorker_button;
-	@FXML
 	private JFXButton addBudget_button;
 	@FXML
 	private JFXButton DecisionAnalysis_button;
@@ -72,11 +65,9 @@ public class ManagementMenuController implements Initializable {
 	@FXML
 	private Label current_pane_option_label;
 	@FXML
-	private Label director_name;
+	private Label hospital_name;
 	@FXML
-	private Label email;
-	@FXML
-	private Label telephone;
+	private Label budget;
 	@FXML
 	private static Stage stage_window;
 	@FXML
@@ -88,149 +79,26 @@ public class ManagementMenuController implements Initializable {
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static void setValues(SQLManager SQL_manager, JPAManager JPA_manager, Director director) {
+	public static void setValues(SQLiteManager SQL_manager, Hospital hospital) {
 		SQL_manager_object = SQL_manager;
-		JPA_manager_object = JPA_manager;
-		director_account = director;
+		hospital_account = hospital;
 	}
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
-		finantialStatus_button.setDisable(true);
-		myAccount_button.setOnAction((ActionEvent) -> {
-			try {
-				AccountDirectorController.setValues(SQL_manager_object, director_account);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountDirectorView.fxml"));
-				Parent root = (Parent) loader.load();
-				AccountDirectorController account_controller = new AccountDirectorController();
-				account_controller = loader.getController();
-				account_controller.getDoneButton().setOnMouseClicked(new EventHandler<Event>() {
-					@Override
-					public void handle(Event event) {
-						update_director_account();
-						menu_window.setEffect(null);
-						stage_window.close();
-					} 
-				});	
-				stage_window = new Stage();
-				stage_window.initStyle(StageStyle.UNDECORATED);
-				stage_window.setScene(new Scene(root));				
-				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
-					@Override
-					public void handle(WindowEvent arg0) {
-						menu_window.setEffect(new BoxBlur(3,3,3));
-						stage_window.initModality(Modality.APPLICATION_MODAL);
-					}
-				});
-				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
-					@Override
-					public void handle(WindowEvent event) {
-						menu_window.setEffect(null);
-					}
-				});		
-				stage_window.show();
-			} catch (IOException director_account_error) {
-				director_account_error.printStackTrace();
-				System.exit(0);
-			
-			}
-		});
-		
-		removeClient_button.setOnAction((ActionEvent) -> {
-			try {
-				RemoveClientController.setValues(SQL_manager_object);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("RemoveClientView.fxml"));
-				Parent root = (Parent) loader.load();
-				RemoveClientController client_controller = new RemoveClientController();
-				client_controller = loader.getController();
-				client_controller.getDeleteAccountButton().setOnMouseClicked(new EventHandler<Event>() {
-					@Override
-					public void handle(Event event) {
-						menu_window.setEffect(null);
-						stage_window.close();
-					}
-				});	
-				stage_window = new Stage();
-				stage_window.initStyle(StageStyle.UNDECORATED);
-				stage_window.setScene(new Scene(root));		
-				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
-					@Override
-					public void handle(WindowEvent arg0) {
-						menu_window.setEffect(new BoxBlur(3,3,3));
-						stage_window.initModality(Modality.APPLICATION_MODAL);
-					}
-				});
-				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
-					@Override
-					public void handle(WindowEvent event) {	
-						if(finantial_status_controller != null) {
-							finantial_status_controller.refreshTransactionListView();
-						}
-						menu_window.setEffect(null);
-						if(list_all_clients_controller != null) {
-							list_all_clients_controller.refreshClientListView();
-						}
-					}
-				});		
-				stage_window.show();
-			} catch(IOException delete_client_error) {
-				delete_client_error.printStackTrace();
-				System.exit(0);
-			}
-		});
-		
-		removeWorker_button.setOnAction((ActionEvent) -> {
-			try {
-				RemoveWorkerController.setValues(SQL_manager_object);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("RemoveWorkerView.fxml"));
-				Parent root = (Parent) loader.load();
-				RemoveWorkerController worker_controller = new RemoveWorkerController();
-				worker_controller = loader.getController();
-				worker_controller.getDeleteAccountButton().setOnMouseClicked(new EventHandler<Event>() {
-					@Override
-					public void handle(Event event) {
-						menu_window.setEffect(null);
-						stage_window.close();
-					}
-				});	
-				stage_window = new Stage();
-				stage_window.initStyle(StageStyle.UNDECORATED);
-				stage_window.setScene(new Scene(root));
-				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
-					@Override
-					public void handle(WindowEvent arg0) {
-						menu_window.setEffect(new BoxBlur(3,3,3));
-						stage_window.initModality(Modality.APPLICATION_MODAL);
-					}
-				});
-				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
-					@Override
-					public void handle(WindowEvent event) {
-						menu_window.setEffect(null);
-						if(list_all_workers_controller != null) {
-							list_all_workers_controller.refreshWorkerListView();
-						}
-					}
-				});		
-				stage_window.show();
-			} catch(IOException delete_client_error) {
-				delete_client_error.printStackTrace();
-				System.exit(0);
-			}
-		});
+		DecisionAnalysis_button.setDisable(true);
 		
 		try {
 			setAllButtonsOn();
-			finantialStatus_button.setDisable(true);
-			DirectorFinantialStatusController.setValues(SQL_manager_object);    
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("DirectorFinantialStatusView.fxml"));
-			Pane finantial_status_pane;
-			finantial_status_pane = loader.load();
-			finantial_status_controller = (DirectorFinantialStatusController) loader.getController();
+			listAllDepartments_button.setDisable(true);
+			list_all_departments_controller.setValues(SQL_manager_object);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ListAllDepartmentsView.fxml"));
+			Pane list_all_clients_pane = loader.load();
+			list_all_departments_controller = (ListAllClientsController)loader.getController();
 			main_pane.getChildren().removeAll();
-			main_pane.getChildren().setAll(finantial_status_pane);
-		} catch (IOException finantial_status_error) {
-			finantial_status_error.printStackTrace();
+			main_pane.getChildren().setAll(list_all_clients_pane);
+		} catch (IOException list_department_error) {
+			list_department_error.printStackTrace();
 		}
 	}
 	
@@ -238,75 +106,43 @@ public class ManagementMenuController implements Initializable {
 	
 	@FXML
 	private void list_all_clients_button(MouseEvent event) throws IOException {
-		current_pane_option_label.setText("List all clients");
+		current_pane_option_label.setText("List all departments");
 		setAllButtonsOn();
-		listAllClients_button.setDisable(true);
-		ListAllClientsController.setValues(SQL_manager_object);
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("ListAllClientsView.fxml"));
+		listAllDepartments_button.setDisable(true);
+		list_all_departments_controller.setValues(SQL_manager_object);
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("ListAllDepartmentsView.fxml"));
 		Pane list_all_clients_pane = loader.load();
-		list_all_clients_controller = (ListAllClientsController)loader.getController();
+		list_all_departments_controller = (ListAllClientsController)loader.getController();
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(list_all_clients_pane);
 	}
 	
-	@FXML
-	private void list_all_workers_button(MouseEvent event) throws IOException {
-		current_pane_option_label.setText("List all workers");
-		setAllButtonsOn();
-		listAllWorkers_button.setDisable(true);
-		ListAllWorkersController.setValues(SQL_manager_object);
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("ListAllWorkersView.fxml"));
-		Pane list_all_workers_pane = loader.load();
-		list_all_workers_controller = (ListAllWorkersController)loader.getController();
-		main_pane.getChildren().removeAll();
-		main_pane.getChildren().setAll(list_all_workers_pane);
-	}
+
 	
 	@FXML
-	private void add_category_button(MouseEvent event) throws IOException {
-		if(SQL_manager_object.List_all_categories().size() == 0) {
-			NoCategoryController.setValues(JPA_manager_object);
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("NoCategoryView.fxml"));
-			Parent root = (Parent) loader.load();
-			stage_window = new Stage();
-			stage_window.initStyle(StageStyle.UNDECORATED);
-			stage_window.setScene(new Scene(root));
-			stage_window.setOnShowing(new EventHandler<WindowEvent>() {
-				@Override
-				public void handle(WindowEvent arg0) {
-					menu_window.setEffect(new BoxBlur(3,3,3));
-					stage_window.initModality(Modality.APPLICATION_MODAL);
-				}
-			});
-			stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
-				@Override
-				public void handle(WindowEvent event) {
-					menu_window.setEffect(null);
-				}
-			});
-			stage_window.show();
-		} else {
+	private void add_budget_button(MouseEvent event) throws IOException {
+
 			current_pane_option_label.setText("Add category");
 			setAllButtonsOn();
-			addCategory_button.setDisable(true);
-			AddCategoryController.setValues(SQL_manager_object, JPA_manager_object);
-			Pane add_category_pane = FXMLLoader.load(getClass().getResource("AddCategoryView.fxml"));
+			addBudget_button.setDisable(true);
+			add_budget_controller.setValues(SQL_manager_object);
+			Pane add_budget_pane = FXMLLoader.load(getClass().getResource("AddBudgetView.fxml"));
 			main_pane.getChildren().removeAll();
-			main_pane.getChildren().setAll(add_category_pane);
-		}
+			main_pane.getChildren().setAll(add_budget_pane);
+	
 	}
 	
 	@FXML
-	private void finantial_status_button(MouseEvent event) throws IOException { 
-		current_pane_option_label.setText("Finantial Status");
+	private void decision_analysis_button(MouseEvent event) throws IOException { 
+		current_pane_option_label.setText("Decision Analysis");
 		setAllButtonsOn();
-		finantialStatus_button.setDisable(true);
-		DirectorFinantialStatusController.setValues(SQL_manager_object);    
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("DirectorFinantialStatusView.fxml"));
-		Pane finantial_status_pane = loader.load();
-		finantial_status_controller = (DirectorFinantialStatusController) loader.getController();
+		DecisionAnalysis_button.setDisable(true);
+		DecisionAnalysisController.setValues(SQL_manager_object);    
+		FXMLLoader loader = new FXMLLoader(getClass().getResource("DecisionAnalysisView.fxml"));
+		Pane decision_analysis_pane = loader.load();
+		decision_analysis_controller = (DecisionAnalysisController) loader.getController();
 		main_pane.getChildren().removeAll();
-		main_pane.getChildren().setAll(finantial_status_pane);
+		main_pane.getChildren().setAll(decision_analysis_pane);
 	}
 
 	@FXML
@@ -317,7 +153,6 @@ public class ManagementMenuController implements Initializable {
 	@FXML
 	private void log_out(MouseEvent event) {
 		SQL_manager_object.Close_connection();
-		JPA_manager_object.Close_connection();
 		LaunchApplication.getStage().show();
 		Stage stage = (Stage) logOut_button.getScene().getWindow();
 		stage.close();
@@ -331,28 +166,12 @@ public class ManagementMenuController implements Initializable {
 
 	// -----> SET AND GET METHODS <-----
 	
-	public void setDirectorName(String name) {
-		this.director_name.setText("Director's name: " + name);
+	public void setHospitalName(String name) {
+		this.hospital_name.setText("Hospital name: " + name);
 	}
 
-	public void setDirectorEmail(String email) {
-		if (email != null) {
-			this.email.setText("Email: " + email);
-		} else {
-			this.email.setText("Email: No email associated");
-		}
-	}
-
-	public void setDirectorTelephone(Integer telephone) {
-		if (telephone == null) {
-			this.telephone.setText("Telephone: No telephone associated");
-		} else {
-			if (telephone != 0) {
-				this.telephone.setText("Telephone: " + telephone);
-			} else {
-				this.telephone.setText("Telephone: No telephone associated");
-			}
-		}
+	public void setBudget(float budget) {
+	this.budget.setText("Budget: " + budget);
 	}
 
 	public AnchorPane getAnchorPane() {
@@ -363,12 +182,9 @@ public class ManagementMenuController implements Initializable {
 	
 	public void setAllButtonsOff() {
 	    myAccount_button.setDisable(true);
-	    listAllClients_button.setDisable(true);
-	    addCategory_button.setDisable(true);
-	    listAllWorkers_button.setDisable(true);
-	    removeClient_button.setDisable(true);
-	    removeWorker_button.setDisable(true);
-	    finantialStatus_button.setDisable(true);
+	    listAllDepartments_button.setDisable(true);
+	    addBudget_button.setDisable(true);
+	    DecisionAnalysis_button.setDisable(true);
 	    logOut_button.setDisable(true);
 	    minButton.setDisable(true);
 	    exitButton.setDisable(true);
@@ -376,12 +192,9 @@ public class ManagementMenuController implements Initializable {
 	
 	public void setAllButtonsOn() {
 		myAccount_button.setDisable(false);
-	    listAllClients_button.setDisable(false);
-	    addCategory_button.setDisable(false);
-	    listAllWorkers_button.setDisable(false);
-	    removeClient_button.setDisable(false);
-	    removeWorker_button.setDisable(false);
-	    finantialStatus_button.setDisable(false);
+		listAllDepartments_button.setDisable(false);
+		addBudget_button.setDisable(false);
+	    DecisionAnalysis_button.setDisable(false);
 	    logOut_button.setDisable(false);
 	    minButton.setDisable(false);
 	    exitButton.setDisable(false);
@@ -390,10 +203,10 @@ public class ManagementMenuController implements Initializable {
 	// -----> UPDATE ACCOUNT METHOD <-----
 		
 	public void update_director_account() {
-	    director_account = SQL_manager_object.Search_director_by_id(director_account.getDirector_id());
-	   	setDirectorEmail(director_account.getEmail());
-	   	setDirectorName(director_account.getDirector_name());
-    	setDirectorTelephone(director_account.getTelephone());
+		hospital_account = SQL_manager_object.Search_hospital_by_name(hospital_account.getHospitalName());
+		
+	   	setBudget(hospital_account.getBudget());
+	   	setHospitalName(hospital_account.getHospitalName());
 	}
 }
 

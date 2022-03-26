@@ -73,7 +73,7 @@ public class SQLiteManager {
 			
 			Statement stmt2 = sqlite_connection.createStatement();
 			String sql2 = "CREATE TABLE Hospital " + "(hospitalName TEXT PRIMARY KEY UNIQUE, "
-                    + " budget FLOAT,"+ " user_id FOREING KEY REFERENCES user(user_id))";// + " departmentName FOREIGN KEY TEXT REFERENCES Department(departmentName))";
+                    + " budget FLOAT,"+ "bougthItems TEXT," + " user_id FOREING KEY REFERENCES user(user_id))";// + " departmentName FOREIGN KEY TEXT REFERENCES Department(departmentName))";
 			
 			stmt2.execute(sql2);
 			stmt2.close();

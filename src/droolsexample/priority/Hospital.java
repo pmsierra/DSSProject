@@ -105,4 +105,10 @@ public LinkedList<Department> getDepartmentOrder() {
 public void setDepartmentOrder(LinkedList<Department> departmentOrder) {
 	this.departmentOrder = departmentOrder;
 }
+public String getHospitalName() {
+	return hospitalName;
+}
+public void setHospitalName(String hospitalName) {
+	this.hospitalName = hospitalName;
+}
 }
