@@ -26,7 +26,7 @@
                         <Image url="@src.IconPictures/window-minimize.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="worker_name" layoutX="23.0" layoutY="30.0" text="Department name: &quot;user_name&quot;" textAlignment="CENTER" textFill="#111010">
+                  <Label fx:id="department_name" layoutX="23.0" layoutY="30.0" text="Department name: &quot;user_name&quot;" textAlignment="CENTER" textFill="#111010">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
@@ -76,7 +76,7 @@
                   </Label>
                </children>
             </VBox>
-            <JFXButton fx:id="logOut_button" layoutX="14.0" layoutY="672.0" onMouseClicked="#log_out" prefHeight="34.0" prefWidth="87.0" styleClass="log_out_buttom" text="Log out" textFill="WHITE">
+            <JFXButton fx:id="logOut_button" layoutX="14.0" layoutY="672.0" prefHeight="34.0" prefWidth="87.0" styleClass="log_out_buttom" text="Log out" textFill="WHITE">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -108,7 +108,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="showWishListButton" alignment="TOP_LEFT" layoutY="225.0" onMouseClicked="#list_inventory_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Show Wishlist" textFill="#00000080">
+            <JFXButton fx:id="showWishListButton" alignment="TOP_LEFT" layoutY="225.0" onMouseClicked="#showWishList" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Show Wishlist" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -120,7 +120,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="addResourceButton" alignment="TOP_LEFT" layoutY="277.0" onMouseClicked="#open_option_panel" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add product " textFill="#00000080">
+            <JFXButton fx:id="addResourceButton" alignment="TOP_LEFT" layoutY="277.0" onMouseClicked="#addProduct" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add product " textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -144,7 +144,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="showBoughtItems" alignment="TOP_LEFT" layoutY="432.0" onMouseClicked="#list_transactions" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Show bougth items" textFill="#00000080">
+            <JFXButton fx:id="showBoughtItems" alignment="TOP_LEFT" layoutY="432.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Show bougth items" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

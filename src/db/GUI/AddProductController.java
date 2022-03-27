@@ -57,13 +57,12 @@ public class AddProductController implements Initializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void setValues(SQLiteManager manager, Resource recurso) {
+	public static void setValues(SQLiteManager manager) {
 		manager_object = manager;
-		resource = recurso;
 	}
 	@Override @SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
-		System.out.println(resource.toString());
+		
 	}
 	
 	@FXML
@@ -73,10 +72,8 @@ public class AddProductController implements Initializable {
 		String temp = priceField.getText();
 		Float price = Float.parseFloat(temp);
 		String priority = priorityField.getText();
-		resource.setName(name);
-		resource.setPrice(price);
-		resource.setPriority(priority);
-		manager_object.getMethods().Update_resource(resource);
+		Resource recurso = new Resource(name,priority,price);
+		manager_object.getMethods().Update_resource(recurso);
 		
 	}
 

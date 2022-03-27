@@ -3,10 +3,12 @@ package db.GUI;
 import java.io.IOException;
 
 import java.net.URL;
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
 import droolsexample.priority.Department;
+import droolsexample.priority.Hospital;
 import droolsexample.priority.SQLiteManager;
 import droolsexample.priority.SQLiteMethods;
 import javafx.fxml.Initializable;
@@ -53,7 +55,7 @@ public class DepartmentMenuController implements Initializable {
     @FXML
     private ImageView minButton;
     @FXML
-    private Label worker_name;
+    private Label department_name;
     @FXML
     private Label email;
     @FXML
@@ -102,100 +104,32 @@ public class DepartmentMenuController implements Initializable {
 	// -----> ESSENTIAL METHODS <-----
 	
 	public void initialize(URL location, ResourceBundle resources) {
+		SQLmanager = new SQLiteManager();
+
 		
-		//showWishListButton.setDisable(true);
-		modifyDepartmentButton.setOnAction((ActionEvent) -> {
-			try {
-				
-				DepartmentMenuController department_controller = new DepartmentMenuController();
-				department_controller = loader.getController();
-				department_controller.getDoneButton().setOnMouseClicked(new EventHandler<Event>() {
-					@Override
-					public void handle(Event event) {
-						update_worker_account();
-						menu_window.setEffect(null);
-						stage_window.close();
-					} 
-				});	
-				stage_window = new Stage();
-				stage_window.initStyle(StageStyle.UNDECORATED);
-				stage_window.setScene(new Scene(root));
-				stage_window.setAlwaysOnTop(true);				
-				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
-					@Override
-					public void handle(WindowEvent arg0) {
-						menu_window.setEffect(new BoxBlur(3,3,3));
-						stage_window.initModality(Modality.APPLICATION_MODAL);
-					}
-				});
-				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
-					@Override
-					public void handle(WindowEvent event) {
-						menu_window.setEffect(null);
-					}
-				});		
-				stage_window.show();
-			} catch (IOException worker_account_error) {
-				worker_account_error.printStackTrace();
-				System.exit(0);
-			}
-		});				
-		
-		deleteResourcesButton.setOnAction((ActionEvent) -> {
-			try {
-				current_pane_option_label.setText("Remove biomaterial");
-				RemoveProductController.setValues(manager_object);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("RemoveProductView.fxml"));
-				Parent root = (Parent) loader.load();
-				RemoveProductController product_controller = new RemoveProductController();
-				product_controller = loader.getController();
-				product_controller.getDelete_button().setOnMouseClicked(new EventHandler<Event>() {
-					@Override
-					public void handle(Event event) {
-						menu_window.setEffect(null);
-						stage_window.close();
-					}
-				});	
-				stage_window = new Stage();
-				stage_window.initStyle(StageStyle.UNDECORATED);
-				stage_window.setScene(new Scene(root));
-				stage_window.setAlwaysOnTop(true);		
-				stage_window.setOnShowing(new EventHandler<WindowEvent>() {
-					@Override
-					public void handle(WindowEvent arg0) {
-						menu_window.setEffect(new BoxBlur(3,3,3));
-						stage_window.initModality(Modality.APPLICATION_MODAL);
-					}
-				});
-				stage_window.setOnHiding(new EventHandler<WindowEvent>() {		
-					@Override
-					public void handle(WindowEvent event) {
-						menu_window.setEffect(null);
-						if (list_all_bimaterials_controller != null) {
-							list_all_bimaterials_controller.refreshBiomaterialListView();
-						}
-					}
-				});		
-				stage_window.show();
-			} catch(IOException delete_product_error) {
-				delete_product_error.printStackTrace();
-				System.exit(0);
-			}
-			
-		});
+		SQLmanager.Connect();
+		LinkedList<Department> departmentList = (LinkedList<Department>) SQLmanager.getMethods().List_all_departments();
+		department = departmentList.getFirst();
+		System.out.println(department.toString());
 		
 		try {
 			setAllButtonsOn();
+			department_name.setText("Department name: " + department.getName());
+			
 			showWishListButton.setDisable(true);
-			ListAllBiomaterialsController.setValues(manager_object);
-			FXMLLoader loader = new FXMLLoader(getClass().getResource("ListAllBiomaterialsView.fxml"));
-			Pane list_pane = loader.load();
-			list_all_bimaterials_controller = (ListAllBiomaterialsController) loader.getController();
+			ShowWishlistController.setValues(SQLmanager, department);
+			FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowWishlistView.fxml"));
+			Pane list_all_wishlist_pane = loader.load();
+			show_wish_list_controller = (ShowWishlistController)loader.getController();
 			main_pane.getChildren().removeAll();
-			main_pane.getChildren().setAll(list_pane);
-		} catch (IOException list_error) {
-			list_error.printStackTrace();
+			main_pane.getChildren().setAll(list_all_wishlist_pane);
+			
+			
+		} catch (IOException list_department_error) {
+			list_department_error.printStackTrace();
 		}
+		
+		
 	}
 	
 	// -----> BUTTON METHODS <-----
@@ -211,13 +145,13 @@ public class DepartmentMenuController implements Initializable {
 		stage.setIconified(true);
 	}
 
-	@FXML
+	/*@FXML
 	private void log_out(MouseEvent event) {
 		LaunchApplication.getStage().show();
 		Stage stage = (Stage) logOut_button.getScene().getWindow();
 		stage.close();
 		SQLmanager.Close_connection();
-	}
+	}*/
 
 	
 	@FXML
@@ -230,7 +164,7 @@ public class DepartmentMenuController implements Initializable {
 		main_pane.getChildren().setAll(option_pane);
 	}
 	
-	@FXML
+	/*@FXML
 	public void showBoughtItems(MouseEvent event) throws IOException {
 		current_pane_option_label.setText("List of all resources bought");
 		setAllButtonsOn();
@@ -239,20 +173,19 @@ public class DepartmentMenuController implements Initializable {
 		Pane menu_panel = FXMLLoader.load(getClass().getResource("ShowItemsView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(menu_panel);
-	}
+	}*/
 	
 	@FXML
 	public void showWishList(MouseEvent event) throws IOException {
-		current_pane_option_label.setText("Current List of Resources");
 		setAllButtonsOn();
-		listClients_button.setDisable(true);
-		ShowWishlistController.setValues(SQLmanager);
+		showWishListButton.setDisable(true);
+		ShowWishlistController.setValues(SQLmanager,department);
 		Pane menu_panel = FXMLLoader.load(getClass().getResource("ShowWishlistView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(menu_panel);	
 	}
 
-	@FXML
+	/*@FXML
 	private void updateDepartmentAccount(MouseEvent event) throws IOException {
 		current_pane_option_label.setText("Update information of the current department");
 		setAllButtonsOn();
@@ -261,27 +194,27 @@ public class DepartmentMenuController implements Initializable {
 		Pane update_pane = FXMLLoader.load(getClass().getResource("DepartmentAccountView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(update_pane);
-	}
+	}*/
 		
 	public void setAllButtonsOn() {
 		this.addResourceButton.setDisable(false);
-		this.listClients_button.setDisable(false);
+		//this.listClients_button.setDisable(false);
 		this.showWishListButton.setDisable(false);
-		this.showBoughtItems.setDisable(false);
-		this.modifyDepartmentButton.setDisable(false);
-		this.deleteResourcesButton.setDisable(false);
-		this.update_button.setDisable(false);
-		this.createFeatures_button.setDisable(false);
+		//this.showBoughtItems.setDisable(false);
+		//this.modifyDepartmentButton.setDisable(false);
+		//this.deleteResourcesButton.setDisable(false);
+		//this.update_button.setDisable(false);
+		//this.createFeatures_button.setDisable(false);
 	}
 	
 	public void setAllButtonsOff() {
 		this.addResourceButton.setDisable(true);
-		this.listClients_button.setDisable(true);
+		//this.listClients_button.setDisable(true);
 		this.showWishListButton.setDisable(true);
-		this.showBoughtItems.setDisable(true);
-		this.modifyDepartmentButton.setDisable(true);
-		this.deleteResourcesButton.setDisable(true);
-		this.update_button.setDisable(true);
-		this.createFeatures_button.setDisable(true);
+		//this.showBoughtItems.setDisable(true);
+		//this.modifyDepartmentButton.setDisable(true);
+		//this.deleteResourcesButton.setDisable(true);
+		//this.update_button.setDisable(true);
+		//this.createFeatures_button.setDisable(true);
 	}
 }

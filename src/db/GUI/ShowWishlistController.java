@@ -36,6 +36,7 @@ import com.jfoenix.controls.JFXButton;
 
 import droolsexample.priority.Department;
 import droolsexample.priority.Hospital;
+import droolsexample.priority.Resource;
 import droolsexample.priority.SQLiteManager;
 import javafx.event.Event;
 import javafx.event.EventHandler;
@@ -81,8 +82,8 @@ public class ShowWishlistController implements Initializable{
 		manager_object = manager;
 		department_account = department;
 	}
-	@FXML
-	private void decision_button(MouseEvent event) throws IOException {
+	@Override @SuppressWarnings("unchecked")
+	public void initialize(URL location, ResourceBundle resources) {
 		JFXTreeTableColumn<Resources, String> resource_name = new JFXTreeTableColumn<>("Item name");
 		resource_name.setPrefWidth(180);
 		resource_name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Resources,String>, ObservableValue<String>>() {
@@ -116,10 +117,9 @@ public class ShowWishlistController implements Initializable{
 		resource_price.setResizable(false);
 		
 		
-			//List<Department> departmentList = manager_object.getMethods().List_all_departments();
-			//for (Department department: department_account) {
-			resource_objects.add(new Resources(department_account.getWishlistshopping().get(0).getName(), department_account.getWishlistshopping().get(0).getPriority(), department_account.getWishlistshopping().get(0).getPrice().toString()));
-			//}
+			for (Resource resource: department_account.getWishlistshopping()) {
+			resource_objects.add(new Resources(resource.getName(), resource.getPriority(), resource.getPrice().toString()));
+			}
 		TreeItem<Resources> root = new RecursiveTreeItem<Resources>(resource_objects, RecursiveTreeObject::getChildren);
 		resource_tree_view.setPlaceholder(new Label("No Departments found"));
 		resource_tree_view.getColumns().setAll(resource_name, resource_priority, resource_price);
@@ -127,12 +127,11 @@ public class ShowWishlistController implements Initializable{
 		resource_tree_view.setShowRoot(false);
 	}
 	
-	@Override @SuppressWarnings("unchecked")
-	public void initialize(URL location, ResourceBundle resources) {
+
 		
 		// Worker list columns creation
 		
-	}
+	
 
 // -----> REFRESH DEPARTMENT LIST VIEW <-----
 
