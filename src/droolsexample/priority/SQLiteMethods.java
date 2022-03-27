@@ -142,9 +142,10 @@ public class SQLiteMethods {
             String SQL_code = "UPDATE Hospital SET  budget = ?, boughtItems = ?, departmentOrder=? WHERE hospitalName  = ?";
             PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
             template.setFloat(1, hospital.getBudget());
-            template.setString(2, hospital.getHospitalName());
-            template.setString(3, hospital.getBougthItems().toString());
-            template.setString(4, hospital.getDepartmentOrder().toString());
+            System.out.println("Budget: "+hospital.getBudget());
+            template.setString(2, hospital.getBougthItems().toString());
+            template.setString(3, hospital.getDepartmentOrder().toString());
+            template.setString(4, hospital.getHospitalName());
             template.executeUpdate();
             template.close();
             return true;
@@ -184,7 +185,7 @@ public class SQLiteMethods {
 	    }
 	}
 
-	public boolean Delete_departmentresource(Department department,Resource resource) {
+	public boolean Delete_departmentresource(Department department) {
 	    try {
 	        String SQL_code = "DELETE FROM DepartmentResource WHERE departmentName= ?;";
 	        PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
@@ -324,6 +325,7 @@ public class SQLiteMethods {
 	        while(rs.next()) {
 	            String hospitalName= rs.getString("hospitalName");
 	            Float budget = rs.getFloat("budget");
+	            System.out.println("read budget: " +budget);
 	            String bougthItems= rs.getString("boughtItems");
 	            String departmentOrder = rs.getString("departmentOrder");
 	            List<String> purchaseList = Arrays.asList(bougthItems);

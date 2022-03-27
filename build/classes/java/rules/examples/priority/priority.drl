@@ -90,7 +90,7 @@ rule "Delete department2"
     then
     	//System.out.println("Budget: " + h.getBudget());
     	//System.out.println(h.getHospitalList().getFirst().getWishlistshopping().size());
-		//System.out.println("dellist: "+h.getHospitalList().getFirst().getWishlistshopping());
+		System.out.println("dellist: "+h.getHospitalList().getFirst().getWishlistshopping());
 
 		//System.out.println("isHighest: " + h.getHospitalList().getFirst().getIsHighest());
 		//System.out.println("Hlist: " + h.getHospitalList());
@@ -98,6 +98,7 @@ rule "Delete department2"
 		//System.out.println("isHighest2: " + h.getHospitalList().get(0).getIsHighest());
 		h.getHospitalList().get(0).calculatePriority();
         dbm.getMethods().Update_department(h.getHospitalList().get(0));
+        dbm.getMethods().Delete_departmentresource(h.getHospitalList().getFirst());
         h.getHospitalList().remove();
         h.calculatePriorityList();
         //d2.setIsHighest(true);

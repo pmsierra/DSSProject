@@ -41,6 +41,8 @@ public class AddBudgetController implements Initializable {
 	@FXML
 	private Pane menu_main_pane;
 	@FXML
+	private static Label budget_label;
+	@FXML
 	private TextField budget_textField;
 	@FXML
 	private JFXButton addBudget_button;
@@ -51,13 +53,17 @@ public class AddBudgetController implements Initializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void setValues(SQLiteManager manager, Hospital hospital) {
+	public static void setValues(SQLiteManager manager, Hospital hospital, Label budgetlabel) {
 		manager_object = manager;
 		hospital_account = hospital;
+		budget_label = budgetlabel;
 	}
 	@Override @SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
 		System.out.println(hospital_account.toString());
+	}
+	public void setParentController(ManagementMenuController parentController) {
+		
 	}
 	
 	@FXML
@@ -68,6 +74,7 @@ public class AddBudgetController implements Initializable {
 		Float previousBudget = hospital_account.getBudget();
 		hospital_account.setBudget(previousBudget+budget);
 		manager_object.getMethods().Update_hospital(hospital_account);
+		budget_label.setText("Current Budget: " + hospital_account.getBudget());
 		
 	}
 

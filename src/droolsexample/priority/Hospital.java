@@ -62,7 +62,7 @@ public class Hospital {
 		}
 			this.hospitalList.getFirst().setIsHighest(false);
 			this.hospitalList.sort(Comparator.comparing(Department::getPriorityLevel).reversed());
-			System.out.println("New first is: " + this.hospitalList.getFirst());
+			System.out.println("New first is: " + this.hospitalList.getFirst().getWishlistshopping());
 			this.hospitalList.getFirst().setIsHighest(true);
 			this.setHighestDepartment(this.hospitalList.getFirst());
 	

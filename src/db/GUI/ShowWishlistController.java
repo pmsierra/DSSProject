@@ -69,8 +69,6 @@ public class ShowWishlistController implements Initializable{
 	@FXML
 	private Pane main_pane;
 	@FXML
-	private JFXButton compute_decision_button;
-	@FXML
 	private JFXTreeTableView<Resources> resource_tree_view;
 	@FXML
 	private final ObservableList<Resources> resource_objects = FXCollections.observableArrayList();

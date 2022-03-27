@@ -9,7 +9,7 @@
 <?import javafx.scene.layout.VBox?>
 <?import javafx.scene.text.Font?>
 
-<AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.DepartmentMenuController">
+<AnchorPane fx:id="menu_window" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="730.0" prefWidth="1250.0" styleClass="border_color" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.GUI.DepartmentMenuController">
    <children>
       <Pane fx:id="menu_main_pane" layoutX="305.0" layoutY="5.0" prefHeight="720.0" prefWidth="940.0" styleClass="white_color">
          <children>
@@ -108,7 +108,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="listInventory_button" alignment="TOP_LEFT" layoutY="225.0" onMouseClicked="#list_inventory_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Show Wishlist" textFill="#00000080">
+            <JFXButton fx:id="showWishListButton" alignment="TOP_LEFT" layoutY="225.0" onMouseClicked="#list_inventory_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Show Wishlist" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -120,7 +120,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="addProduct_button" alignment="TOP_LEFT" layoutY="277.0" onMouseClicked="#open_option_panel" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add product " textFill="#00000080">
+            <JFXButton fx:id="addResourceButton" alignment="TOP_LEFT" layoutY="277.0" onMouseClicked="#open_option_panel" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add product " textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -132,7 +132,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="removeProduct_button" alignment="TOP_LEFT" layoutY="327.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Delete product" textFill="#00000080">
+            <JFXButton fx:id="deleteResourcesButton" alignment="TOP_LEFT" layoutY="327.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Delete product" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -144,7 +144,7 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <JFXButton fx:id="listTransactions_button" alignment="TOP_LEFT" layoutY="432.0" onMouseClicked="#list_transactions" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Show bougth items" textFill="#00000080">
+            <JFXButton fx:id="showBoughtItems" alignment="TOP_LEFT" layoutY="432.0" onMouseClicked="#list_transactions" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Show bougth items" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

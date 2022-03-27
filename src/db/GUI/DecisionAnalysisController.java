@@ -79,6 +79,8 @@ public class DecisionAnalysisController implements Initializable{
 	@FXML
 	private Pane main_pane;
 	@FXML
+	private static Label budget_label;
+	@FXML
 	private JFXButton compute_decision_button;
 	@FXML
 	private JFXTreeTableView<BoughtItems> bought_tree_view;
@@ -89,9 +91,10 @@ public class DecisionAnalysisController implements Initializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static void setValues(SQLiteManager manager, Hospital hospital) {
+	public static void setValues(SQLiteManager manager, SQLiteManager sQL_manager_object, Hospital hospital, Label budget) {
 		manager_object = manager;
 		hospital_account = hospital;
+		budget_label=budget;
 	}
 	
 	@FXML
@@ -127,6 +130,7 @@ public class DecisionAnalysisController implements Initializable{
 
         // and then dispose the session
         ksession.dispose();
+        budget_label.setText("Current Budget: " + hospital_account.getBudget());
 
     }
 
@@ -203,7 +207,7 @@ public class DecisionAnalysisController implements Initializable{
 		bought_tree_view.getColumns().setAll(department_name, item_name, price, priority_item);
 		bought_tree_view.setRoot(root);
 		bought_tree_view.setShowRoot(false);
-	
+		budget_label.setText("Current Budget: " + hospital_account.getBudget());
 	
 
 		
@@ -214,7 +218,7 @@ public class DecisionAnalysisController implements Initializable{
 // -----> REFRESH ITEMS LIST VIEW <-----
 
 	public void refreshItemsListView() {
-		System.out.println("kk5");
+		System.out.println("My budget: " +hospital_account.getBudget());
 		List<String> boughtItems = hospital_account.getBougthItems();
 	    System.out.println("Bought Items: " + boughtItems);
 		List<String> departmentOrder = hospital_account.getDepartmentOrder();

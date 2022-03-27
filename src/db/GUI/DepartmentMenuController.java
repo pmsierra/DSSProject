@@ -35,6 +35,8 @@ public class DepartmentMenuController implements Initializable {
 	private static SQLiteManager SQLmanager;
 	private static SQLiteMethods methods;
 	private static String departmentName;
+	private AddProductController add_product_controller;
+	private ShowWishlistController show_wish_list_controller;
 
 	// -----> FXML ATRIBUTES <-----
 
@@ -61,7 +63,7 @@ public class DepartmentMenuController implements Initializable {
     @FXML
     private JFXButton modifyDepartmentButton;
     @FXML
-    private JFXButton showWishlistButton;
+    private JFXButton showWishListButton;
     @FXML
     private JFXButton addResourceButton;
     @FXML
@@ -101,12 +103,10 @@ public class DepartmentMenuController implements Initializable {
 	
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		//listInventory_button.setDisable(true);
+		//showWishListButton.setDisable(true);
 		modifyDepartmentButton.setOnAction((ActionEvent) -> {
 			try {
-				DepartmentMenuController.setValues(SQLmanager, resource);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("DepartmentMenuView.fxml"));
-				Parent root = (Parent) loader.load();
+				
 				DepartmentMenuController department_controller = new DepartmentMenuController();
 				department_controller = loader.getController();
 				department_controller.getDoneButton().setOnMouseClicked(new EventHandler<Event>() {
@@ -141,7 +141,7 @@ public class DepartmentMenuController implements Initializable {
 			}
 		});				
 		
-		removeProduct_button.setOnAction((ActionEvent) -> {
+		deleteResourcesButton.setOnAction((ActionEvent) -> {
 			try {
 				current_pane_option_label.setText("Remove biomaterial");
 				RemoveProductController.setValues(manager_object);
@@ -186,7 +186,7 @@ public class DepartmentMenuController implements Initializable {
 		
 		try {
 			setAllButtonsOn();
-			listInventory_button.setDisable(true);
+			showWishListButton.setDisable(true);
 			ListAllBiomaterialsController.setValues(manager_object);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ListAllBiomaterialsView.fxml"));
 			Pane list_pane = loader.load();
@@ -234,8 +234,8 @@ public class DepartmentMenuController implements Initializable {
 	public void showBoughtItems(MouseEvent event) throws IOException {
 		current_pane_option_label.setText("List of all resources bought");
 		setAllButtonsOn();
-		listTransactions_button.setDisable(true);
-		ShowItemsController.setValues(SQLmanager);
+		showBoughtItems.setDisable(true);
+		ShowWishlistController.setValues(SQLmanager);
 		Pane menu_panel = FXMLLoader.load(getClass().getResource("ShowItemsView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(menu_panel);
@@ -264,23 +264,23 @@ public class DepartmentMenuController implements Initializable {
 	}
 		
 	public void setAllButtonsOn() {
-		this.addProduct_button.setDisable(false);
+		this.addResourceButton.setDisable(false);
 		this.listClients_button.setDisable(false);
-		this.listInventory_button.setDisable(false);
-		this.listTransactions_button.setDisable(false);
-		this.myAccount_button.setDisable(false);
-		this.removeProduct_button.setDisable(false);
+		this.showWishListButton.setDisable(false);
+		this.showBoughtItems.setDisable(false);
+		this.modifyDepartmentButton.setDisable(false);
+		this.deleteResourcesButton.setDisable(false);
 		this.update_button.setDisable(false);
 		this.createFeatures_button.setDisable(false);
 	}
 	
 	public void setAllButtonsOff() {
-		this.addProduct_button.setDisable(true);
+		this.addResourceButton.setDisable(true);
 		this.listClients_button.setDisable(true);
-		this.listInventory_button.setDisable(true);
-		this.listTransactions_button.setDisable(true);
-		this.myAccount_button.setDisable(true);
-		this.removeProduct_button.setDisable(true);
+		this.showWishListButton.setDisable(true);
+		this.showBoughtItems.setDisable(true);
+		this.modifyDepartmentButton.setDisable(true);
+		this.deleteResourcesButton.setDisable(true);
 		this.update_button.setDisable(true);
 		this.createFeatures_button.setDisable(true);
 	}

@@ -105,7 +105,7 @@ public static void main(String[] args) throws SQLException {
 		//------- Delete---------------
 		methods.Delete_department(neurology);
 		methods.Delete_resource(serum);
-		methods.Delete_departmentresource(neurology, infinityStone);
+		methods.Delete_departmentresource(neurology);
 		
 		//----------Search-------------------
 		methods.Search_department_by_name("Cardiology");

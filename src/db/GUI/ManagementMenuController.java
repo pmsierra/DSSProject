@@ -135,7 +135,7 @@ public class ManagementMenuController implements Initializable {
 			current_pane_option_label.setText("Add Budget");
 			setAllButtonsOn();
 			addBudget_button.setDisable(true);
-			AddBudgetController.setValues(SQL_manager_object, hospital_account);
+			AddBudgetController.setValues(SQL_manager_object, hospital_account, budget);
 			Pane add_budget_pane = FXMLLoader.load(getClass().getResource("AddBudgetView.fxml"));
 			main_pane.getChildren().removeAll();
 			main_pane.getChildren().setAll(add_budget_pane);
@@ -147,7 +147,7 @@ public class ManagementMenuController implements Initializable {
 		current_pane_option_label.setText("Decision Analysis");
 		setAllButtonsOn();
 		DecisionAnalysis_button.setDisable(true);
-		DecisionAnalysisController.setValues(SQL_manager_object, hospital_account);    
+		DecisionAnalysisController.setValues(SQL_manager_object, SQL_manager_object, hospital_account, budget);    
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("DecisionAnalysisView.fxml"));
 		Pane decision_analysis_pane = loader.load();
 		decision_analysis_controller = (DecisionAnalysisController) loader.getController();
