@@ -2,6 +2,7 @@ package droolsexample.priority;
 
 import java.sql.*;
 import java.time.LocalDate;
+import java.util.Arrays;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -138,10 +139,12 @@ public class SQLiteMethods {
 	
 	public boolean Update_hospital(Hospital hospital) {
         try {
-            String SQL_code = "UPDATE Hospital SET  budget = ? WHERE hospitalName  = ?";
+            String SQL_code = "UPDATE Hospital SET  budget = ?, boughtItems = ?, departmentOrder=? WHERE hospitalName  = ?";
             PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
             template.setFloat(1, hospital.getBudget());
             template.setString(2, hospital.getHospitalName());
+            template.setString(3, hospital.getBougthItems().toString());
+            template.setString(4, hospital.getDepartmentOrder().toString());
             template.executeUpdate();
             template.close();
             return true;
@@ -234,10 +237,14 @@ public class SQLiteMethods {
 	            hospital.setHospitalList(hospitalList);
 	            hospital.setHospitalName(hospitalName);
 	            hospital.setHighestDepartment(hospital.calculatePriorityList());
-	        	LinkedList<Resource> purchaseList = new LinkedList<Resource>();
-	        	LinkedList<Department> departmentOrder = new LinkedList<Department>();
-	        	hospital.setBougthItems(purchaseList);
-	            hospital.setDepartmentOrder(departmentOrder);
+	        	//LinkedList<Resource> purchaseList = new LinkedList<Resource>();
+	        	//LinkedList<Department> departmentOrder = new LinkedList<Department>();
+	            String bougthItems=result_set.getString("boughtItems");
+	            List<String> purchaseList = Arrays.asList(bougthItems);
+	            hospital.setBougthItems(purchaseList);
+	            String departmentOrder = result_set.getString("departmentOrder");
+	            List<String> decisionDepartments = Arrays.asList(departmentOrder);
+	            hospital.setDepartmentOrder(decisionDepartments);
 	
 				template.close();
 				return hospital;
@@ -317,15 +324,18 @@ public class SQLiteMethods {
 	        while(rs.next()) {
 	            String hospitalName= rs.getString("hospitalName");
 	            Float budget = rs.getFloat("budget");
-	            String bougthItems= rs.getString("bougthItems");
-	            LinkedList<Resource> purchaseList = new LinkedList<Resource>();
-	        	LinkedList<Department> departmentOrder = new LinkedList<Department>();
+	            String bougthItems= rs.getString("boughtItems");
+	            String departmentOrder = rs.getString("departmentOrder");
+	            List<String> purchaseList = Arrays.asList(bougthItems);
+	        	//LinkedList<Department> linkedpurchase = (LinkedList<Department>)purchaseList;
+	        	//LinkedList<Department> departmentsOrder = new LinkedList<Department>();
+	            List<String> decisionDepartments = Arrays.asList(departmentOrder);
 	            Integer user_id = rs.getInt("user_id");
 	
 	            LinkedList<Department> departments = (LinkedList<Department>) List_all_departments();
 	
 	
-	            hospitals.add(new Hospital(hospitalName, departments, budget, purchaseList, departmentOrder, user_id));
+	            hospitals.add(new Hospital(hospitalName, departments, budget, purchaseList, decisionDepartments, user_id));
 	        }
 	        return hospitals;
 	    } catch (SQLException search_hospitals_error) {

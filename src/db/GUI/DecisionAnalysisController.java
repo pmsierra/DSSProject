@@ -110,12 +110,14 @@ public class DecisionAnalysisController implements Initializable{
 		
 		
         // Once the session is created, the application can interact with it
-    
-	    Hospital hospital = manager_object.getMethods().List_all_hospitals().get(0);
-	    System.out.println(hospital.toString());
-	    hospital.calculatePriorityList();
-	    System.out.println(hospital.toString());
-        ksession.insert(hospital);
+	    List<String> emptyItems = new LinkedList<String>();
+	    //emptyItems.add("");
+	    List<String> emptyDepartments = new LinkedList<String>();
+	    //emptyDepartments.add("");
+	    hospital_account.setBougthItems(emptyItems);
+	    hospital_account.setDepartmentOrder(emptyDepartments);
+	    manager_object.getMethods().Update_hospital(hospital_account);
+        ksession.insert(hospital_account);
         ksession.insert(manager_object);
         
         
@@ -186,14 +188,16 @@ public class DecisionAnalysisController implements Initializable{
 		priority_item.setResizable(false);
 		
 		
+		/*
+		List<String> boughtItems = hospital_account.getBougthItems();
+		List<String> departmentOrder = hospital_account.getDepartmentOrder();
 		
-		LinkedList<Resource> boughtItems = hospital_account.getBougthItems();
-		LinkedList<Department> departmentOrder = hospital_account.getDepartmentOrder();
-		for (Department department: departmentOrder) {
+		for (String department: departmentOrder) {
 			int position = departmentOrder.indexOf(department);
-			Resource thisItem = boughtItems.get(position);
-			bought_objects.add(new BoughtItems(department.getName(), thisItem.getName(), thisItem.getPrice().toString(), thisItem.getPriority()));
-		}
+			String thisItem = boughtItems.get(position);
+			Resource desiredItem = manager_object.getMethods().Search_resource_by_name(thisItem);
+			bought_objects.add(new BoughtItems(department, thisItem, desiredItem.getPrice().toString(), desiredItem.getPriority()));
+		}*/
 		TreeItem<BoughtItems> root = new RecursiveTreeItem<BoughtItems>(bought_objects, RecursiveTreeObject::getChildren);
 		bought_tree_view.setPlaceholder(new Label("No Departments found"));
 		bought_tree_view.getColumns().setAll(department_name, item_name, price, priority_item);
@@ -204,18 +208,23 @@ public class DecisionAnalysisController implements Initializable{
 
 		
 	}
+    
 
+   
 // -----> REFRESH ITEMS LIST VIEW <-----
 
 	public void refreshItemsListView() {
-	    System.out.println("kk5");
-		LinkedList<Resource> boughtItems = hospital_account.getBougthItems();
-		LinkedList<Department> departmentOrder = hospital_account.getDepartmentOrder();
-		for (Department department: departmentOrder) {
-			int position = departmentOrder.indexOf(department);
-			Resource thisItem = boughtItems.get(position);
-		    System.out.println("this Item: " + thisItem);
-			bought_objects.add(new BoughtItems(department.getName(), thisItem.getName(), thisItem.getPrice().toString(), thisItem.getPriority()));
+		System.out.println("kk5");
+		List<String> boughtItems = hospital_account.getBougthItems();
+	    System.out.println("Bought Items: " + boughtItems);
+		List<String> departmentOrder = hospital_account.getDepartmentOrder();
+		System.out.println("Department Order: " + departmentOrder);
+		
+		for (int i = 0; i<boughtItems.size();i++) {
+			String department = departmentOrder.get(i);
+			String thisItem = boughtItems.get(i);
+			Resource desiredItem = manager_object.getMethods().Search_resource_by_name(thisItem);
+			bought_objects.add(new BoughtItems(department, thisItem, desiredItem.getPrice().toString(), desiredItem.getPriority()));
 		}
 		TreeItem<BoughtItems> root = new RecursiveTreeItem<BoughtItems>(bought_objects, RecursiveTreeObject::getChildren);
 		bought_tree_view.refresh();

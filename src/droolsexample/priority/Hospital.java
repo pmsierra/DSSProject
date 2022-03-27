@@ -2,6 +2,7 @@ package droolsexample.priority;
 
 import java.util.Comparator;
 import java.util.LinkedList;
+import java.util.List;
 
 public class Hospital {
 	
@@ -10,9 +11,10 @@ public class Hospital {
 	private LinkedList<Department> hospitalList;
 	private Department highestDepartment;
 	private Float budget;
-	LinkedList<Resource> bougthItems;
-	LinkedList<Department> departmentOrder;
-	
+	List<String> bougthItems;
+	List<String> departmentOrder;
+	LinkedList<Resource> bougthItemsL;
+	LinkedList<Department> departmentOrderL;
 	
 	
 	public Hospital() {
@@ -23,6 +25,8 @@ public class Hospital {
 		super();
 		this.hospitalName = hospitalName;
 		this.budget = budget;
+		this.bougthItems = new LinkedList<String>();
+		this.departmentOrder=new LinkedList<String>();
 	}
 	
 	public Hospital(LinkedList<Department> hospitalList, Float budget,
@@ -30,20 +34,21 @@ public class Hospital {
 		super();
 		this.hospitalList = hospitalList;
 		this.budget = budget;
-		this.bougthItems = bougthItems;
-		this.departmentOrder=departmentOrder;
+		this.bougthItemsL = bougthItems;
+		this.departmentOrderL=departmentOrder;
 		this.calculatePriorityList();
 	}
 	
-	public Hospital(String hospitalName2, LinkedList<Department> departments, Float budget2, LinkedList<Resource> bougthItems, LinkedList<Department> departmentOrder, Integer user_id) {
+	public Hospital(String hospitalName2, LinkedList<Department> departments, Float budget2, List<String> purchaseList, List<String> departmentOrder, Integer user_id) {
 		
 		super();
 		this.hospitalName = hospitalName2;
 		this.hospitalList = departments;
 		this.budget = budget2;
-		this.bougthItems = bougthItems;
+		this.bougthItems = purchaseList;
 		this.departmentOrder=departmentOrder;
 		this.user_id= user_id;
+		this.calculatePriorityList();
 		
 	}
 	
@@ -86,7 +91,7 @@ public class Hospital {
 		
 		String conclusion="";
 		for(int i = 0; i<this.departmentOrder.size();i++ ) {
-			conclusion = conclusion + this.departmentOrder.get(i).getName()+ " department bougth: " + this.bougthItems.get(i).getName()+" for: " +this.bougthItems.get(i).getPrice() + "\n";
+			conclusion = conclusion + this.departmentOrder.get(i)+ " department bougth: " + this.bougthItems.get(i)+" for: " + this.bougthItems.get(i) + "\n";
 			
 		
 		}
@@ -116,17 +121,17 @@ public class Hospital {
 	public void setBudget(Float budget) {
 		this.budget = budget;
 	}
-	public LinkedList<Resource> getBougthItems() {
+	public List<String> getBougthItems() {
 		return bougthItems;
 	}
-	public void setBougthItems(LinkedList<Resource> bougthItems) {
+	public void setBougthItems(List<String> bougthItems) {
 		this.bougthItems = bougthItems;
 	}
 	
-	public LinkedList<Department> getDepartmentOrder() {
+	public List<String> getDepartmentOrder() {
 		return departmentOrder;
 	}
-	public void setDepartmentOrder(LinkedList<Department> departmentOrder) {
+	public void setDepartmentOrder(List<String> departmentOrder) {
 		this.departmentOrder = departmentOrder;
 	}
 	public String getHospitalName() {
