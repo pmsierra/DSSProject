@@ -113,7 +113,7 @@ public class SQLiteMethods {
 
 	public boolean Update_department(Department department) {
         try {
-            String SQL_code = "UPDATE Department SET npatients = ?, ratio = ?, avghours = ?, nemployees = ?, cartWeight = ?, priorityLevel= ?, isHighest = ?  WHERE departmentName = ?";
+            String SQL_code = "UPDATE Department SET npatients = ?, ratio = ?, avghours = ?, nemployees = ?, cartWeight = ?, priorityLevel= ?, isHighest = ?, expenses= ?, WHERE departmentName = ?";
             PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
             template.setInt(1, department.getNpatients());
             template.setFloat(2, department.getRatio());
@@ -121,9 +121,10 @@ public class SQLiteMethods {
             template.setInt(4, department.getNemployees());
             template.setInt(5, department.getcartWeight());
             template.setFloat(6, department.getPriorityLevel());
-            //template.setFloat(6, department.getExpenses()); // expenses= ?,
             template.setBoolean(7, department.getIsHighest());
-            template.setString(8, department.getName());
+            template.setFloat(8, department.getExpenses());
+            template.setString(9, department.getName());
+
             template.executeUpdate();
             template.close();
             return true;
@@ -225,6 +226,11 @@ public Department Search_department_by_name (String departmentName) {
 		department.setAvghours(result_set.getInt("avghours"));
 		department.setNemployees(result_set.getInt("nemployees"));
 		department.setcartWeight(result_set.getInt("cartWeight"));
+        department.setPriorityLevel(result_set.getFloat("priorityLevel"));
+		department.setIsHighest(result_set.getBoolean("isHighest"));
+		department.setUser_id(result_set.getInt("user_id"));
+		department.setExpenses(result_set.getFloat("expenses"));
+		
         department.setName(departmentName);
 		LinkedList<Resource> resource_list = Search_all_resources_from_department(departmentName);
 		department.setWishlistshopping(resource_list);
@@ -252,9 +258,10 @@ public List<Department> List_all_departments() {
             Float priorityLevel = rs.getFloat("priorityLevel");
             Boolean isHighest = rs.getBoolean("isHighest");
             Integer user_id= rs.getInt("user_id");
+            Float expenses= rs.getFloat("expenses");
             LinkedList<Resource> wishlist = Search_all_resources_from_department(departmentName);
             
-            departments.add(new Department(departmentName , npatients, ratio, avghours, nemployees, cartWeight, priorityLevel , isHighest, user_id, wishlist));
+            departments.add(new Department(departmentName , npatients, ratio, avghours, nemployees, cartWeight, priorityLevel , isHighest, user_id, wishlist, expenses));
         }
         return departments;
     } catch (SQLException search_departments_error) {
