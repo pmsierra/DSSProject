@@ -83,10 +83,13 @@ public class ListAllDepartmentsController implements Initializable{
 		manager_object = manager;
 		hospital_account = hospital;
 	}
-	@FXML
-	private void decision_button(MouseEvent event) throws IOException {
+
+	@Override @SuppressWarnings("unchecked")
+	public void initialize(URL location, ResourceBundle resources) {
+		
+		// Worker list columns creation
 		JFXTreeTableColumn<Departments, String> department_name = new JFXTreeTableColumn<>("Department name");
-		department_name.setPrefWidth(180);
+		department_name.setPrefWidth(100);
 		department_name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Departments,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Departments, String> param) {
@@ -96,7 +99,7 @@ public class ListAllDepartmentsController implements Initializable{
 		department_name.setResizable(false);
 		
 		JFXTreeTableColumn<Departments, String> number_of_patients = new JFXTreeTableColumn<>("Number of patients");
-		number_of_patients.setPrefWidth(180);
+		number_of_patients.setPrefWidth(100);
 		number_of_patients.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Departments,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Departments, String> param) {
@@ -106,7 +109,7 @@ public class ListAllDepartmentsController implements Initializable{
 		number_of_patients.setResizable(false);
 		
 		JFXTreeTableColumn<Departments, String> ratio_of_deaths = new JFXTreeTableColumn<>("Ratio of deaths");
-		ratio_of_deaths.setPrefWidth(180);
+		ratio_of_deaths.setPrefWidth(100);
 		ratio_of_deaths.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Departments,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Departments, String> param) {
@@ -116,7 +119,7 @@ public class ListAllDepartmentsController implements Initializable{
 		ratio_of_deaths.setResizable(false);
 		
 		JFXTreeTableColumn<Departments, String> average_hours = new JFXTreeTableColumn<>("Average Hours");
-		average_hours.setPrefWidth(180);
+		average_hours.setPrefWidth(100);
 		average_hours.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Departments,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Departments, String> param) {
@@ -126,7 +129,7 @@ public class ListAllDepartmentsController implements Initializable{
 		average_hours.setResizable(false);
 		
 		JFXTreeTableColumn<Departments, String> number_of_employees = new JFXTreeTableColumn<>("Number of employees");
-		number_of_employees.setPrefWidth(180);
+		number_of_employees.setPrefWidth(100);
 		number_of_employees.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Departments,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Departments, String> param) {
@@ -136,7 +139,7 @@ public class ListAllDepartmentsController implements Initializable{
 		number_of_employees.setResizable(false);
 		
 		JFXTreeTableColumn<Departments, String> cart_weight = new JFXTreeTableColumn<>("Cart Weight");
-		cart_weight.setPrefWidth(180);
+		cart_weight.setPrefWidth(100);
 		cart_weight.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Departments,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Departments, String> param) {
@@ -146,7 +149,7 @@ public class ListAllDepartmentsController implements Initializable{
 		cart_weight.setResizable(false);
 		
 		JFXTreeTableColumn<Departments, String> priority_level = new JFXTreeTableColumn<>("Priority level");
-		priority_level.setPrefWidth(180);
+		priority_level.setPrefWidth(100);
 		priority_level.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Departments,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Departments, String> param) {
@@ -156,7 +159,7 @@ public class ListAllDepartmentsController implements Initializable{
 		priority_level.setResizable(false);
 		
 		JFXTreeTableColumn<Departments, String> is_highest = new JFXTreeTableColumn<>("Is Highest");
-		is_highest.setPrefWidth(180);
+		is_highest.setPrefWidth(100);
 		is_highest.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Departments,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Departments, String> param) {
@@ -166,7 +169,7 @@ public class ListAllDepartmentsController implements Initializable{
 		is_highest.setResizable(false);
 		
 		JFXTreeTableColumn<Departments, String> expenses = new JFXTreeTableColumn<>("Expenses");
-		expenses.setPrefWidth(180);
+		expenses.setPrefWidth(100);
 		expenses.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Departments,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<Departments, String> param) {
@@ -184,12 +187,9 @@ public class ListAllDepartmentsController implements Initializable{
 		department_tree_view.getColumns().setAll(department_name, number_of_patients, ratio_of_deaths, average_hours, number_of_employees, cart_weight, priority_level, is_highest, expenses);
 		department_tree_view.setRoot(root);
 		department_tree_view.setShowRoot(false);
-	}
 	
-	@Override @SuppressWarnings("unchecked")
-	public void initialize(URL location, ResourceBundle resources) {
-		
-		// Worker list columns creation
+	
+
 		
 	}
 
