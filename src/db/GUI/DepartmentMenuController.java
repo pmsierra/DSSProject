@@ -6,8 +6,9 @@ import java.net.URL;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
-import db.jdbc.SQLManager;
-import db.pojos.Worker;
+import droolsexample.priority.Department;
+import droolsexample.priority.SQLiteManager;
+import droolsexample.priority.SQLiteMethods;
 import javafx.fxml.Initializable;
 import javafx.scene.input.MouseEvent;
 import javafx.scene.layout.AnchorPane;
@@ -30,11 +31,10 @@ public class DepartmentMenuController implements Initializable {
 
 	// -----> CLASS ATRIBUTES <-----
 
-	private static Worker worker_account;
-	private static SQLManager manager_object;
-	private ListAllBiomaterialsController list_all_bimaterials_controller;
-	private static Integer biomaterial_id;
-
+	private static Department department;
+	private static SQLiteManager SQLmanager;
+	private static SQLiteMethods methods;
+	private static String departmentName;
 
 	// -----> FXML ATRIBUTES <-----
 
@@ -59,15 +59,15 @@ public class DepartmentMenuController implements Initializable {
     @FXML
     private JFXButton logOut_button;
     @FXML
-    private JFXButton myAccount_button;
+    private JFXButton modifyDepartmentButton;
     @FXML
-    private JFXButton listInventory_button;
+    private JFXButton showWishlistButton;
     @FXML
-    private JFXButton addProduct_button;
+    private JFXButton addResourceButton;
     @FXML
-    private JFXButton removeProduct_button;
+    private JFXButton deleteResourcesButton;
     @FXML
-    private JFXButton listTransactions_button;
+    private JFXButton showBoughtItems;
     @FXML
     private JFXButton listClients_button;
     @FXML
@@ -85,16 +85,10 @@ public class DepartmentMenuController implements Initializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void setValues(SQLManager manager, Worker worker) {
-		manager_object = manager;
-		worker_account = worker;
-	}
-
-	public void update_worker_account() {
-		worker_account = manager_object.Search_worker_by_id(worker_account.getWorker_id());
-		setWorkerEmail(worker_account.getEmail());
-		setWorkerName(worker_account.getWorker_name());
-		setWorkerTelephone(worker_account.getTelephone());
+	public static void setValues(SQLiteManager manager, Department departamento) {
+		SQLmanager = manager;
+		methods = SQLmanager.getMethods();
+		department = departamento;
 	}
 
 	// -----> GET AND SET METHODS <-----
@@ -103,48 +97,19 @@ public class DepartmentMenuController implements Initializable {
 		return this.menu_window;
 	}
 	
-	public static void setBioID(Integer id) {
-		biomaterial_id = id;
-	}
-
-	public void setWorkerName(String name) {
-		this.worker_name.setText("Worker's name: " + name);
-	}
-	
-	public void setWorkerEmail(String email) {
-		if (email != null) {
-			this.email.setText("Email: " + email);
-		} else {
-			this.email.setText("Email: No email associated");
-		}
-	}
-	public void setWorkerTelephone(Integer telephone) {
-		if (telephone == null) {
-			this.telephone.setText("Telephone: No telephone associated");
-		} else {
-			if (telephone != 0) {
-				this.telephone.setText("Telephone: " + telephone);
-			} else {
-				this.telephone.setText("Telephone: No telephone associated");
-			}
-		}
-	}
-	
-
-	
 	// -----> ESSENTIAL METHODS <-----
 	
 	public void initialize(URL location, ResourceBundle resources) {
 		
-		listInventory_button.setDisable(true);
-		myAccount_button.setOnAction((ActionEvent) -> {
+		//listInventory_button.setDisable(true);
+		modifyDepartmentButton.setOnAction((ActionEvent) -> {
 			try {
-				AccountWorkerController.setValues(manager_object, worker_account);
-				FXMLLoader loader = new FXMLLoader(getClass().getResource("AccountWorkerView.fxml"));
+				DepartmentMenuController.setValues(SQLmanager, resource);
+				FXMLLoader loader = new FXMLLoader(getClass().getResource("DepartmentMenuView.fxml"));
 				Parent root = (Parent) loader.load();
-				AccountWorkerController account_controller = new AccountWorkerController();
-				account_controller = loader.getController();
-				account_controller.getDoneButton().setOnMouseClicked(new EventHandler<Event>() {
+				DepartmentMenuController department_controller = new DepartmentMenuController();
+				department_controller = loader.getController();
+				department_controller.getDoneButton().setOnMouseClicked(new EventHandler<Event>() {
 					@Override
 					public void handle(Event event) {
 						update_worker_account();
@@ -174,9 +139,7 @@ public class DepartmentMenuController implements Initializable {
 				worker_account_error.printStackTrace();
 				System.exit(0);
 			}
-		});
-		
-		
+		});				
 		
 		removeProduct_button.setOnAction((ActionEvent) -> {
 			try {
@@ -253,78 +216,53 @@ public class DepartmentMenuController implements Initializable {
 		LaunchApplication.getStage().show();
 		Stage stage = (Stage) logOut_button.getScene().getWindow();
 		stage.close();
-		manager_object.Close_connection();
+		SQLmanager.Close_connection();
 	}
+
 	
 	@FXML
-	public void open_option_panel(MouseEvent event) throws IOException {
+	public void addProduct(MouseEvent event) throws IOException {
 		setAllButtonsOn();
-		addProduct_button.setDisable(true);
-		ProductOptionController.setValues(manager_object);
-		Pane option_pane = FXMLLoader.load(getClass().getResource("ProductOptionPanel.fxml"));
+		addResourceButton.setDisable(true);
+		AddProductController.setValues(SQLmanager);
+		Pane option_pane = FXMLLoader.load(getClass().getResource("AddProductView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(option_pane);
 	}
-		
 	
 	@FXML
-	private void list_inventory_button(MouseEvent event) throws IOException { 
-		current_pane_option_label.setText("List inventory");
-		setAllButtonsOn();
-		listInventory_button.setDisable(true);
-		ListAllBiomaterialsController.setValues(manager_object);
-		FXMLLoader loader = new FXMLLoader(getClass().getResource("ListAllBiomaterialsView.fxml"));
-		Pane list_pane = loader.load();
-		list_all_bimaterials_controller = (ListAllBiomaterialsController) loader.getController();
-		main_pane.getChildren().removeAll();
-		main_pane.getChildren().setAll(list_pane);
-	}
-	
-	@FXML
-	public void list_transactions(MouseEvent event) throws IOException {
-		current_pane_option_label.setText("Finantial status");
+	public void showBoughtItems(MouseEvent event) throws IOException {
+		current_pane_option_label.setText("List of all resources bought");
 		setAllButtonsOn();
 		listTransactions_button.setDisable(true);
-		DirectorFinantialStatusController.setValues(manager_object);
-		Pane menu_panel = FXMLLoader.load(getClass().getResource("DirectorFinantialStatusView.fxml"));
+		ShowItemsController.setValues(SQLmanager);
+		Pane menu_panel = FXMLLoader.load(getClass().getResource("ShowItemsView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(menu_panel);
 	}
 	
 	@FXML
-	public void list_clients(MouseEvent event) throws IOException {
-		current_pane_option_label.setText("List clients");
+	public void showWishList(MouseEvent event) throws IOException {
+		current_pane_option_label.setText("Current List of Resources");
 		setAllButtonsOn();
 		listClients_button.setDisable(true);
-		ListAllClientsController.setValues(manager_object);
-		Pane menu_panel = FXMLLoader.load(getClass().getResource("ListAllClientsView.fxml"));
+		ShowWishlistController.setValues(SQLmanager);
+		Pane menu_panel = FXMLLoader.load(getClass().getResource("ShowWishlistView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(menu_panel);	
 	}
 
 	@FXML
-	private void update_product_button(MouseEvent event) throws IOException {
-		current_pane_option_label.setText("Update features");
+	private void updateDepartmentAccount(MouseEvent event) throws IOException {
+		current_pane_option_label.setText("Update information of the current department");
 		setAllButtonsOn();
 		update_button.setDisable(true);
-		UpdateFeaturesController.setValue(manager_object, biomaterial_id);
-		Pane update_pane = FXMLLoader.load(getClass().getResource("UpdateFeaturesView.fxml"));
+		DepartmentAccountController.setValue(SQLmanager);
+		Pane update_pane = FXMLLoader.load(getClass().getResource("DepartmentAccountView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(update_pane);
 	}
-	
-	@FXML
-	private void create_features_button(MouseEvent event) throws IOException {
-		current_pane_option_label.setText("Features creation");
-		setAllButtonsOn();
-		createFeatures_button.setDisable(true);
-		NewFeaturesController.setValue(manager_object);
-		Pane creation_Pane = FXMLLoader.load(getClass().getResource("CreationFeaturesView.fxml"));
-		main_pane.getChildren().removeAll();
-		main_pane.getChildren().setAll(creation_Pane);
-	}
-	
-	
+		
 	public void setAllButtonsOn() {
 		this.addProduct_button.setDisable(false);
 		this.listClients_button.setDisable(false);
@@ -347,10 +285,3 @@ public class DepartmentMenuController implements Initializable {
 		this.createFeatures_button.setDisable(true);
 	}
 }
-
-
-
-
-
-
-

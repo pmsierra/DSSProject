@@ -148,7 +148,7 @@ public class DecisionAnalysisController implements Initializable{
 ;
 		// Worker list columns creation
 		JFXTreeTableColumn<BoughtItems, String> department_name = new JFXTreeTableColumn<>("Department name");
-		department_name.setPrefWidth(100);
+		department_name.setPrefWidth(160);
 		department_name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<BoughtItems,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<BoughtItems, String> param) {
@@ -158,7 +158,7 @@ public class DecisionAnalysisController implements Initializable{
 		department_name.setResizable(false);
 		
 		JFXTreeTableColumn<BoughtItems, String> item_name = new JFXTreeTableColumn<>("Item Name");
-		item_name.setPrefWidth(100);
+		item_name.setPrefWidth(110);
 		item_name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<BoughtItems,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<BoughtItems, String> param) {
@@ -168,7 +168,7 @@ public class DecisionAnalysisController implements Initializable{
 		item_name.setResizable(false);
 		
 		JFXTreeTableColumn<BoughtItems, String> price = new JFXTreeTableColumn<>("Price");
-		price.setPrefWidth(100);
+		price.setPrefWidth(110);
 		price.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<BoughtItems,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<BoughtItems, String> param) {
@@ -178,7 +178,7 @@ public class DecisionAnalysisController implements Initializable{
 		price.setResizable(false);
 		
 		JFXTreeTableColumn<BoughtItems, String> priority_item = new JFXTreeTableColumn<>("Priority of Item");
-		priority_item.setPrefWidth(100);
+		priority_item.setPrefWidth(110);
 		priority_item.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<BoughtItems,String>, ObservableValue<String>>() {
 			@Override
 			public ObservableValue<String> call(CellDataFeatures<BoughtItems, String> param) {

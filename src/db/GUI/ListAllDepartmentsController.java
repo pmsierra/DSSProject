@@ -183,7 +183,7 @@ public class ListAllDepartmentsController implements Initializable{
 			department_objects.add(new Departments(department.getName(), department.getNpatients().toString(), department.getRatio().toString(), department.getAvghours().toString(), department.getNemployees().toString(), department.getcartWeight().toString(), department.getPriorityLevel().toString(), department.getIsHighest().toString(),department.getExpenses().toString()));
 		}
 		TreeItem<Departments> root = new RecursiveTreeItem<Departments>(department_objects, RecursiveTreeObject::getChildren);
-		department_tree_view.setPlaceholder(new Label("No Departments found"));
+		department_tree_view.setPlaceholder(new Label("No Departments yet to purchase for / No decision yet"));
 		department_tree_view.getColumns().setAll(department_name, number_of_patients, ratio_of_deaths, average_hours, number_of_employees, cart_weight, priority_level, is_highest, expenses);
 		department_tree_view.setRoot(root);
 		department_tree_view.setShowRoot(false);
@@ -224,7 +224,7 @@ class Departments extends RecursiveTreeObject<Departments> {
 		this.number_of_patients = new SimpleStringProperty(number_of_patients);
 		this.ratio_of_deaths = new SimpleStringProperty(ratio_of_deaths);
 		this.average_hours = new SimpleStringProperty(average_hours);
-		this.number_of_employees = new SimpleStringProperty(cart_weight);
+		this.number_of_employees = new SimpleStringProperty(number_of_employees);
 		this.cart_weight = new SimpleStringProperty(cart_weight);
 		this.priority_level = new SimpleStringProperty(priority_level);
 		this.is_highest = new SimpleStringProperty(is_highest);

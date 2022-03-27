@@ -22,17 +22,7 @@ import droolsexample.priority.SQLiteManager
 
 
 
-rule "kk"
-    dialect "java"
-    when
-    	
-    	h: Hospital (budget > 0)
 
-    then
-    	
-    	System.out.println("Removed the first item");
-    	
-end
 
 rule "Buy2"
 	dialect "java"
@@ -106,7 +96,8 @@ rule "Delete department2"
 		//System.out.println("Hlist: " + h.getHospitalList());
 		h.getHospitalList().get(0).setIsHighest(false);
 		//System.out.println("isHighest2: " + h.getHospitalList().get(0).getIsHighest());
-        //dbm.getMethods().Delete_department(h.getHospitalList().get(0));
+		h.getHospitalList().get(0).calculatePriority();
+        dbm.getMethods().Update_department(h.getHospitalList().get(0));
         h.getHospitalList().remove();
         h.calculatePriorityList();
         //d2.setIsHighest(true);
