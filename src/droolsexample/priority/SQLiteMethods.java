@@ -99,9 +99,9 @@ public class SQLiteMethods {
         try {
             String SQL_code = "UPDATE Resource SET priority = ?, price = ? WHERE resourceName = ?";
             PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-            template.setString(1, resource.getName());
-            //template.setString(2, resource.getPriority());
-            template.setFloat(3, resource.getPrice());
+            template.setString(1, resource.getPriority());
+            template.setFloat(2, resource.getPrice());
+            template.setString(3, resource.getName());
             template.executeUpdate();
             template.close();
             return true;
@@ -115,14 +115,15 @@ public class SQLiteMethods {
         try {
             String SQL_code = "UPDATE Department SET npatients = ?, ratio = ?, avghours = ?, nemployees = ?, cartWeight = ?, priorityLevel= ?, isHighest = ?  WHERE departmentName = ?";
             PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-            template.setString(1, department.getName());
-            template.setInt(2, department.getNpatients());
+            template.setInt(1, department.getNpatients());
+            template.setFloat(2, department.getRatio());
             template.setFloat(3, department.getAvghours());
             template.setInt(4, department.getNemployees());
             template.setInt(5, department.getcartWeight());
             template.setFloat(6, department.getPriorityLevel());
             //template.setFloat(6, department.getExpenses()); // expenses= ?,
             template.setBoolean(7, department.getIsHighest());
+            template.setString(8, department.getName());
             template.executeUpdate();
             template.close();
             return true;

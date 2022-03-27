@@ -95,16 +95,19 @@ public static void main(String[] args) throws SQLException {
     
 		
 		//---List----------------------------
-		methods.List_all_departments();
-		methods.List_all_resources();
+    	List<Department> Lista = methods.List_all_departments();
+    	System.out.println(Lista);
+		List<Resource> Lista2 = methods.List_all_resources();
+		System.out.println(Lista2);
 		
 		// -----Updates---------------------------
 		radiology.setAvghours(30);
 		radiology.setNemployees(70);
 		methods.Update_department(radiology);
 		
-		courtains.setName("idk");
-		methods.Update_resource(courtains);
+		courtains.setPrice(69f);
+		courtains.setPriority("HIGH");
+		System.out.println(methods.Update_resource(courtains));
 		
 		laPaz.setBudget(3000f);
 		

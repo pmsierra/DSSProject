@@ -59,13 +59,13 @@ public class SQLiteManager {
 			stmt.close();
 			
 			Statement stmt0 = sqlite_connection.createStatement();
-			String sql0 = "CREATE TABLE Department " + "(departmentName TEXT PRIMARY KEY, "
+			String sql0 = "CREATE TABLE Department " + "(departmentName TEXT PRIMARY KEY UNIQUE, "
 					+ " npatients INTEGER, " + "ratio FLOAT, "+"avghours INTEGER,"+"nemployees INTEGER,"+"cartWeight INTEGER,"+"priorityLevel FLOAT,"+"isHighest BOOLEAN,"+ " user_id FOREING KEY REFERENCES user(user_id))";
 			stmt0.execute(sql0);
 			stmt0.close();
 			
 			Statement stmt1 = sqlite_connection.createStatement();
-			String sql1 = "CREATE TABLE Resource " + "(resourceName TEXT PRIMARY KEY, "
+			String sql1 = "CREATE TABLE Resource " + "(resourceName TEXT PRIMARY KEY UNIQUE, "
                     + " priority TEXT CHECK( priority IN ('HIGH','MEDIUM','LOW') )," 
                     + " price FLOAT NULL)";
 			stmt1.execute(sql1);
