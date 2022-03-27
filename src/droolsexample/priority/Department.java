@@ -209,6 +209,14 @@ public void setUser_id(Integer user_id) {
 	this.user_id = user_id;
 }
 
+@Override
+public String toString() {
+	return "Department [name=" + name + ", npatients=" + npatients + ", ratio=" + ratio + ", avghours=" + avghours
+			+ ", nemployees=" + nemployees + ", cartWeight=" + cartWeight + ", expenses=" + expenses + ", isHighest="
+			+ isHighest + "]";
+}
+
+
 /*
  * public void orderWishlist() { LinkedList<Resource> high; LinkedList<Resource>
  * medium; LinkedList<Resource> low; for(int
