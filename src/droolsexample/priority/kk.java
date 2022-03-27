@@ -93,6 +93,7 @@ public static void main(String[] args) throws SQLException {
 		// -----Updates---------------------------
 		radiology.setAvghours(30);
 		radiology.setNemployees(70);
+		radiology.setExpenses(20f);
 		methods.Update_department(radiology);
 		
 		courtains.setPrice(69f);

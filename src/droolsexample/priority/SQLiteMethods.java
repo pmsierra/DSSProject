@@ -115,7 +115,7 @@ public class SQLiteMethods {
 
 	public boolean Update_department(Department department) {
         try {
-            String SQL_code = "UPDATE Department SET npatients = ?, ratio = ?, avghours = ?, nemployees = ?, cartWeight = ?, priorityLevel= ?, isHighest = ?, expenses= ?, WHERE departmentName = ?";
+            String SQL_code = "UPDATE Department SET npatients = ?, ratio = ?, avghours = ?, nemployees = ?, cartWeight = ?, priorityLevel= ?, isHighest = ?, expenses= ? WHERE departmentName = ?";
             PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
             template.setInt(1, department.getNpatients());
             template.setFloat(2, department.getRatio());
