@@ -52,6 +52,7 @@ public class SQLiteMethods {
                 template.close();
             }
             
+            
         } catch (SQLException insert_department_error) {
             insert_department_error.printStackTrace(); //lo mismo que puse antes de los errores
         }
@@ -279,7 +280,7 @@ public void Insert_new_departmentresource(Department department, Resource resour
         String table = "INSERT INTO DepartmentResource (departmentName, resourceName) " + "VALUES (?,?);";
         PreparedStatement template = this.sqlite_connection.prepareStatement(table);
         template.setString(1, department.getName());
-        template.setString(1, resource.getName());
+        template.setString(2, resource.getName());
         template.executeUpdate();
         
     } catch(SQLException new_resource_error) {

@@ -85,6 +85,7 @@ public class SQLiteManager {
 			stmt3.close();
 			
 
+			
 		    
 			//Statement stmt4 = sqlite_connection.createStatement();
 			//String sql4 = "CREATE TABLE HospitalDepartment " + "(hospitalName REFERENCES Hospital(hospitalName),"+"departmentName REFERENCES Department(departmentName),"+"PRIMARY KEY (hospitalName, departmentName))";
