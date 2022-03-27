@@ -59,20 +59,20 @@ public class SQLiteManager {
 			stmt.close();
 			
 			Statement stmt0 = sqlite_connection.createStatement();
-			String sql0 = "CREATE TABLE Department " + "(departmentName TEXT PRIMARY KEY UNIQUE, "
+			String sql0 = "CREATE TABLE Department " + "(departmentName TEXT PRIMARY KEY, "
 					+ " npatients INTEGER, " + "ratio FLOAT, "+"avghours INTEGER,"+"nemployees INTEGER,"+"cartWeight INTEGER,"+"priorityLevel FLOAT,"+"isHighest BOOLEAN,"+ " user_id FOREING KEY REFERENCES user(user_id))";
 			stmt0.execute(sql0);
 			stmt0.close();
 			
 			Statement stmt1 = sqlite_connection.createStatement();
-			String sql1 = "CREATE TABLE Resource " + "(resourceName TEXT PRIMARY KEY UNIQUE, "
+			String sql1 = "CREATE TABLE Resource " + "(resourceName TEXT PRIMARY KEY, "
                     + " priority TEXT CHECK( priority IN ('HIGH','MEDIUM','LOW') )," 
                     + " price FLOAT NULL)";
 			stmt1.execute(sql1);
 			stmt1.close();
 			
 			Statement stmt2 = sqlite_connection.createStatement();
-			String sql2 = "CREATE TABLE Hospital " + "(hospitalName TEXT PRIMARY KEY UNIQUE, "
+			String sql2 = "CREATE TABLE Hospital " + "(hospitalName TEXT PRIMARY KEY, "
                     + " budget FLOAT,"+ "bougthItems TEXT," + " user_id FOREING KEY REFERENCES user(user_id) ON DELETE CASCADE)";// + " departmentName FOREIGN KEY TEXT REFERENCES Department(departmentName))";
 			
 			stmt2.execute(sql2);

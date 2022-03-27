@@ -1,6 +1,7 @@
 package droolsexample.priority;
 
 import java.sql.*;
+import java.time.LocalDate;
 import java.util.LinkedList;
 import java.util.List;
 
@@ -34,7 +35,8 @@ public class SQLiteMethods {
         try {
             String table = "INSERT INTO Department (departmentName, npatients, ratio, avghours, nemployees) " + " VALUES(?,?,?,?,?);";
             PreparedStatement template = this.sqlite_connection.prepareStatement(table);
-            template.setString(1, department.getName());
+            String name = department.getName();
+            template.setString(1, name);
             template.setInt(2, department.getNpatients());
             template.setFloat(3, department.getRatio());
             template.setInt(4, department.getAvghours());
@@ -46,7 +48,7 @@ public class SQLiteMethods {
                 table = "INSERT INTO DepartmentResource (departmentName, resourceName) " 
                         + "VALUES (?,?);";
                 template = this.sqlite_connection.prepareStatement(table);
-                template.setString(1, department.getName());
+                template.setString(1, name);
                 template.setString(2, resource.getName());
                 template.executeUpdate();
                 template.close();
@@ -57,6 +59,9 @@ public class SQLiteMethods {
             insert_department_error.printStackTrace(); //lo mismo que puse antes de los errores
         }
 	}
+	
+	
+	
 	public void Insert_new_hospital(Hospital hospital) {
         try {
             String table = "INSERT INTO Hospital (hospitalName, budget) " + "VALUES (?,?);";
@@ -193,6 +198,8 @@ public Department Search_department_by_name (String departmentName) {
 		department.setNemployees(result_set.getInt("nemployees"));
 		department.setcartWeight(result_set.getInt("cartWeight"));
         department.setName(departmentName);
+		LinkedList<Resource> resource_list = Search_all_resources_from_department(departmentName);
+		department.setWishlistshopping(resource_list);
 		template.close();
 		return department;
 	} catch (SQLException search_department_error) {
@@ -200,6 +207,7 @@ public Department Search_department_by_name (String departmentName) {
 		return null;
 }
 }
+
 public List<Department> List_all_departments() {
     List<Department> departments = new LinkedList<Department>();
     try {
@@ -275,6 +283,26 @@ public List<Resource> List_all_resources() {
     }
 
 }
+
+public LinkedList<Resource> Search_all_resources_from_department(String departmentName) {
+	try {
+		String SQL_code = "SELECT resourceName FROM DepartmentResource WHERE departmentName LIKE ?";
+		PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+		template.setString(1, departmentName);
+		ResultSet result_set = template.executeQuery();
+		LinkedList<Resource> resource_list = new LinkedList<Resource>();
+		while (result_set.next()) {
+			Resource resource = Search_resource_by_name(result_set.getString("resourceName"));
+			resource_list.add(resource);
+		}
+		return resource_list;
+	} catch (SQLException list_department_resource_error) {
+		list_department_resource_error.printStackTrace();
+		return null;
+	}
+}
+
+
 public void Insert_new_departmentresource(Department department, Resource resource) {
     try {
         String table = "INSERT INTO DepartmentResource (departmentName, resourceName) " + "VALUES (?,?);";

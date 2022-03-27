@@ -75,12 +75,12 @@ public static void main(String[] args) throws SQLException {
 		methods.Insert_new_department(cardiology);
 		methods.Insert_new_department(obstetrics);
 		
-    	methods.Insert_new_departmentresource(radiology, courtains);
-    	methods.Insert_new_departmentresource(radiology, scalpel);
-    	methods.Insert_new_departmentresource(radiology, mnra);
-    	methods.Insert_new_departmentresource(neurology, infinityStone);
-    	methods.Insert_new_departmentresource(neurology, serum);
-    	methods.Insert_new_departmentresource(neurology, scalpel);
+    	//methods.Insert_new_departmentresource(radiology, courtains);
+    	//methods.Insert_new_departmentresource(radiology, scalpel);
+    	//methods.Insert_new_departmentresource(radiology, mnra);
+    	//methods.Insert_new_departmentresource(neurology, infinityStone);
+    	//methods.Insert_new_departmentresource(neurology, serum);
+    	//methods.Insert_new_departmentresource(neurology, scalpel);
     	
     	LinkedList<Department> laPazList = new LinkedList<Department>();
     	laPazList.add(cardiology);
