@@ -26,7 +26,7 @@ public class SQLiteMethods {
             template.executeUpdate();
             
         } catch(SQLException new_resource_error) {
-            new_resource_error.printStackTrace(); //esto o nos lo creamos o nos hacemos el error por defecto
+            new_resource_error.printStackTrace(); 
         }
     }
 
@@ -56,7 +56,7 @@ public class SQLiteMethods {
             
             
         } catch (SQLException insert_department_error) {
-            insert_department_error.printStackTrace(); //lo mismo que puse antes de los errores
+            insert_department_error.printStackTrace(); 
         }
 	}
 	
@@ -77,7 +77,7 @@ public class SQLiteMethods {
             }
 	        
 	    } catch(SQLException new_resource_error) {
-	        new_resource_error.printStackTrace(); //esto o nos lo creamos o nos hacemos el error por defecto
+	        new_resource_error.printStackTrace();
 	    }
 	}
 	
@@ -90,10 +90,12 @@ public class SQLiteMethods {
             template.executeUpdate();
 
         } catch(SQLException new_resource_error) {
-            new_resource_error.printStackTrace(); //esto o nos lo creamos o nos hacemos el error por defecto
+            new_resource_error.printStackTrace(); 
         }
     }
 	
+	
+	// -----> UPDATES METHODS <-----
 	
 	public boolean Update_resource(Resource resource) {
         try {
@@ -144,11 +146,13 @@ public class SQLiteMethods {
             template.close();
             return true;
         } catch (SQLException update_hospital_error) {
-            update_hospital_error.printStackTrace(); //same as always, no existen estos errores concretos
+            update_hospital_error.printStackTrace(); 
             return false;
         }
     }
 	
+	
+	// -----> DELETE METHODS <-----
 	public boolean Delete_department(Department department) {
         try {
             String SQL_code = "DELETE FROM Department WHERE departmentName = ?;";
@@ -163,7 +167,37 @@ public class SQLiteMethods {
         }
     }
 	
+	public boolean Delete_resource(Resource resource) {
+	    try {
+	        String SQL_code = "DELETE FROM Resource WHERE resourceName = ?;";
+	        PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+	        template.setString(1, resource.getName());
+	        template.executeUpdate();
+	        template.close();
+	        return true;
+	    } catch (SQLException delete_department_error) {
+	        delete_department_error.printStackTrace();
+	        return false;
+	    }
+	}
+
+	public boolean Delete_departmentresource(Department department,Resource resource) {
+	    try {
+	        String SQL_code = "DELETE FROM DepartmentResource WHERE departmentName= ?;";
+	        PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+	        template.setString(1, department.getName());
+	        template.executeUpdate();
+	        template.close();
+	        return true;
+	    } catch (SQLException delete_department_error) {
+	        delete_department_error.printStackTrace();
+	        return false;
+	    }
+	}
 	
+	
+	
+	// -----> SEARCH METHODS <-----
 	
 	public Resource Search_resource_by_name (String resourceName ) {
 		try {
@@ -187,184 +221,160 @@ public class SQLiteMethods {
 
 
 
-public Hospital Search_hospital_by_name (String hospitalName ) {
+	public Hospital Search_hospital_by_name (String hospitalName ) {
+			try {
+				String SQL_code = "SELECT * FROM Hospital WHERE hospitalName LIKE ?";
+				PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+				template.setString(1, hospitalName);
+				Hospital hospital= new Hospital();
+				ResultSet result_set = template.executeQuery();
+				result_set.next();
+	            hospital.setBudget(result_set.getFloat("budget"));
+	            LinkedList<Department> hospitalList = (LinkedList<Department>) List_all_departments();
+	            hospital.setHospitalList(hospitalList);
+	            hospital.setHospitalName(hospitalName);
+	            hospital.setHighestDepartment(hospital.calculatePriorityList());
+	        	LinkedList<Resource> purchaseList = new LinkedList<Resource>();
+	        	LinkedList<Department> departmentOrder = new LinkedList<Department>();
+	        	hospital.setBougthItems(purchaseList);
+	            hospital.setDepartmentOrder(departmentOrder);
+	
+				template.close();
+				return hospital;
+			} catch (SQLException search_hospital_error) {
+				search_hospital_error.printStackTrace();
+				return null;
+		}
+	}
+	
+	public Department Search_department_by_name (String departmentName) {
 		try {
-			String SQL_code = "SELECT * FROM Hospital WHERE hospitalName LIKE ?";
+			String SQL_code = "SELECT * FROM Department WHERE departmentName LIKE ?";
 			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-			template.setString(1, hospitalName);
-			Hospital hospital= new Hospital();
+			template.setString(1,departmentName);
+			Department department= new Department();
 			ResultSet result_set = template.executeQuery();
 			result_set.next();
-            hospital.setBudget(result_set.getFloat("budget"));
-            LinkedList<Department> hospitalList = (LinkedList<Department>) List_all_departments();
-            hospital.setHospitalList(hospitalList);
-            hospital.setHospitalName(hospitalName);
-            hospital.setHighestDepartment(hospital.calculatePriorityList());
-        	LinkedList<Resource> purchaseList = new LinkedList<Resource>();
-        	LinkedList<Department> departmentOrder = new LinkedList<Department>();
-        	hospital.setBougthItems(purchaseList);
-            hospital.setDepartmentOrder(departmentOrder);
-
+	       	department.setNpatients(result_set.getInt("npatients"));
+	        department.setRatio(result_set.getFloat("ratio"));
+			department.setAvghours(result_set.getInt("avghours"));
+			department.setNemployees(result_set.getInt("nemployees"));
+			department.setcartWeight(result_set.getInt("cartWeight"));
+	        department.setPriorityLevel(result_set.getFloat("priorityLevel"));
+			department.setIsHighest(result_set.getBoolean("isHighest"));
+			department.setUser_id(result_set.getInt("user_id"));
+			department.setExpenses(result_set.getFloat("expenses"));
+			
+	        department.setName(departmentName);
+			LinkedList<Resource> resource_list = Search_all_resources_from_department(departmentName);
+			department.setWishlistshopping(resource_list);
 			template.close();
-			return hospital;
-		} catch (SQLException search_hospital_error) {
-			search_hospital_error.printStackTrace();
+			return department;
+		} catch (SQLException search_department_error) {
+			search_department_error.printStackTrace();
 			return null;
 	}
-}
-
-public Department Search_department_by_name (String departmentName) {
-	try {
-		String SQL_code = "SELECT * FROM Department WHERE departmentName LIKE ?";
-		PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-		template.setString(1,departmentName);
-		Department department= new Department();
-		ResultSet result_set = template.executeQuery();
-		result_set.next();
-       	department.setNpatients(result_set.getInt("npatients"));
-        department.setRatio(result_set.getFloat("ratio"));
-		department.setAvghours(result_set.getInt("avghours"));
-		department.setNemployees(result_set.getInt("nemployees"));
-		department.setcartWeight(result_set.getInt("cartWeight"));
-        department.setPriorityLevel(result_set.getFloat("priorityLevel"));
-		department.setIsHighest(result_set.getBoolean("isHighest"));
-		department.setUser_id(result_set.getInt("user_id"));
-		department.setExpenses(result_set.getFloat("expenses"));
-		
-        department.setName(departmentName);
-		LinkedList<Resource> resource_list = Search_all_resources_from_department(departmentName);
-		department.setWishlistshopping(resource_list);
-		template.close();
-		return department;
-	} catch (SQLException search_department_error) {
-		search_department_error.printStackTrace();
-		return null;
-}
-}
-
-public List<Department> List_all_departments() {
-    List<Department> departments = new LinkedList<Department>();
-    try {
-        Statement statement = this.sqlite_connection.createStatement();
-        String SQL_code = "SELECT * FROM Department";
-        ResultSet rs = statement.executeQuery(SQL_code);
-        while(rs.next()) {
-            String departmentName = rs.getString("departmentName");
-            Integer npatients= rs.getInt("npatients");
-            Float ratio = rs.getFloat("ratio");
-            Integer avghours= rs.getInt("avghours");
-            Integer nemployees= rs.getInt("nemployees");
-            Integer cartWeight= rs.getInt("cartWeight");
-            Float priorityLevel = rs.getFloat("priorityLevel");
-            Boolean isHighest = rs.getBoolean("isHighest");
-            Integer user_id= rs.getInt("user_id");
-            Float expenses= rs.getFloat("expenses");
-            LinkedList<Resource> wishlist = Search_all_resources_from_department(departmentName);
-            
-            departments.add(new Department(departmentName , npatients, ratio, avghours, nemployees, cartWeight, priorityLevel , isHighest, user_id, wishlist, expenses));
-        }
-        return departments;
-    } catch (SQLException search_departments_error) {
-        search_departments_error.printStackTrace(); //lo mismo de los errores
-        return null;
-    }
-
-}
-
-public List<Hospital> List_all_hospitals() {
-    List<Hospital> hospitals= new LinkedList<Hospital>();
-    try {
-        Statement statement = this.sqlite_connection.createStatement();
-        String SQL_code = "SELECT * FROM Hospital";
-        ResultSet rs = statement.executeQuery(SQL_code);
-        while(rs.next()) {
-            String hospitalName= rs.getString("hospitalName");
-            Float budget = rs.getFloat("budget");
-            String bougthItems= rs.getString("bougthItems");
-            LinkedList<Resource> purchaseList = new LinkedList<Resource>();
-        	LinkedList<Department> departmentOrder = new LinkedList<Department>();
-            Integer user_id = rs.getInt("user_id");
-
-            LinkedList<Department> departments = (LinkedList<Department>) List_all_departments();
-
-
-            hospitals.add(new Hospital(hospitalName, departments, budget, purchaseList, departmentOrder, user_id));
-        }
-        return hospitals;
-    } catch (SQLException search_hospitals_error) {
-        search_hospitals_error.printStackTrace(); //lo mismo de los errores
-        return null;
-    }
-
-} 
-
-public List<Resource> List_all_resources() {
-    List<Resource> resources= new LinkedList<Resource>();
-    try {
-        Statement statement = this.sqlite_connection.createStatement();
-        String SQL_code = "SELECT * FROM Resource";
-        ResultSet rs = statement.executeQuery(SQL_code);
-        while(rs.next()) {
-            String resourceName= rs.getString("resourceName");
-            String priority = rs.getString("priority");
-            Float price = rs.getFloat("price");
-            
-            resources.add(new Resource(resourceName, priority, price));
-        }
-        return resources;
-    } catch (SQLException search_resources_error) {
-        search_resources_error.printStackTrace(); //lo mismo de los errores
-        return null;
-    }
-
-}
-
-public LinkedList<Resource> Search_all_resources_from_department(String departmentName) {
-	try {
-		String SQL_code = "SELECT resourceName FROM DepartmentResource WHERE departmentName LIKE ?";
-		PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-		template.setString(1, departmentName);
-		ResultSet result_set = template.executeQuery();
-		LinkedList<Resource> resource_list = new LinkedList<Resource>();
-		while (result_set.next()) {
-			Resource resource = Search_resource_by_name(result_set.getString("resourceName"));
-			resource_list.add(resource);
-		}
-		return resource_list;
-	} catch (SQLException list_department_resource_error) {
-		list_department_resource_error.printStackTrace();
-		return null;
 	}
-}
+	
+	
+		// -----> LIST METHODS <-----
+	
+	public List<Department> List_all_departments() {
+	    List<Department> departments = new LinkedList<Department>();
+	    try {
+	        Statement statement = this.sqlite_connection.createStatement();
+	        String SQL_code = "SELECT * FROM Department";
+	        ResultSet rs = statement.executeQuery(SQL_code);
+	        while(rs.next()) {
+	            String departmentName = rs.getString("departmentName");
+	            Integer npatients= rs.getInt("npatients");
+	            Float ratio = rs.getFloat("ratio");
+	            Integer avghours= rs.getInt("avghours");
+	            Integer nemployees= rs.getInt("nemployees");
+	            Integer cartWeight= rs.getInt("cartWeight");
+	            Float priorityLevel = rs.getFloat("priorityLevel");
+	            Boolean isHighest = rs.getBoolean("isHighest");
+	            Integer user_id= rs.getInt("user_id");
+	            Float expenses= rs.getFloat("expenses");
+	            LinkedList<Resource> wishlist = Search_all_resources_from_department(departmentName);
+	            
+	            departments.add(new Department(departmentName , npatients, ratio, avghours, nemployees, cartWeight, priorityLevel , isHighest, user_id, wishlist, expenses));
+	        }
+	        return departments;
+	    } catch (SQLException search_departments_error) {
+	        search_departments_error.printStackTrace(); 
+	        return null;
+	    }
+	
+	}
+	
+	public List<Hospital> List_all_hospitals() {
+	    List<Hospital> hospitals= new LinkedList<Hospital>();
+	    try {
+	        Statement statement = this.sqlite_connection.createStatement();
+	        String SQL_code = "SELECT * FROM Hospital";
+	        ResultSet rs = statement.executeQuery(SQL_code);
+	        while(rs.next()) {
+	            String hospitalName= rs.getString("hospitalName");
+	            Float budget = rs.getFloat("budget");
+	            String bougthItems= rs.getString("bougthItems");
+	            LinkedList<Resource> purchaseList = new LinkedList<Resource>();
+	        	LinkedList<Department> departmentOrder = new LinkedList<Department>();
+	            Integer user_id = rs.getInt("user_id");
+	
+	            LinkedList<Department> departments = (LinkedList<Department>) List_all_departments();
+	
+	
+	            hospitals.add(new Hospital(hospitalName, departments, budget, purchaseList, departmentOrder, user_id));
+	        }
+	        return hospitals;
+	    } catch (SQLException search_hospitals_error) {
+	        search_hospitals_error.printStackTrace(); 
+	        return null;
+	    }
+	
+	} 
+	
+	public List<Resource> List_all_resources() {
+	    List<Resource> resources= new LinkedList<Resource>();
+	    try {
+	        Statement statement = this.sqlite_connection.createStatement();
+	        String SQL_code = "SELECT * FROM Resource";
+	        ResultSet rs = statement.executeQuery(SQL_code);
+	        while(rs.next()) {
+	            String resourceName= rs.getString("resourceName");
+	            String priority = rs.getString("priority");
+	            Float price = rs.getFloat("price");
+	            
+	            resources.add(new Resource(resourceName, priority, price));
+	        }
+	        return resources;
+	    } catch (SQLException search_resources_error) {
+	        search_resources_error.printStackTrace(); 
+	        return null;
+	    }
+	
+	}
+	
+	public LinkedList<Resource> Search_all_resources_from_department(String departmentName) {
+		try {
+			String SQL_code = "SELECT resourceName FROM DepartmentResource WHERE departmentName LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setString(1, departmentName);
+			ResultSet result_set = template.executeQuery();
+			LinkedList<Resource> resource_list = new LinkedList<Resource>();
+			while (result_set.next()) {
+				Resource resource = Search_resource_by_name(result_set.getString("resourceName"));
+				resource_list.add(resource);
+			}
+			return resource_list;
+		} catch (SQLException list_department_resource_error) {
+			list_department_resource_error.printStackTrace();
+			return null;
+		}
+	}
 
 
 
-public boolean Delete_resource(Resource resource) {
-    try {
-        String SQL_code = "DELETE FROM Resource WHERE resourceName = ?;";
-        PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-        template.setString(1, resource.getName());
-        template.executeUpdate();
-        template.close();
-        return true;
-    } catch (SQLException delete_department_error) {
-        delete_department_error.printStackTrace();
-        return false;
-    }
-}
-
-public boolean Delete_departmentresource(Department department,Resource resource) {
-    try {
-        String SQL_code = "DELETE FROM DepartmentResource WHERE departmentName= ?;";
-        PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
-        template.setString(1, department.getName());
-        template.executeUpdate();
-        template.close();
-        return true;
-    } catch (SQLException delete_department_error) {
-        delete_department_error.printStackTrace();
-        return false;
-    }
-}
 
 }

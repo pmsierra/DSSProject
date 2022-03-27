@@ -37,7 +37,7 @@ public class SQLiteManager {
 		// TODO Auto-generated method stub
 		try {
 			Class.forName("org.sqlite.JDBC");
-			this.sqlite_connection = DriverManager.getConnection("jdbc:sqlite:./db/database.db");//hay que poner nuestra database
+			this.sqlite_connection = DriverManager.getConnection("jdbc:sqlite:./db/database.db");
 			sqlite_connection.createStatement().execute("PRAGMA foreign_keys=ON");
 			this.methods = new SQLiteMethods(sqlite_connection);
 			return true;
@@ -83,14 +83,7 @@ public class SQLiteManager {
 			String sql3 = "CREATE TABLE DepartmentResource " + "(departmentName REFERENCES Department(departmentName) ON UPDATE RESTRICT ON DELETE CASCADE,"+"resourceName REFERENCES Resource(resourceName) ON UPDATE RESTRICT ON DELETE CASCADE,"+"PRIMARY KEY (departmentName, resourceName))";
 			stmt3.execute(sql3);
 			stmt3.close();
-			
 
-			
-		    
-			//Statement stmt4 = sqlite_connection.createStatement();
-			//String sql4 = "CREATE TABLE HospitalDepartment " + "(hospitalName REFERENCES Hospital(hospitalName),"+"departmentName REFERENCES Department(departmentName),"+"PRIMARY KEY (hospitalName, departmentName))";
-			//stmt3.execute(sql4);
-			
 			return true;
 		}catch (SQLException tables_error) {
 			if (tables_error.getMessage().contains("already exists")) {

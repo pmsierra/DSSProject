@@ -27,10 +27,7 @@ public static void main(String[] args) throws SQLException {
     	Department obstetrics = new Department ("Obstetrics",5, 10f, 60, 6, false,4);
 
 		
-		
-		
-			// al insert department le pasas un department pero al resource y al hospital les pasas los attributos, no deberíamos de ponerlos igual?
-	 	Resource courtains = new Resource("courtains", "LOW", 10f);
+		Resource courtains = new Resource("courtains", "LOW", 10f);
     	Resource serum = new Resource("Serum", "LOW", 20f);
     	Resource scalpel = new Resource("Scalpel", "MEDIUM", 30f);
     	Resource mnra = new Resource("MNRA", "HIGH", 50f);
@@ -74,13 +71,6 @@ public static void main(String[] args) throws SQLException {
 		methods.Insert_new_department(radiology);
 		methods.Insert_new_department(cardiology);
 		methods.Insert_new_department(obstetrics);
-		
-    	//methods.Insert_new_departmentresource(radiology, courtains);
-    	//methods.Insert_new_departmentresource(radiology, scalpel);
-    	//methods.Insert_new_departmentresource(radiology, mnra);
-    	//methods.Insert_new_departmentresource(neurology, infinityStone);
-    	//methods.Insert_new_departmentresource(neurology, serum);
-    	//methods.Insert_new_departmentresource(neurology, scalpel);
     	
     	LinkedList<Department> laPazList = new LinkedList<Department>();
     	laPazList.add(cardiology);
@@ -112,7 +102,7 @@ public static void main(String[] args) throws SQLException {
 		laPaz.setBudget(3000f);
 		
 		//------- Delete---------------
-		methods.Delete_department(neurology);// es el unico que tenemos, los resources no los eliminamos?
+		methods.Delete_department(neurology);
 		methods.Delete_resource(serum);
 		methods.Delete_departmentresource(neurology, infinityStone);
 		
