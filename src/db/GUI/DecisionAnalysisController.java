@@ -69,9 +69,9 @@ public class DecisionAnalysisController implements Initializable{
 	@FXML
 	private JFXButton compute_decision_button;
 	@FXML
-	private JFXTreeTableView<BougthItems> bougth_tree_view;
+	private JFXTreeTableView<BougthItems> bought_tree_view;
 	@FXML
-	private final ObservableList<BougthItems> bougth_objects = FXCollections.observableArrayList();
+	private final ObservableList<BougthItems> bought_objects = FXCollections.observableArrayList();
 	
 	public DecisionAnalysisController() {
 		// TODO Auto-generated constructor stub

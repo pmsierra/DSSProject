@@ -53,7 +53,7 @@ public class ManagementMenuController implements Initializable {
 	@FXML
 	private JFXButton myAccount_button;
 	@FXML
-	private JFXButton listAllDepartments_button;
+	private JFXButton listAllDepartments_button; 
 	@FXML
 	private JFXButton addBudget_button;
 	@FXML
