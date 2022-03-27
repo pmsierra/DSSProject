@@ -38,7 +38,7 @@ rule "Buy"
 
 		
 		System.out.println("buylist: "+h.getHospitalList().getFirst().getWishlistshopping());
-		System.out.println( "The desired item has been purchased" );
+		System.out.println( "The desired item AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" );
 		h.lowBudget(h.getHospitalList());
 		h.getHospitalList().getFirst().calculatePriority();
 	    System.out.println(h.getHospitalList().getFirst().getPriorityLevel());
