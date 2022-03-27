@@ -60,7 +60,26 @@ public class SQLiteMethods {
         }
 	}
 	
-	
+	public void Insert_new_departmentresource(Department department) {
+	    try {
+	    	String table="";
+	    	String name = department.getName();
+	    	PreparedStatement template = this.sqlite_connection.prepareStatement(table);
+	    	LinkedList<Resource> wishlistshopping = department.getWishlistshopping();
+            for(Resource resource: wishlistshopping ) {
+                table = "INSERT INTO DepartmentResource (departmentName, resourceName) " 
+                        + "VALUES (?,?);";
+                template = this.sqlite_connection.prepareStatement(table);
+                template.setString(1, name);
+                template.setString(2, resource.getName());
+                template.executeUpdate();
+                template.close();
+            }
+	        
+	    } catch(SQLException new_resource_error) {
+	        new_resource_error.printStackTrace(); //esto o nos lo creamos o nos hacemos el error por defecto
+	    }
+	}
 	
 	public void Insert_new_hospital(Hospital hospital) {
         try {
@@ -175,7 +194,15 @@ public Hospital Search_hospital_by_name (String hospitalName ) {
 			ResultSet result_set = template.executeQuery();
 			result_set.next();
             hospital.setBudget(result_set.getFloat("budget"));
+            LinkedList<Department> hospitalList = (LinkedList<Department>) List_all_departments();
+            hospital.setHospitalList(hospitalList);
             hospital.setHospitalName(hospitalName);
+            hospital.setHighestDepartment(hospital.calculatePriorityList());
+        	LinkedList<Resource> purchaseList = new LinkedList<Resource>();
+        	LinkedList<Department> departmentOrder = new LinkedList<Department>();
+        	hospital.setBougthItems(purchaseList);
+            hospital.setDepartmentOrder(departmentOrder);
+
 			template.close();
 			return hospital;
 		} catch (SQLException search_hospital_error) {
@@ -224,9 +251,9 @@ public List<Department> List_all_departments() {
             Float priorityLevel = rs.getFloat("priorityLevel");
             Boolean isHighest = rs.getBoolean("isHighest");
             Integer user_id= rs.getInt("user_id");
-
-
-            departments.add(new Department(departmentName , npatients, ratio, avghours, nemployees, cartWeight, priorityLevel , isHighest, user_id));
+            LinkedList<Resource> wishlist = Search_all_resources_from_department(departmentName);
+            
+            departments.add(new Department(departmentName , npatients, ratio, avghours, nemployees, cartWeight, priorityLevel , isHighest, user_id, wishlist));
         }
         return departments;
     } catch (SQLException search_departments_error) {
@@ -303,18 +330,7 @@ public LinkedList<Resource> Search_all_resources_from_department(String departme
 }
 
 
-public void Insert_new_departmentresource(Department department, Resource resource) {
-    try {
-        String table = "INSERT INTO DepartmentResource (departmentName, resourceName) " + "VALUES (?,?);";
-        PreparedStatement template = this.sqlite_connection.prepareStatement(table);
-        template.setString(1, department.getName());
-        template.setString(2, resource.getName());
-        template.executeUpdate();
-        
-    } catch(SQLException new_resource_error) {
-        new_resource_error.printStackTrace(); //esto o nos lo creamos o nos hacemos el error por defecto
-    }
-}
+
 public boolean Delete_resource(Resource resource) {
     try {
         String SQL_code = "DELETE FROM Resource WHERE resourceName = ?;";

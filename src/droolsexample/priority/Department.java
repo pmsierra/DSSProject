@@ -54,7 +54,7 @@ public Department(String name,Integer npatients, Float ratio, Integer avghours, 
 }
 
 public Department(String name, Integer npatients, Float ratio, Integer avghours, Integer nemployees,
-			Integer cartWeight, Float priorityLevel,Boolean isHighest, Integer user_id) {
+			Integer cartWeight, Float priorityLevel,Boolean isHighest, Integer user_id, LinkedList<Resource> wishlistshopping) {
 		super();
 		this.name = name;
 		this.npatients = npatients;
@@ -65,6 +65,9 @@ public Department(String name, Integer npatients, Float ratio, Integer avghours,
 		this.isHighest = isHighest;
 		this.user_id = user_id;
 		this.priorityLevel = priorityLevel;
+		this.wishlistshopping = wishlistshopping;
+		this.calculatePriority();
+		
 	}
 
 public Department(String name, Integer npatients, Float ratio, Integer avghours, Integer nemployees,

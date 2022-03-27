@@ -1,5 +1,6 @@
 package droolsexample.priority;
 
+import java.sql.SQLException;
 import java.util.Collections;
 import java.util.Comparator;
 import java.util.LinkedList;
@@ -24,6 +25,18 @@ public class SimulationMain {
     }
     public static void execute(KieServices ks, KieContainer kc) {
 		SQLiteManager manager = new SQLiteManager();
+		boolean everything_ok = manager.Connect();
+		//boolean tables_ok = manager.CreateTables();
+		try {
+			System.out.println(manager.getSqlite_connection().getWarnings());
+		} catch (SQLException e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		System.out.println(everything_ok + " ");
+		
+		SQLiteMethods methods= new SQLiteMethods(manager.getSqlite_connection());
 		//List<Department> departments = manager.getMethods().List_all_departments();
         // From the container, a session is created based on
         // its definition and configuration in the META-INF/kmodule.xml file
@@ -75,10 +88,12 @@ public class SimulationMain {
     	laPazList.add(obstetrics);
     	LinkedList<Resource> purchaseList = new LinkedList<Resource>();
     	LinkedList<Department> departmentOrder = new LinkedList<Department>();
-    	Hospital laPaz = new Hospital(laPazList, 2000f, purchaseList, departmentOrder ); 
+    	//Hospital laPaz = new Hospital(laPazList, 2000f, purchaseList, departmentOrder ); 
     	
     	
-
+    	Hospital laPaz = manager.getMethods().Search_hospital_by_name("laPaz") ;
+    	System.out.println(laPaz.toString());
+    	System.out.println(laPaz.getHospitalList());
         // To set up a ThreadedFileLogger, so that the audit view reflects events whilst debugging,
         // uncomment the next line
         // KieRuntimeLogger logger = ks.getLoggers().newThreadedFileLogger( ksession, "./helloworld", 1000 );

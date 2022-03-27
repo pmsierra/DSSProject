@@ -33,7 +33,7 @@ rule "Buy"
 		h.getDepartmentOrder().add(h.getHospitalList().getFirst());
 		h.setBudget(h.getBudget() - h.getHospitalList().getFirst().getWishlistshopping().getFirst().getPrice());
 		System.out.println("prelist: "+h.getHospitalList().getFirst().getWishlistshopping());
-		h.getHospitalList().getFirst().setExpenses(h.getHospitalList().getFirst().getExpenses() + h.getHospitalList().getFirst().getWishlistshopping().getFirst().getPrice());
+		//h.getHospitalList().getFirst().setExpenses(h.getHospitalList().getFirst().getExpenses() + h.getHospitalList().getFirst().getWishlistshopping().getFirst().getPrice());
 		h.getHospitalList().getFirst().getWishlistshopping().remove(h.getHospitalList().getFirst().getWishlistshopping().getFirst());
 
 		

@@ -136,4 +136,11 @@ public String getHospitalName() {
 public void setHospitalName(String hospitalName) {
 	this.hospitalName = hospitalName;
 }
+
+@Override
+public String toString() {
+	return "Hospital [hospitalName=" + hospitalName + ", user_id=" + user_id + ", hospitalList=" + hospitalList
+			+ ", highestDepartment=" + highestDepartment + ", budget=" + budget + ", bougthItems=" + bougthItems
+			+ ", departmentOrder=" + departmentOrder + "]";
+}
 }
