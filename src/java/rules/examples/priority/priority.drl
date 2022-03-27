@@ -22,11 +22,12 @@ import droolsexample.priority.SQLiteManager
 
 
 
-rule "Buy"
+
+rule "Buy2"
 	dialect "java"
 	when 
 		//d : Department(isHighest == true, d.getWishlistshopping().size()>0)
-		//dbm : SQLiteManager()
+		dbm : SQLiteManager()
 		h : Hospital(hospitalList.size()!=0, budget > 0, h.getHospitalList().getFirst().getWishlistshopping().size()>0 , budget > h.getHospitalList().getFirst().getWishlistshopping().getFirst().getPrice(), h.getHospitalList().getFirst().getIsHighest == true  )
 	then
 		h.getBougthItems().add(h.getHospitalList().getFirst().getWishlistshopping().getFirst());
@@ -38,31 +39,37 @@ rule "Buy"
 
 		
 		System.out.println("buylist: "+h.getHospitalList().getFirst().getWishlistshopping());
-		System.out.println( "The desired item AAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAAA" );
+		System.out.println( "The desired item has been purchased" );
 		h.lowBudget(h.getHospitalList());
 		h.getHospitalList().getFirst().calculatePriority();
+		dbm.getMethods().Update_department(h.getHospitalList().getFirst());	
 	    System.out.println(h.getHospitalList().getFirst().getPriorityLevel());
 	    h.calculatePriorityList();
 		System.out.println( "System reordered");
 		//System.out.println("Bougth items: " + h.getBougthItems());
 
 		//update(d);
+		dbm.getMethods().Update_hospital(h);
 		update(h);
+		
 		
 end
 
-/*rule "Delete item"
+/*rule "Delete item2"
     dialect "java"
     when
     	d: Department(isHighest == true, $l : d.getWishlistshopping(),  $l.size()!=0)
     	h: Hospital (budget > 0, h.getHospitalList().getFirst())
+    	dbm : SQLiteManager()
     then
     	$l.remove(0);
     	System.out.println("Removed the first item");
     	d.cartWeigth();
 
 	    d.priorityValueCalculation();
+	    dbm.getMethods().Update_department(d);
 	    h.calculatePriorityList();
+	    dbm.getMethods().Update_hospital(h);
 	    System.out.println(h.getHospitalList().get(0));
 	    System.out.println("System reordered");
 
@@ -71,11 +78,11 @@ end
 end
 */
 
-rule "Delete department"
+rule "Delete department2"
     dialect "java"
     when 
         //d : Department(isHighest == true, d.getWishlistshopping().size() == 0 )
-        //dbm : SQLiteManager()
+        dbm : SQLiteManager()
         h : Hospital(hospitalList.size()!=0, budget > 0, h.getHospitalList().getFirst().getWishlistshopping().size()==0, h.getHospitalList().getFirst().getIsHighest == true )
 
     then
@@ -87,17 +94,20 @@ rule "Delete department"
 		//System.out.println("Hlist: " + h.getHospitalList());
 		h.getHospitalList().get(0).setIsHighest(false);
 		//System.out.println("isHighest2: " + h.getHospitalList().get(0).getIsHighest());
+        dbm.getMethods().Delete_department(h.getHospitalList().get(0));
         h.getHospitalList().remove();
         h.calculatePriorityList();
         //d2.setIsHighest(true);
         //System.out.println("HList2: " + h.getHospitalList());
         System.out.println( "Department deleted" );	
+		dbm.getMethods().Update_hospital(h);
+
 
 		update(h);
 		//update(d);
 end
 
-rule "The End"
+rule "The End2"
 	dialect "java"
 	when 
 		h : Hospital(hospitalList.size()==0 || budget == 0)
@@ -105,4 +115,3 @@ rule "The End"
 		System.out.println( "Final Decision of System:" );	
 		h.conclude();
 end
-

@@ -105,6 +105,6 @@
 	<classpathentry kind="lib" path="lib/xstream-1.4.18.jar"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jfoenix"/>
-	<classpathentry kind="lib" path="C:/Users/albic/eclipse-workspace/sqlite-jdbc-3.8.7.jar"/>
+	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.8.7.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

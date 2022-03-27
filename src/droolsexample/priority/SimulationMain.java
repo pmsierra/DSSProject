@@ -89,7 +89,7 @@ public class SimulationMain {
     	System.out.println(laPaz.getHospitalList());
        
         ksession.insert(laPaz);
-
+        ksession.insert(manager);
         
         
         // and fire the rules
