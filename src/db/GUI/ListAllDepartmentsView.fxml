@@ -6,14 +6,14 @@
 <?import javafx.scene.layout.Pane?>
 <?import javafx.scene.text.Font?>
 
-<Pane fx:id="main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="940.0" stylesheets="@../../../../DataBase-DBMS/src/db/UImenuFX/stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.UImenuFX.ListAllClientsController">
+<Pane fx:id="main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="940.0" stylesheets="@../../../../DataBase-DBMS/src/db/UImenuFX/stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.GUI.ListAllDepartmentsController">
    <children>
       <Label layoutX="166.0" layoutY="14.0" prefHeight="21.0" prefWidth="184.0" text="Department list">
          <font>
             <Font name="Ebrima Bold" size="16.0" />
          </font>
       </Label>
-      <JFXTreeTableView fx:id="client_tree_view" layoutX="20.0" layoutY="46.0" prefHeight="580.0" prefWidth="900.0" styleClass="list-view">
+      <JFXTreeTableView fx:id="department_tree_view" layoutX="20.0" layoutY="46.0" prefHeight="580.0" prefWidth="900.0" styleClass="list-view">
          <columnResizePolicy>
             <TreeTableView fx:constant="CONSTRAINED_RESIZE_POLICY" />
          </columnResizePolicy></JFXTreeTableView>

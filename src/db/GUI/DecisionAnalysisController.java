@@ -61,6 +61,7 @@ public class DecisionAnalysisController implements Initializable{
 	// -----> CLASS ATRIBUTES <-----
 
 	private static SQLiteManager manager_object;
+	private static Hospital hospital_account;
 	
 	// -----> FXML ATRIBUTES <-----
 	
@@ -77,8 +78,9 @@ public class DecisionAnalysisController implements Initializable{
 		// TODO Auto-generated constructor stub
 	}
 	
-	public static void setValues(SQLiteManager manager) {
+	public static void setValues(SQLiteManager manager, Hospital hospital) {
 		manager_object = manager;
+		hospital_account = hospital;
 	}
 	
 	@FXML

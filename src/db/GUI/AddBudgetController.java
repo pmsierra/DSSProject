@@ -33,7 +33,7 @@ public class AddBudgetController implements Initializable {
 	// -----> CLASS ATRIBUTES <-----
 
 	private static SQLiteManager manager_object;
-	private static Hospital hospital;
+	private static Hospital hospital_account;
 
 
 	// -----> FXML ATRIBUTES <-----
@@ -53,16 +53,22 @@ public class AddBudgetController implements Initializable {
 
 	public static void setValues(SQLiteManager manager, Hospital hospital) {
 		manager_object = manager;
-		hospital = hospital;
+		hospital_account = hospital;
 	}
-
+	@Override @SuppressWarnings("unchecked")
+	public void initialize(URL location, ResourceBundle resources) {
+		System.out.println(hospital_account.toString());
+	}
+	
 	@FXML
 	private void add_Budget_button(MouseEvent event) throws IOException {
 
 		String value = budget_textField.getText();
 		Float budget = Float.parseFloat(value);
-		hospital.setBudget(budget);
-		this.manager_object.getMethods().Update_hospital(hospital);
+		Float previousBudget = hospital_account.getBudget();
+		hospital_account.setBudget(previousBudget+budget);
+		manager_object.getMethods().Update_hospital(hospital_account);
+		
 	}
 
 	

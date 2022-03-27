@@ -2,7 +2,7 @@ package db.GUI;
 
 import java.io.IOException;
 import java.net.URL;
-
+import java.util.LinkedList;
 import java.util.ResourceBundle;
 
 import com.jfoenix.controls.JFXButton;
@@ -86,15 +86,25 @@ public class ManagementMenuController implements Initializable {
 
 	@Override
 	public void initialize(URL location, ResourceBundle resources) {
+		SQL_manager_object = new SQLiteManager();
+
+		
+		SQL_manager_object.Connect();
+		LinkedList<Hospital> hosplist = (LinkedList<Hospital>) SQL_manager_object.getMethods().List_all_hospitals();
+		hospital_account = hosplist.getFirst();
+		System.out.println(hospital_account.toString());
+		
 		DecisionAnalysis_button.setDisable(true);
 		
 		try {
 			setAllButtonsOn();
+			hospital_name.setText("Hospital name: " + hospital_account.getHospitalName());
+			budget.setText("Current Budget: " + hospital_account.getBudget());
 			listAllDepartments_button.setDisable(true);
-			list_all_departments_controller.setValues(SQL_manager_object);
+			ListAllDepartmentsController.setValues(SQL_manager_object, hospital_account);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ListAllDepartmentsView.fxml"));
 			Pane list_all_clients_pane = loader.load();
-			list_all_departments_controller = (ListAllClientsController)loader.getController();
+			list_all_departments_controller = (ListAllDepartmentsController)loader.getController();
 			main_pane.getChildren().removeAll();
 			main_pane.getChildren().setAll(list_all_clients_pane);
 		} catch (IOException list_department_error) {
@@ -105,16 +115,16 @@ public class ManagementMenuController implements Initializable {
 	// -----> BUTTON METHODS <-----
 	
 	@FXML
-	private void list_all_clients_button(MouseEvent event) throws IOException {
+	private void list_all_departments_button(MouseEvent event) throws IOException {
 		current_pane_option_label.setText("List all departments");
 		setAllButtonsOn();
 		listAllDepartments_button.setDisable(true);
-		list_all_departments_controller.setValues(SQL_manager_object);
+		ListAllDepartmentsController.setValues(SQL_manager_object, hospital_account);    
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("ListAllDepartmentsView.fxml"));
-		Pane list_all_clients_pane = loader.load();
-		list_all_departments_controller = (ListAllClientsController)loader.getController();
+		Pane decision_analysis_pane = loader.load();
+		list_all_departments_controller = (ListAllDepartmentsController) loader.getController();
 		main_pane.getChildren().removeAll();
-		main_pane.getChildren().setAll(list_all_clients_pane);
+		main_pane.getChildren().setAll(decision_analysis_pane);
 	}
 	
 
@@ -122,10 +132,10 @@ public class ManagementMenuController implements Initializable {
 	@FXML
 	private void add_budget_button(MouseEvent event) throws IOException {
 
-			current_pane_option_label.setText("Add category");
+			current_pane_option_label.setText("Add Budget");
 			setAllButtonsOn();
 			addBudget_button.setDisable(true);
-			add_budget_controller.setValues(SQL_manager_object);
+			AddBudgetController.setValues(SQL_manager_object, hospital_account);
 			Pane add_budget_pane = FXMLLoader.load(getClass().getResource("AddBudgetView.fxml"));
 			main_pane.getChildren().removeAll();
 			main_pane.getChildren().setAll(add_budget_pane);
@@ -137,7 +147,7 @@ public class ManagementMenuController implements Initializable {
 		current_pane_option_label.setText("Decision Analysis");
 		setAllButtonsOn();
 		DecisionAnalysis_button.setDisable(true);
-		DecisionAnalysisController.setValues(SQL_manager_object);    
+		DecisionAnalysisController.setValues(SQL_manager_object, hospital_account);    
 		FXMLLoader loader = new FXMLLoader(getClass().getResource("DecisionAnalysisView.fxml"));
 		Pane decision_analysis_pane = loader.load();
 		decision_analysis_controller = (DecisionAnalysisController) loader.getController();
@@ -150,13 +160,13 @@ public class ManagementMenuController implements Initializable {
 		System.exit(0);
 	}
 
-	@FXML
+	/*@FXML
 	private void log_out(MouseEvent event) {
 		SQL_manager_object.Close_connection();
 		LaunchApplication.getStage().show();
 		Stage stage = (Stage) logOut_button.getScene().getWindow();
 		stage.close();
-	}
+	}*/
 
 	@FXML
 	private void min_window(MouseEvent event) {
@@ -203,7 +213,7 @@ public class ManagementMenuController implements Initializable {
 	// -----> UPDATE ACCOUNT METHOD <-----
 		
 	public void update_director_account() {
-		hospital_account = SQL_manager_object.Search_hospital_by_name(hospital_account.getHospitalName());
+		hospital_account = SQL_manager_object.getMethods().Search_hospital_by_name(hospital_account.getHospitalName());
 		
 	   	setBudget(hospital_account.getBudget());
 	   	setHospitalName(hospital_account.getHospitalName());

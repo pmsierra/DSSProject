@@ -142,10 +142,10 @@ public class Department {
 	public void setPriorityLevel(Float priorityLevel) {
 		this.priorityLevel = priorityLevel;
 	}
-	public float getExpenses() {
+	public Float getExpenses() {
 		return expenses;
 	}
-	public void setExpenses(float expenses) {
+	public void setExpenses(Float expenses) {
 		this.expenses = expenses;
 	}
 	
@@ -165,9 +165,6 @@ public class Department {
 		this.isHighest = isHighest;
 	}
 	
-	public void setExpenses(Float expenses) {
-		this.expenses = expenses;
-	}
 	
 	public String getName() {
 		return name;
