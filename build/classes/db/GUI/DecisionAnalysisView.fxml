@@ -14,7 +14,7 @@
             <Font name="Ebrima Bold" size="16.0" />
          </font>
       </Label>
-      <JFXButton fx:id="compute_decision_button" layoutX="17.0" layoutY="253.0" prefHeight="44.0" prefWidth="243.0" text="Compute Decision" textFill="#d9161a">
+      <JFXButton fx:id="compute_decision_button" layoutX="17.0" layoutY="253.0" onMouseClicked="#decision_button" prefHeight="44.0" prefWidth="243.0" text="Compute Decision" textFill="#d9161a">
          <font>
             <Font size="24.0" />
          </font></JFXButton>
