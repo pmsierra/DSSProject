@@ -15,23 +15,24 @@ public class SQLiteMethods {
 		this.sqlite_connection = sqlite_connection;
 	}
 	
-	public void Insert_new_resource(String name, String priority, Float price) {
+	public void Insert_new_resource(Resource resource) {
         try {
-            String table = "INSERT INTO Resource (resource_name, priority, price) " + "VALUES (?,?,?);";
+            String table = "INSERT INTO Resource (resourceName, priority, price) " + "VALUES (?,?,?);";
             PreparedStatement template = this.sqlite_connection.prepareStatement(table);
-            template.setString(1, name);
-            template.setString(2, priority);
-            template.setFloat(3, price);
+            template.setString(1, resource.getName());
+            template.setString(2, resource.getPriority());
+            template.setFloat(3, resource.getPrice());
             template.executeUpdate();
             
         } catch(SQLException new_resource_error) {
             new_resource_error.printStackTrace(); //esto o nos lo creamos o nos hacemos el error por defecto
         }
     }
+
 	
 	public void Insert_new_department(Department department) {
         try {
-            String table = "INSERT INTO Department (department_name, npatients, ratio, avghours, nemployees) " + " VALUES(?,?,?,?,?);";
+            String table = "INSERT INTO Department (departmentName, npatients, ratio, avghours, nemployees) " + " VALUES(?,?,?,?,?);";
             PreparedStatement template = this.sqlite_connection.prepareStatement(table);
             template.setString(1, department.getName());
             template.setInt(2, department.getNpatients());
@@ -42,7 +43,7 @@ public class SQLiteMethods {
             
             LinkedList<Resource> wishlistshopping = department.getWishlistshopping();
             for(Resource resource: wishlistshopping ) {
-                table = "INSERT INTO Department-Resource (department_name, resource _name) " 
+                table = "INSERT INTO DepartmentResource (departmentName, resourceName) " 
                         + "VALUES (?,?);";
                 template = this.sqlite_connection.prepareStatement(table);
                 template.setString(1, department.getName());
@@ -55,12 +56,12 @@ public class SQLiteMethods {
             insert_department_error.printStackTrace(); //lo mismo que puse antes de los errores
         }
 	}
-	public void Insert_new_hospital(String hospitalName, float budget) {
+	public void Insert_new_hospital(Hospital hospital) {
         try {
             String table = "INSERT INTO Hospital (hospitalName, budget) " + "VALUES (?,?);";
             PreparedStatement template = this.sqlite_connection.prepareStatement(table);
-            template.setString(1, hospitalName);
-            template.setFloat(2, budget);
+            template.setString(1, hospital.getHospitalName());
+            template.setFloat(2, hospital.getBudget());
             template.executeUpdate();
 
         } catch(SQLException new_resource_error) {
@@ -71,7 +72,7 @@ public class SQLiteMethods {
 	
 	public boolean Update_resource(Resource resource) {
         try {
-            String SQL_code = "UPDATE Resource SET priority = ?, price = ? WHERE resource_name = ?";
+            String SQL_code = "UPDATE Resource SET priority = ?, price = ? WHERE resourceName = ?";
             PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
             template.setString(1, resource.getName());
             //template.setString(2, resource.getPriority());
@@ -87,16 +88,16 @@ public class SQLiteMethods {
 
 	public boolean Update_department(Department department) {
         try {
-            String SQL_code = "UPDATE Department SET npatients = ?, ratio = ?, avghours = ?, nemployees = ?, cartWeigth = ?, priorityLevel= ?, expenses= ?, isHighest = ?  WHERE department_name = ?";
+            String SQL_code = "UPDATE Department SET npatients = ?, ratio = ?, avghours = ?, nemployees = ?, cartWeight = ?, priorityLevel= ?, isHighest = ?  WHERE departmentName = ?";
             PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
             template.setString(1, department.getName());
             template.setInt(2, department.getNpatients());
             template.setFloat(3, department.getAvghours());
             template.setInt(4, department.getNemployees());
-            template.setInt(5, department.getCartWeigth());
+            template.setInt(5, department.getcartWeight());
             template.setFloat(6, department.getPriorityLevel());
-            template.setFloat(7, department.getExpenses());
-            template.setBoolean(8, department.getIsHighest());
+            //template.setFloat(6, department.getExpenses()); // expenses= ?,
+            template.setBoolean(7, department.getIsHighest());
             template.executeUpdate();
             template.close();
             return true;
@@ -123,7 +124,7 @@ public class SQLiteMethods {
 	
 	public boolean Delete_department(Department department) {
         try {
-            String SQL_code = "DELETE FROM Department WHERE department_name = ?;";
+            String SQL_code = "DELETE FROM Department WHERE departmentName = ?;";
             PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
             template.setString(1, department.getName());
             template.executeUpdate();
@@ -186,10 +187,10 @@ public Department Search_department_by_name (String departmentName) {
 		ResultSet result_set = template.executeQuery();
 		result_set.next();
        	department.setNpatients(result_set.getInt("npatients"));
-        department.setRatio(result_set.getFloat("price"));
+        department.setRatio(result_set.getFloat("ratio"));
 		department.setAvghours(result_set.getInt("avghours"));
 		department.setNemployees(result_set.getInt("nemployees"));
-		department.setCartWeigth(result_set.getInt("cartWeigth"));
+		department.setcartWeight(result_set.getInt("cartWeight"));
         department.setName(departmentName);
 		template.close();
 		return department;
@@ -205,14 +206,14 @@ public List<Department> List_all_departments() {
         String SQL_code = "SELECT * FROM Department";
         ResultSet rs = statement.executeQuery(SQL_code);
         while(rs.next()) {
-            String departmentName = rs.getString("departmentName ");
+            String departmentName = rs.getString("departmentName");
             Integer npatients= rs.getInt("npatients");
             Float ratio = rs.getFloat("ratio");
             Integer avghours= rs.getInt("avghours");
             Integer nemployees= rs.getInt("nemployees");
             Integer cartWeight= rs.getInt("cartWeight");
-            Float priorityLevel = rs.getFloat("priorityLevel ");
-            Boolean isHighest = rs.getBoolean("isHighest ");
+            Float priorityLevel = rs.getFloat("priorityLevel");
+            Boolean isHighest = rs.getBoolean("isHighest");
             Integer user_id= rs.getInt("user_id");
 
 
@@ -272,6 +273,45 @@ public List<Resource> List_all_resources() {
         return null;
     }
 
+}
+public void Insert_new_departmentresource(Department department, Resource resource) {
+    try {
+        String table = "INSERT INTO DepartmentResource (departmentName, resourceName) " + "VALUES (?,?);";
+        PreparedStatement template = this.sqlite_connection.prepareStatement(table);
+        template.setString(1, department.getName());
+        template.setString(1, resource.getName());
+        template.executeUpdate();
+        
+    } catch(SQLException new_resource_error) {
+        new_resource_error.printStackTrace(); //esto o nos lo creamos o nos hacemos el error por defecto
+    }
+}
+public boolean Delete_resource(Resource resource) {
+    try {
+        String SQL_code = "DELETE FROM Resource WHERE resourceName = ?;";
+        PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+        template.setString(1, resource.getName());
+        template.executeUpdate();
+        template.close();
+        return true;
+    } catch (SQLException delete_department_error) {
+        delete_department_error.printStackTrace();
+        return false;
+    }
+}
+
+public boolean Delete_departmentresource(Department department,Resource resource) {
+    try {
+        String SQL_code = "DELETE FROM DepartmentResource WHERE departmentName= ?;";
+        PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+        template.setString(1, department.getName());
+        template.executeUpdate();
+        template.close();
+        return true;
+    } catch (SQLException delete_department_error) {
+        delete_department_error.printStackTrace();
+        return false;
+    }
 }
 
 }

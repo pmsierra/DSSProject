@@ -25,7 +25,7 @@ private Integer avghours;
 private Integer nemployees;
 
 LinkedList<Resource> wishlistshopping;
-private Integer cartWeigth;
+private Integer cartWeight;
 Float priorityLevel;
 private Float expenses;
 private Boolean isHighest;
@@ -48,59 +48,73 @@ public Department(String name,Integer npatients, Float ratio, Integer avghours, 
 	this.wishlistshopping = wishlistshopping;
 	this.expenses = expenses;
 	this.isHighest = isHighest;
-	this.cartWeigth = 0;
+	this.cartWeight = 0;
 	
 	this.calculatePriority();
 }
 
 public Department(String name, Integer npatients, Float ratio, Integer avghours, Integer nemployees,
-			Integer cartWeigth, Float priorityLevel,Boolean isHighest, Integer user_id) {
+			Integer cartWeight, Float priorityLevel,Boolean isHighest, Integer user_id) {
 		super();
 		this.name = name;
 		this.npatients = npatients;
 		this.ratio = ratio;
 		this.avghours = avghours;
 		this.nemployees = nemployees;
-		this.cartWeigth = cartWeigth;
+		this.cartWeight = cartWeight;
 		this.isHighest = isHighest;
 		this.user_id = user_id;
 		this.priorityLevel = priorityLevel;
 	}
 
-/*public void cartWeigth() {
-	this.cartWeigth=0;
+public Department(String name, Integer npatients, Float ratio, Integer avghours, Integer nemployees,
+		Boolean isHighest, Integer user_id) {
+	super();
+	this.name = name;
+	this.npatients = npatients;
+	this.ratio = ratio;
+	this.avghours = avghours;
+	this.nemployees = nemployees;
+	this.isHighest = isHighest;
+	this.user_id = user_id;
+	
+
+}
+
+/*public void cartWeight() {
+	this.cartWeight=0;
 	for(int i =0; i<this.wishlistshopping.size(); i++) {
 		
 
 		if(this.wishlistshopping.get(i).getPriority().equals(Priorities.HIGH)) {
 			
-			this.cartWeigth = this.cartWeigth + 10;
+			this.cartWeight = this.cartWeight + 10;
 		}
 		if(this.wishlistshopping.get(i).getPriority().equals(Priorities.MEDIUM)) {
 			
-			this.cartWeigth = this.cartWeigth + 5;
+			this.cartWeight = this.cartWeight + 5;
 		}
 		else {
-			this.cartWeigth = this.cartWeigth + 2;
+			this.cartWeight = this.cartWeight + 2;
 
 		}
 	}*/
 	
-	public void cartWeigth() {
-		this.cartWeigth=0;
+	public void cartWeight() {
+		this.cartWeight=0;
 		for(int i =0; i<this.wishlistshopping.size(); i++) {
 			
 
 			if(this.wishlistshopping.get(i).getPriority().equals("HIGH")) {
 				
-				this.cartWeigth = this.cartWeigth + 10;
+				this.cartWeight = this.cartWeight + 10;
 			}
 			if(this.wishlistshopping.get(i).getPriority().equals("MEDIUM")) {
 				
-				this.cartWeigth = this.cartWeigth + 5;
+				this.cartWeight = this.cartWeight + 5;
 			}
 			else {
-				this.cartWeigth = this.cartWeigth + 2;
+				this.cartWeight = this.cartWeight + 2;
 
 			}
 		}
@@ -109,10 +123,10 @@ public Department(String name, Integer npatients, Float ratio, Integer avghours,
 	
 
 public void priorityValueCalculation() {
-	this.priorityLevel=(float) (this.npatients*0.23+this.ratio*0.34+this.avghours*0.10+this.nemployees*0.037+this.cartWeigth*0.285);
+	this.priorityLevel=(float) (this.npatients*0.23+this.ratio*0.34+this.avghours*0.10+this.nemployees*0.037+this.cartWeight*0.285);
 }
 public void calculatePriority() {
-	this.cartWeigth();
+	this.cartWeight();
 	this.priorityValueCalculation();
 }
 public Integer getNpatients() {
@@ -144,6 +158,7 @@ public LinkedList<Resource> getWishlistshopping() {
 }
 public void setWishlistshopping(LinkedList<Resource> wishlistshopping) {
 	this.wishlistshopping = wishlistshopping;
+	this.calculatePriority();
 }
 public Float getPriorityLevel() {
 	return priorityLevel;
@@ -158,12 +173,12 @@ public void setExpenses(float expenses) {
 	this.expenses = expenses;
 }
 
-public Integer getCartWeigth() {
-	return cartWeigth;
+public Integer getcartWeight() {
+	return cartWeight;
 }
 
-public void setCartWeigth(Integer cartWeigth) {
-	this.cartWeigth = cartWeigth;
+public void setcartWeight(Integer cartWeight) {
+	this.cartWeight = cartWeight;
 }
 
 public Boolean getIsHighest() {

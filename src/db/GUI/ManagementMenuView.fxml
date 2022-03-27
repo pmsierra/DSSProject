@@ -25,12 +25,12 @@
                         <Image url="@src.IconPictures/window-minimize.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="director_name" layoutX="566.0" layoutY="20.0" text="Hospital name: &quot;user_name&quot;" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="hospital_name" layoutX="566.0" layoutY="20.0" text="Hospital name: &quot;user_name&quot;" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="email" layoutX="566.0" layoutY="74.0" text="Current Budget:" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="budget" layoutX="566.0" layoutY="74.0" text="Current Budget:" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
@@ -43,6 +43,11 @@
                </children>
             </Pane>
             <Pane fx:id="main_pane" layoutY="80.0" prefHeight="640.0" prefWidth="940.0" />
+            <Label fx:id="current_pane_option_label" layoutX="33.0" layoutY="40.0" text="Finantial Status">
+               <font>
+                  <Font name="Ebrima Bold" size="18.0" />
+               </font>
+            </Label>
          </children>
       </Pane>
       <Pane layoutX="5.0" layoutY="5.0" prefHeight="720.0" prefWidth="300.0" styleClass="charging_screen_color">
@@ -66,7 +71,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="finantialStatus_button" alignment="TOP_LEFT" layoutY="323.0" onMouseClicked="#finantial_status_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Decision Analysis" textFill="#00000080">
+            <JFXButton fx:id="DecisionAnalysis_button" alignment="TOP_LEFT" layoutY="281.0" onMouseClicked="#finantial_status_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Decision Analysis" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -95,7 +100,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="listAllClients_button" alignment="TOP_LEFT" layoutY="206.0" onMouseClicked="#list_all_clients_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List all Department" textFill="#00000080">
+            <JFXButton fx:id="listAllDepartments_button" alignment="TOP_LEFT" layoutY="206.0" onMouseClicked="#list_all_clients_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="List all Department" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>
@@ -107,12 +112,12 @@
                   </ImageView>
                </graphic>
             </JFXButton>
-            <Label layoutX="13.0" layoutY="281.0" text="Management" textFill="#ffffffb4">
+            <Label layoutX="8.0" layoutY="250.0" text="Management" textFill="#ffffffb4">
                <font>
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="addCategory_button" alignment="TOP_LEFT" defaultButton="true" layoutY="367.0" onMouseClicked="#add_category_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add Budget" textFill="#00000080">
+            <JFXButton fx:id="addCategory_button" alignment="TOP_LEFT" defaultButton="true" layoutY="325.0" onMouseClicked="#add_category_button" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Add Budget" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

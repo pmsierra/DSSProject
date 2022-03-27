@@ -29,6 +29,13 @@ public Hospital() {
 
 	
 }
+
+public Hospital(String hospitalName, Float budget) {
+	super();
+	this.hospitalName = hospitalName;
+	this.budget = budget;
+}
+
 public Hospital(String hospitalName2, LinkedList<Department> departments, Float budget2, LinkedList<Resource> bougthItems, LinkedList<Department> departmentOrder, Integer user_id) {
 	
 	super();

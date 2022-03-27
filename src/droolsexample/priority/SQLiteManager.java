@@ -60,7 +60,7 @@ public class SQLiteManager {
 			
 			Statement stmt0 = sqlite_connection.createStatement();
 			String sql0 = "CREATE TABLE Department " + "(departmentName TEXT PRIMARY KEY UNIQUE, "
-					+ " npatients INTEGER, " + "ratio FLOAT, "+"avghours INTEGER,"+"nemployees INTEGER,"+"cartWeigth INTEGER,"+"priorityLevel FLOAT,"+"isHighest BOOLEAN,"+ " user_id FOREING KEY REFERENCES user(user_id))";
+					+ " npatients INTEGER, " + "ratio FLOAT, "+"avghours INTEGER,"+"nemployees INTEGER,"+"cartWeight INTEGER,"+"priorityLevel FLOAT,"+"isHighest BOOLEAN,"+ " user_id FOREING KEY REFERENCES user(user_id))";
 			stmt0.execute(sql0);
 			stmt0.close();
 			
@@ -73,23 +73,18 @@ public class SQLiteManager {
 			
 			Statement stmt2 = sqlite_connection.createStatement();
 			String sql2 = "CREATE TABLE Hospital " + "(hospitalName TEXT PRIMARY KEY UNIQUE, "
-                    + " budget FLOAT,"+ "bougthItems TEXT," + " user_id FOREING KEY REFERENCES user(user_id))";// + " departmentName FOREIGN KEY TEXT REFERENCES Department(departmentName))";
+                    + " budget FLOAT,"+ "bougthItems TEXT," + " user_id FOREING KEY REFERENCES user(user_id) ON DELETE CASCADE)";// + " departmentName FOREIGN KEY TEXT REFERENCES Department(departmentName))";
 			
 			stmt2.execute(sql2);
 			stmt2.close();
 			
 			
 			Statement stmt3 = sqlite_connection.createStatement();
-			String sql3 = "CREATE TABLE DepartmentResource " + "(departmentName REFERENCES Department(departmentName),"+"resourceName REFERENCES Resource(resourceName),"+"PRIMARY KEY (departmentName, resourceName))";
+			String sql3 = "CREATE TABLE DepartmentResource " + "(departmentName REFERENCES Department(departmentName) ON UPDATE RESTRICT ON DELETE CASCADE,"+"resourceName REFERENCES Resource(resourceName) ON UPDATE RESTRICT ON DELETE CASCADE,"+"PRIMARY KEY (departmentName, resourceName))";
 			stmt3.execute(sql3);
 			stmt3.close();
 			
-			
-			Statement stmt5 = this.sqlite_connection.createStatement();
-			String sql5 = "CREATE TABLE director " + "(director_id INTEGER PRIMARY KEY AUTOINCREMENT, " + " name TEXT, " 
-			        + "telephone INTEGER default 0, " + "email TEXT, " + " user_id FOREING KEY REFERENCES user(user_id) ON DELETE CASCADE)";
-			stmt5.execute(sql5);
-			stmt5.close();
+
 		    
 			//Statement stmt4 = sqlite_connection.createStatement();
 			//String sql4 = "CREATE TABLE HospitalDepartment " + "(hospitalName REFERENCES Hospital(hospitalName),"+"departmentName REFERENCES Department(departmentName),"+"PRIMARY KEY (hospitalName, departmentName))";
