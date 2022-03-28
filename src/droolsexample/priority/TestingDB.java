@@ -6,7 +6,7 @@ import java.util.Collections;
 import java.util.Comparator;
 import java.util.List;
 
-public class kk {
+public class TestingDB {
 
 public static void main(String[] args) throws SQLException {
 		
