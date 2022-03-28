@@ -85,7 +85,7 @@ public class LaunchApp2 extends Application {
 							Scene scene = new Scene(root);
 							scene.setFill(Color.TRANSPARENT);
 							primaryStage.setScene(scene);
-							//primaryStage.initStyle(StageStyle.TRANSPARENT);
+							primaryStage.initStyle(StageStyle.TRANSPARENT);
 							stage = primaryStage;
 							primaryStage.show();
 						} catch (IOException fatal_error) {
@@ -107,7 +107,7 @@ public class LaunchApp2 extends Application {
 								Scene scene = new Scene(root);
 								scene.setFill(Color.TRANSPARENT);
 								primaryStage.setScene(scene);
-								//primaryStage.initStyle(StageStyle.TRANSPARENT);
+								primaryStage.initStyle(StageStyle.TRANSPARENT);
 								stage = primaryStage;
 								primaryStage.show();
 							} catch (IOException fatal_error) {
@@ -137,7 +137,7 @@ public class LaunchApp2 extends Application {
 						Scene scene = new Scene(root);
 						scene.setFill(Color.TRANSPARENT);
 						primaryStage.setScene(scene);
-						//primaryStage.initStyle(StageStyle.TRANSPARENT);
+						primaryStage.initStyle(StageStyle.TRANSPARENT);
 						stage = primaryStage;
 						primaryStage.show();
 					} catch (IOException fatal_error) {
@@ -157,7 +157,7 @@ public class LaunchApp2 extends Application {
 							Scene scene = new Scene(root);
 							scene.setFill(Color.TRANSPARENT);
 							primaryStage.setScene(scene);
-							//primaryStage.initStyle(StageStyle.TRANSPARENT);
+							primaryStage.initStyle(StageStyle.TRANSPARENT);
 							stage = primaryStage;
 							primaryStage.show();
 						} catch (IOException fatal_error) {
