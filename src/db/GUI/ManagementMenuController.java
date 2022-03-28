@@ -59,6 +59,8 @@ public class ManagementMenuController implements Initializable {
 	@FXML
 	private JFXButton DecisionAnalysis_button;
 	@FXML
+	private JFXButton deleteDepartment_button;
+	@FXML
 	private ImageView minButton;
 	@FXML
 	private ImageView exitButton;
@@ -141,6 +143,19 @@ public class ManagementMenuController implements Initializable {
 	}
 	
 	@FXML
+	private void delete_department_button(MouseEvent event) throws IOException {
+
+			current_pane_option_label.setText("Delete Department");
+			setAllButtonsOn();
+			deleteDepartment_button.setDisable(true);
+			DeleteDepartmentController.setValues(SQL_manager_object, hospital_account);
+			Pane delete_department_pane = FXMLLoader.load(getClass().getResource("DeleteDepartmentView.fxml"));
+			main_pane.getChildren().removeAll();
+			main_pane.getChildren().setAll(delete_department_pane);
+	
+	}
+	
+	@FXML
 	private void decision_analysis_button(MouseEvent event) throws IOException { 
 		current_pane_option_label.setText("Decision Analysis");
 		setAllButtonsOn();
@@ -196,6 +211,7 @@ public class ManagementMenuController implements Initializable {
 	    logOut_button.setDisable(true);
 	    minButton.setDisable(true);
 	    exitButton.setDisable(true);
+	    deleteDepartment_button.setDisable(true);
 	}
 	
 	public void setAllButtonsOn() {
@@ -206,6 +222,8 @@ public class ManagementMenuController implements Initializable {
 	    logOut_button.setDisable(false);
 	    minButton.setDisable(false);
 	    exitButton.setDisable(false);
+	    deleteDepartment_button.setDisable(false);
+	    
 	}
 	
 	// -----> UPDATE ACCOUNT METHOD <-----
