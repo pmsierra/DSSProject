@@ -31,12 +31,12 @@
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="email" layoutX="563.0" layoutY="60.0" text="Average Hours:" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="average_hours_label" layoutX="563.0" layoutY="60.0" text="Average Hours:" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="telephone" layoutX="563.0" layoutY="84.0" text="Number of Employees:" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="number_of_employees" layoutX="563.0" layoutY="84.0" text="Number of Employees:" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
@@ -46,12 +46,12 @@
                         <Image url="@src.IconPictures/user-tie-white.png" />
                      </image>
                   </ImageView>
-                  <Label fx:id="email1" layoutX="563.0" layoutY="16.0" text="Number of Patients:" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="number_of_patients_label" layoutX="563.0" layoutY="16.0" text="Number of Patients:" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
                   </Label>
-                  <Label fx:id="email2" layoutX="563.0" layoutY="38.0" text="Death Ratio:" textAlignment="CENTER" textFill="WHITE">
+                  <Label fx:id="death_ratio_label" layoutX="563.0" layoutY="38.0" text="Death Ratio:" textAlignment="CENTER" textFill="WHITE">
                      <font>
                         <Font name="Ebrima Bold" size="16.0" />
                      </font>
@@ -96,7 +96,7 @@
                   <Font name="System Bold" size="16.0" />
                </font>
             </Label>
-            <JFXButton fx:id="myAccount_button" alignment="TOP_LEFT" layoutY="135.0" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Modify Account" textFill="#00000080">
+            <JFXButton fx:id="myAccount_button" alignment="TOP_LEFT" layoutY="135.0" onMouseClicked="#updateDepartmentAccount" prefHeight="44.0" prefWidth="300.0" styleClass="menu_buttom" text="Modify Account" textFill="#00000080">
                <font>
                   <Font name="Ebrima Bold" size="14.0" />
                </font>

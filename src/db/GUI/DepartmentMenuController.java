@@ -57,9 +57,13 @@ public class DepartmentMenuController implements Initializable {
     @FXML
     private Label department_name;
     @FXML
-    private Label email;
+    private Label number_of_patients_label;
     @FXML
-    private Label telephone;
+    private Label death_ratio_label;
+    @FXML
+    private Label average_hours_label;
+    @FXML
+    private Label number_of_employees;
     @FXML
     private JFXButton logOut_button;
     @FXML
@@ -75,7 +79,7 @@ public class DepartmentMenuController implements Initializable {
     @FXML
     private JFXButton listClients_button;
     @FXML
-    private JFXButton update_button;
+    private JFXButton myAccount_button;
     @FXML
     private JFXButton createFeatures_button;
     @FXML
@@ -108,14 +112,15 @@ public class DepartmentMenuController implements Initializable {
 
 		
 		SQLmanager.Connect();
-		LinkedList<Department> departmentList = (LinkedList<Department>) SQLmanager.getMethods().List_all_departments();
-		department = departmentList.getFirst();
 		System.out.println(department.toString());
 		
 		try {
 			setAllButtonsOn();
 			department_name.setText("Department name: " + department.getName());
-			
+			number_of_patients_label.setText("Number of patients: " + department.getNpatients());
+			death_ratio_label.setText("Death ratio: " + department.getRatio());
+			average_hours_label.setText("Average hours: " + department.getAvghours());
+			number_of_employees.setText("Number of employees: " + department.getNemployees());
 			showWishListButton.setDisable(true);
 			ShowWishlistController.setValues(SQLmanager, department);
 			FXMLLoader loader = new FXMLLoader(getClass().getResource("ShowWishlistView.fxml"));
@@ -123,7 +128,7 @@ public class DepartmentMenuController implements Initializable {
 			show_wish_list_controller = (ShowWishlistController)loader.getController();
 			main_pane.getChildren().removeAll();
 			main_pane.getChildren().setAll(list_all_wishlist_pane);
-			
+
 			
 		} catch (IOException list_department_error) {
 			list_department_error.printStackTrace();
@@ -158,7 +163,7 @@ public class DepartmentMenuController implements Initializable {
 	public void addProduct(MouseEvent event) throws IOException {
 		setAllButtonsOn();
 		addResourceButton.setDisable(true);
-		AddProductController.setValues(SQLmanager);
+		AddProductController.setValues(SQLmanager, department);
 		Pane option_pane = FXMLLoader.load(getClass().getResource("AddProductView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(option_pane);
@@ -185,16 +190,15 @@ public class DepartmentMenuController implements Initializable {
 		main_pane.getChildren().setAll(menu_panel);	
 	}
 
-	/*@FXML
+	@FXML
 	private void updateDepartmentAccount(MouseEvent event) throws IOException {
-		current_pane_option_label.setText("Update information of the current department");
 		setAllButtonsOn();
-		update_button.setDisable(true);
-		DepartmentAccountController.setValue(SQLmanager);
+		myAccount_button.setDisable(true);
+		DepartmentAccountController.setValues(SQLmanager, department, number_of_patients_label, death_ratio_label, average_hours_label, number_of_employees);
 		Pane update_pane = FXMLLoader.load(getClass().getResource("DepartmentAccountView.fxml"));
 		main_pane.getChildren().removeAll();
 		main_pane.getChildren().setAll(update_pane);
-	}*/
+	}
 		
 	public void setAllButtonsOn() {
 		this.addResourceButton.setDisable(false);
@@ -203,7 +207,7 @@ public class DepartmentMenuController implements Initializable {
 		//this.showBoughtItems.setDisable(false);
 		//this.modifyDepartmentButton.setDisable(false);
 		//this.deleteResourcesButton.setDisable(false);
-		//this.update_button.setDisable(false);
+		this.myAccount_button.setDisable(false);
 		//this.createFeatures_button.setDisable(false);
 	}
 	
@@ -214,7 +218,7 @@ public class DepartmentMenuController implements Initializable {
 		//this.showBoughtItems.setDisable(true);
 		//this.modifyDepartmentButton.setDisable(true);
 		//this.deleteResourcesButton.setDisable(true);
-		//this.update_button.setDisable(true);
+		this.myAccount_button.setDisable(true);
 		//this.createFeatures_button.setDisable(true);
 	}
 }

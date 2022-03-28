@@ -26,7 +26,16 @@ public static void main(String[] args) throws SQLException {
     	Department cardiology = new Department ("Cardiology",10, 20f, 80, 15,false,3 );
     	Department obstetrics = new Department ("Obstetrics",5, 10f, 60, 6, false,4);
 
-		
+    	User user_neurology = new User(neurology.getName(),neurology.getName());
+    	User user_radiology = new User(radiology.getName(),radiology.getName());
+    	User user_cardiology = new User(cardiology.getName(),cardiology.getName());
+    	User user_obstetrics = new User(obstetrics.getName(),obstetrics.getName());
+    	
+    	methods.Insert_new_user(user_neurology);
+    	methods.Insert_new_user(user_radiology);
+    	methods.Insert_new_user(user_cardiology);
+    	methods.Insert_new_user(user_obstetrics);
+    	
 		Resource courtains = new Resource("courtains", "LOW", 10f);
     	Resource serum = new Resource("Serum", "LOW", 20f);
     	Resource scalpel = new Resource("Scalpel", "MEDIUM", 30f);
@@ -80,7 +89,9 @@ public static void main(String[] args) throws SQLException {
     	
     	laPaz.setHospitalList(laPazList);
     	
-    	
+    	User user_lapaz = new User(laPaz.getHospitalName(), laPaz.getHospitalName());
+    	methods.Insert_new_user(user_lapaz);
+
     	
     
 		

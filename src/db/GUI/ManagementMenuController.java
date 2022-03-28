@@ -90,8 +90,6 @@ public class ManagementMenuController implements Initializable {
 
 		
 		SQL_manager_object.Connect();
-		LinkedList<Hospital> hosplist = (LinkedList<Hospital>) SQL_manager_object.getMethods().List_all_hospitals();
-		hospital_account = hosplist.getFirst();
 		System.out.println(hospital_account.toString());
 		
 		DecisionAnalysis_button.setDisable(true);

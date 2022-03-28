@@ -36,6 +36,7 @@ public class AddProductController implements Initializable {
 
 	private static SQLiteManager manager_object;
 	private static Resource resource;
+	private static Department department_object;
 
 
 	// -----> FXML ATRIBUTES <-----
@@ -57,8 +58,9 @@ public class AddProductController implements Initializable {
 		// TODO Auto-generated constructor stub
 	}
 
-	public static void setValues(SQLiteManager manager) {
+	public static void setValues(SQLiteManager manager, Department department) {
 		manager_object = manager;
+		department_object = department;
 	}
 	@Override @SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
@@ -73,7 +75,10 @@ public class AddProductController implements Initializable {
 		Float price = Float.parseFloat(temp);
 		String priority = priorityField.getText();
 		Resource recurso = new Resource(name,priority,price);
-		manager_object.getMethods().Update_resource(recurso);
+		System.out.println("recurso: "+ recurso);
+		manager_object.getMethods().Insert_new_resource(recurso);
+		department_object.getWishlistshopping().add(recurso);
+		manager_object.getMethods().Update_departmentLastWish(department_object);
 		
 	}
 

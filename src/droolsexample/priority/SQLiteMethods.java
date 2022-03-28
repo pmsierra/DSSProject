@@ -16,7 +16,48 @@ public class SQLiteMethods {
 	public SQLiteMethods(Connection sqlite_connection) {
 		this.sqlite_connection = sqlite_connection;
 	}
-	
+	public void Insert_new_user(User user) {
+		try {
+			String table = "INSERT INTO user (user_name, password) " + " VALUES(?,?);";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
+			template.setString(1, user.getUserName());
+			template.setString(2, user.getPassword());
+			template.executeUpdate();
+			
+			/*String SQL_code = "SELECT * FROM user WHERE user_name = ?";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setString(1, user.getUserName());
+			ResultSet result_set = template.executeQuery();
+			User user = new User();
+		    user.setUserName(result_set.getString("user_name"));
+		    user.setPassword(result_set.getString("password"));
+		    user.setUserId(result_set.getInt("user_id"));
+		    return user;*/
+		} catch (SQLException insert_user_error) {
+			insert_user_error.printStackTrace(); 
+		}
+	}
+	public User Insert_new_user_by_name(String user_name, String password) {
+		try {
+			String table = "INSERT INTO user (user_name, password) " + " VALUES(?,?);";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(table);
+			template.setString(1, user_name);
+			template.setString(2, password);
+			template.executeUpdate();
+			System.out.println("dentro:\n");
+			String SQL_code = "SELECT * FROM user WHERE user_name = ?";
+			template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setString(1, user_name);
+			ResultSet result_set = template.executeQuery();
+			User user = new User();
+		    user.setUserName(result_set.getString("user_name"));
+		    user.setPassword(result_set.getString("password"));
+		    user.setUserId(result_set.getInt("user_id"));
+		    return user;
+		} catch (SQLException insert_user_error) {
+			return null;
+		}
+	}
 	public void Insert_new_resource(Resource resource) {
         try {
             String table = "INSERT INTO Resource (resourceName, priority, price) " + "VALUES (?,?,?);";
@@ -105,6 +146,7 @@ public class SQLiteMethods {
             template.setString(1, resource.getPriority());
             template.setFloat(2, resource.getPrice());
             template.setString(3, resource.getName());
+            System.out.println("recurso2: "+ resource);
             template.executeUpdate();
             template.close();
             return true;
@@ -130,6 +172,36 @@ public class SQLiteMethods {
 
             template.executeUpdate();
             template.close();
+            return true;
+        } catch (SQLException update_department_error) {
+            update_department_error.printStackTrace();
+            return false;
+        }
+    } 
+	public boolean Update_departmentLastWish(Department department) {
+        try {
+            String SQL_code = "UPDATE Department SET npatients = ?, ratio = ?, avghours = ?, nemployees = ?, cartWeight = ?, priorityLevel= ?, isHighest = ?, expenses= ? WHERE departmentName = ?";
+            PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+            template.setInt(1, department.getNpatients());
+            template.setFloat(2, department.getRatio());
+            template.setFloat(3, department.getAvghours());
+            template.setInt(4, department.getNemployees());
+            template.setInt(5, department.getcartWeight());
+            template.setFloat(6, department.getPriorityLevel());
+            template.setBoolean(7, department.getIsHighest());
+            template.setFloat(8, department.getExpenses());
+            template.setString(9, department.getName());
+            
+            LinkedList<Resource> wishlistshopping = department.getWishlistshopping();
+            Resource resource = wishlistshopping.getLast();
+            SQL_code = "INSERT INTO DepartmentResource (departmentName, resourceName) " 
+                        + "VALUES (?,?);";
+            template = this.sqlite_connection.prepareStatement(SQL_code);
+            template.setString(1, department.getName());
+            template.setString(2, resource.getName());
+            template.executeUpdate();
+            template.close();
+            
             return true;
         } catch (SQLException update_department_error) {
             update_department_error.printStackTrace();
@@ -286,6 +358,24 @@ public class SQLiteMethods {
 	
 	
 		// -----> LIST METHODS <-----
+	public User Search_stored_user(String name, String password) {
+		try {
+			String SQL_code = "SELECT * FROM user WHERE user_name LIKE ? AND password LIKE ?";
+			PreparedStatement template = this.sqlite_connection.prepareStatement(SQL_code);
+			template.setString(1, name);
+			template.setString(2, password);
+			ResultSet result_set = template.executeQuery();
+	        User user = new User();
+	        user.setUserId(result_set.getInt("user_id"));
+	        user.setUserName(result_set.getString("user_name"));
+	        user.setPassword(result_set.getString("password"));
+	        template.close();
+	        return user;
+		} catch (SQLException search_user_error) {
+			return null;
+		}
+	}
+	
 	
 	public List<Department> List_all_departments() {
 	    List<Department> departments = new LinkedList<Department>();

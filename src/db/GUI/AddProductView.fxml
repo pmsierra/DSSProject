@@ -16,9 +16,9 @@
       <Label layoutX="57.0" layoutY="192.0" text="Name of Product:" />
       <Label layoutX="57.0" layoutY="290.0" text="Price of Product:" />
       <Label layoutX="473.0" layoutY="192.0" text="Priority of Product:" />
-      <TextField layoutX="211.0" layoutY="188.0" />
-      <TextField layoutX="211.0" layoutY="278.0" />
-      <TextField layoutX="659.0" layoutY="188.0" />
-      <JFXButton layoutX="523.0" layoutY="394.0" text="Add Product to Wishlist" />
+      <TextField fx:id="nameField" layoutX="211.0" layoutY="188.0" />
+      <TextField fx:id="priceField" layoutX="211.0" layoutY="278.0" />
+      <TextField fx:id="priorityField" layoutX="659.0" layoutY="188.0" />
+      <JFXButton fx:id="addToCartButton" layoutX="523.0" layoutY="394.0" onMouseClicked="#addToCartButton" text="Add Product to Wishlist" />
    </children>
 </Pane>
