@@ -103,21 +103,12 @@
 	<classpathentry kind="lib" path="lib/xmlbeans-3.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/xmlpull-1.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/xstream-1.4.18.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jfoenix"/>
 	<classpathentry kind="lib" path="lib/eclipselink-2.6.jar"/>
 	<classpathentry kind="lib" path="lib/javax.persistence_2.1.1.v201509150925.jar"/>
 	<classpathentry kind="lib" path="lib/jfoenix-8.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/jfoenix-9.0.8.jar"/>
-	<classpathentry kind="lib" path="lib/javafx.base.jar"/>
-	<classpathentry kind="lib" path="lib/javafx.controls.jar"/>
-	<classpathentry kind="lib" path="lib/javafx.fxml.jar"/>
-	<classpathentry kind="lib" path="lib/javafx.graphics.jar"/>
-	<classpathentry kind="lib" path="lib/javafx.media.jar"/>
-	<classpathentry kind="lib" path="lib/javafx.properties"/>
-	<classpathentry kind="lib" path="lib/javafx.swing.jar"/>
-	<classpathentry kind="lib" path="lib/javafx.web.jar"/>
-	<classpathentry kind="lib" path="lib/javafx-swt.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.8.7.jar"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
