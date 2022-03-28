@@ -1,0 +1,24 @@
+<?xml version="1.0" encoding="UTF-8"?>
+
+<?import com.jfoenix.controls.JFXButton?>
+<?import javafx.scene.control.Label?>
+<?import javafx.scene.control.TextField?>
+<?import javafx.scene.layout.Pane?>
+<?import javafx.scene.text.Font?>
+
+<Pane fx:id="menu_main_pane" maxHeight="-Infinity" maxWidth="-Infinity" minHeight="-Infinity" minWidth="-Infinity" prefHeight="640.0" prefWidth="940.0" stylesheets="@stylesheet.css" xmlns="http://javafx.com/javafx/17" xmlns:fx="http://javafx.com/fxml/1" fx:controller="db.GUI.DeleteDepartmentController">
+   <children>
+      <Label layoutX="49.0" layoutY="83.0" text="Delete Department">
+         <font>
+            <Font name="Ebrima Bold" size="16.0" />
+         </font>
+      </Label>
+      <JFXButton fx:id="deleteDepartment_button" layoutX="17.0" layoutY="253.0" onMouseClicked="#delete_department_button" prefHeight="44.0" prefWidth="243.0" text="DELETE" textFill="#0a0a0a">
+         <font>
+            <Font size="24.0" />
+         </font></JFXButton>
+      <Label layoutX="49.0" layoutY="153.0" text="Departmen to delete:" />
+      <TextField fx:id="department_textField" layoutX="177.0" layoutY="149.0" />
+      <Label fx:id="exist_label" layoutX="354.0" layoutY="153.0" text="Department does not exist!" />
+   </children>
+</Pane>
