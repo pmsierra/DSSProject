@@ -73,6 +73,8 @@ public class ShowWishlistController implements Initializable{
 	private JFXTreeTableView<Resources> resource_tree_view;
 	@FXML
 	private final ObservableList<Resources> resource_objects = FXCollections.observableArrayList();
+	@FXML
+	private Label exist_label;
 	
 	public ShowWishlistController() {
 		// TODO Auto-generated constructor stub
@@ -84,6 +86,7 @@ public class ShowWishlistController implements Initializable{
 	}
 	@Override @SuppressWarnings("unchecked")
 	public void initialize(URL location, ResourceBundle resources) {
+		exist_label.setVisible(false);
 		JFXTreeTableColumn<Resources, String> resource_name = new JFXTreeTableColumn<>("Item name");
 		resource_name.setPrefWidth(180);
 		resource_name.setCellValueFactory(new Callback<TreeTableColumn.CellDataFeatures<Resources,String>, ObservableValue<String>>() {
@@ -115,16 +118,20 @@ public class ShowWishlistController implements Initializable{
 			}
 		});
 		resource_price.setResizable(false);
-		
-		
+		if(department_account.getWishlistshopping().size()!=0) {
 			for (Resource resource: department_account.getWishlistshopping()) {
-			resource_objects.add(new Resources(resource.getName(), resource.getPriority(), resource.getPrice().toString()));
-			}
-		TreeItem<Resources> root = new RecursiveTreeItem<Resources>(resource_objects, RecursiveTreeObject::getChildren);
-		resource_tree_view.setPlaceholder(new Label("No Departments found"));
-		resource_tree_view.getColumns().setAll(resource_name, resource_priority, resource_price);
-		resource_tree_view.setRoot(root);
-		resource_tree_view.setShowRoot(false);
+				resource_objects.add(new Resources(resource.getName(), resource.getPriority(), resource.getPrice().toString()));
+				}
+			TreeItem<Resources> root = new RecursiveTreeItem<Resources>(resource_objects, RecursiveTreeObject::getChildren);
+			resource_tree_view.setPlaceholder(new Label("No Resources found"));
+			resource_tree_view.getColumns().setAll(resource_name, resource_priority, resource_price);
+			resource_tree_view.setRoot(root);
+			resource_tree_view.setShowRoot(false);
+		}else {
+			exist_label.setVisible(true);
+			exist_label.setText("Your cart is empty!");
+		}
+			
 	}
 	
 
