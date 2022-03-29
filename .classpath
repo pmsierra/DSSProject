@@ -8,6 +8,7 @@
 		</attributes>
 	</classpathentry>
 	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
+	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="lib" path="lib/aether-api-1.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/aether-connector-basic-1.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/aether-impl-1.1.0.jar"/>
@@ -109,6 +110,5 @@
 	<classpathentry kind="lib" path="lib/jfoenix-8.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/jfoenix-9.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.8.7.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

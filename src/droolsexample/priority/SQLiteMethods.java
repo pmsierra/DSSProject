@@ -44,7 +44,7 @@ public class SQLiteMethods {
 			template.setString(1, user_name);
 			template.setString(2, password);
 			template.executeUpdate();
-			System.out.println("dentro:\n");
+
 			String SQL_code = "SELECT * FROM user WHERE user_name = ?";
 			template = this.sqlite_connection.prepareStatement(SQL_code);
 			template.setString(1, user_name);
