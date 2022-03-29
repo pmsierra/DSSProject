@@ -207,7 +207,7 @@ public class LogInController implements Initializable {
 					Parent root = FXMLLoader.load(getClass().getResource("/db/GUI/DepartmentMenuView.fxml"));
 					primary_Stage.setTitle("HODDSPITAL");
 					Scene scene = new Scene(root);
-					scene.setFill(Color.TRANSPARENT);
+					//scene.setFill(Color.TRANSPARENT);
 					primary_Stage.setScene(scene);
 					//primary_Stage.initStyle(StageStyle.UNDECORATED);
 					stage = primary_Stage;
@@ -227,7 +227,7 @@ public class LogInController implements Initializable {
 				Parent root = FXMLLoader.load(getClass().getResource("/db/GUI/ManagementMenuView.fxml"));
 				primary_Stage.setTitle("HODDSPITAL");
 				Scene scene = new Scene(root);
-				scene.setFill(Color.TRANSPARENT);
+				//scene.setFill(Color.TRANSPARENT);
 				primary_Stage.setScene(scene);
 				//primary_Stage.initStyle(StageStyle.UNDECORATED);
 				stage = primary_Stage;
