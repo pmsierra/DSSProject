@@ -107,10 +107,10 @@
 	<classpathentry kind="lib" path="lib/jfoenix-8.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/jfoenix-9.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.8.7.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pmsie/git/DSSProject/lib/javafx-sdk-18/lib/javafx.base.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pmsie/git/DSSProject/lib/javafx-sdk-18/lib/javafx.controls.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pmsie/git/DSSProject/lib/javafx-sdk-18/lib/javafx.fxml.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pmsie/git/DSSProject/lib/javafx-sdk-18/lib/javafx.graphics.jar"/>
-	<classpathentry kind="lib" path="C:/Users/pmsie/git/DSSProject/lib/javafx-sdk-18/lib/javafx.media.jar"/>
+	<classpathentry kind="lib" path="lib/javafx-sdk-18/lib/javafx.base.jar"/>
+	<classpathentry kind="lib" path="lib/javafx-sdk-18/lib/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="lib/javafx-sdk-18/lib/javafx.fxml.jar"/>
+	<classpathentry kind="lib" path="lib/javafx-sdk-18/lib/javafx.graphics.jar"/>
+	<classpathentry kind="lib" path="lib/javafx-sdk-18/lib/javafx.media.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>
