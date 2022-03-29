@@ -235,7 +235,7 @@ public class RegisterController implements Initializable {
 					Scene scene = new Scene(root);
 					scene.setFill(Color.TRANSPARENT);
 					primary_Stage.setScene(scene);
-					primary_Stage.initStyle(StageStyle.UNDECORATED);
+					//primary_Stage.initStyle(StageStyle.UNDECORATED);
 					stage = primary_Stage;
 					primary_Stage.show();
 				} catch (IOException fatal_error) {
@@ -255,7 +255,7 @@ public class RegisterController implements Initializable {
 				Scene scene = new Scene(root);
 				scene.setFill(Color.TRANSPARENT);
 				primary_Stage.setScene(scene);
-				primary_Stage.initStyle(StageStyle.UNDECORATED);
+				//primary_Stage.initStyle(StageStyle.UNDECORATED);
 				stage = primary_Stage;
 				primary_Stage.show();
 			} catch (IOException fatal_error) {
