@@ -7,8 +7,6 @@
 			<attribute name="module" value="true"/>
 		</attributes>
 	</classpathentry>
-	<classpathentry kind="con" path="org.eclipse.fx.ide.jdt.core.JAVAFX_CONTAINER"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/JavaFX"/>
 	<classpathentry kind="lib" path="lib/aether-api-1.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/aether-connector-basic-1.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/aether-impl-1.1.0.jar"/>
@@ -104,11 +102,15 @@
 	<classpathentry kind="lib" path="lib/xmlbeans-3.1.0.jar"/>
 	<classpathentry kind="lib" path="lib/xmlpull-1.2.0.jar"/>
 	<classpathentry kind="lib" path="lib/xstream-1.4.18.jar"/>
-	<classpathentry kind="con" path="org.eclipse.jdt.USER_LIBRARY/jfoenix"/>
 	<classpathentry kind="lib" path="lib/eclipselink-2.6.jar"/>
 	<classpathentry kind="lib" path="lib/javax.persistence_2.1.1.v201509150925.jar"/>
 	<classpathentry kind="lib" path="lib/jfoenix-8.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/jfoenix-9.0.8.jar"/>
 	<classpathentry kind="lib" path="lib/sqlite-jdbc-3.8.7.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pmsie/git/DSSProject/lib/javafx-sdk-18/lib/javafx.base.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pmsie/git/DSSProject/lib/javafx-sdk-18/lib/javafx.controls.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pmsie/git/DSSProject/lib/javafx-sdk-18/lib/javafx.fxml.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pmsie/git/DSSProject/lib/javafx-sdk-18/lib/javafx.graphics.jar"/>
+	<classpathentry kind="lib" path="C:/Users/pmsie/git/DSSProject/lib/javafx-sdk-18/lib/javafx.media.jar"/>
 	<classpathentry kind="output" path="build/classes"/>
 </classpath>

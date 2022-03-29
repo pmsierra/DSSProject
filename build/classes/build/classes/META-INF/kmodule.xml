@@ -1,0 +1,16 @@
+<?xml version="1.0" encoding="UTF-8"?>
+<kmodule xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns="http://www.drools.org/xsd/kmodule">
+    <kbase name="HelloWorld" packages="java.rules.examples.helloworld">
+        <ksession name="HelloWorldKS"/>
+    </kbase>
+   
+   <kbase name="atmks" packages="java.rules.examples.ATM">
+        <ksession name="ATMKS"/>
+    </kbase>
+    
+      <kbase name="priorityks" packages="java.rules.examples.priority">
+        <ksession name="PriorityKS"/>
+    </kbase>
+</kmodule>
+
